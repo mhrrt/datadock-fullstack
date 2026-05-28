@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+
+# production
+dist/
+build/
+
+# environment variables
+.env
+.env.*
+
+# logs
+logs
+*.log
+
+# macOS
+.DS_Store
+
+# vscode
+.vscode/
+
+# coverage
+coverage/
+
+# TypeScript
+*.tsbuildinfo
+
+# npm
+package-lock.json
+
+# yarn
+yarn.lock

@@ -1,0 +1,122 @@
+INSERT INTO "State" (name, code) VALUES
+('Andhra Pradesh','AP'),
+('Arunachal Pradesh','AR'),
+('Assam','AS'),
+('Bihar','BR'),
+('Chhattisgarh','CG'),
+('Goa','GA'),
+('Gujarat','GJ'),
+('Haryana','HR'),
+('Himachal Pradesh','HP'),
+('Jharkhand','JH'),
+('Karnataka','KA'),
+('Kerala','KL'),
+('Madhya Pradesh','MP'),
+('Maharashtra','MH'),
+('Manipur','MN'),
+('Meghalaya','ML'),
+('Mizoram','MZ'),
+('Nagaland','NL'),
+('Odisha','OD'),
+('Punjab','PB'),
+('Rajasthan','RJ'),
+('Sikkim','SK'),
+('Tamil Nadu','TN'),
+('Telangana','TS'),
+('Tripura','TR'),
+('Uttar Pradesh','UP'),
+('Uttarakhand','UK'),
+('West Bengal','WB'),
+('Andaman and Nicobar Islands','AN'),
+('Chandigarh','CH'),
+('Dadra and Nagar Haveli and Daman and Diu','DN'),
+('Delhi','DL'),
+('Jammu and Kashmir','JK'),
+('Ladakh','LA'),
+('Lakshadweep','LD'),
+('Puducherry','PY');
+
+
+INSERT INTO "City" (stateId, name)
+SELECT id, 'Nagpur'
+FROM states
+WHERE code = 'MH';
+
+INSERT INTO "City" (stateId, name)
+SELECT id, 'Pune'
+FROM "State"
+WHERE code = 'MH';
+
+INSERT INTO "City" (stateId, name)
+SELECT id, 'Mumbai'
+FROM state
+WHERE code = 'MH';
+
+//Pincode
+INSERT INTO "Pincode" ("cityId", "pinCode", "areaName")
+SELECT "id", '440001', 'Sitabuldi'
+FROM "City"
+WHERE "name" = 'Nagpur';
+
+INSERT INTO "Pincode" ("cityId", "pinCode", "areaName")
+SELECT "id", '440010', 'Dharampeth'
+FROM "City"
+WHERE "name" = 'Nagpur';
+
+INSERT INTO "Pincode" ("cityId", "pinCode", "areaName")
+SELECT "id", '440015', 'Wardha Road'
+FROM "City"
+WHERE "name" = 'Nagpur';
+
+//Pune Pincode
+INSERT INTO "Pincode" ("cityId", "pinCode", "areaName")
+SELECT "id", '411001', 'Shivaji Nagar'
+FROM "City"
+WHERE "name" = 'Pune';
+
+INSERT INTO "Pincode" ("cityId", "pinCode", "areaName")
+SELECT "id", '411014', 'Viman Nagar'
+FROM "City"
+WHERE "name" = 'Pune';
+
+INSERT INTO "Pincode" ("cityId", "pinCode", "areaName")
+SELECT "id", '400001', 'Fort'
+FROM "City"
+WHERE "name" = 'Mumbai';
+
+INSERT INTO "Pincode" ("cityId", "pinCode", "areaName")
+SELECT "id", '400050', 'Bandra'
+FROM "City"
+WHERE "name" = 'Mumbai';
+
+
+/// bulk INSERTINSERT INTO "City" ("stateId", "name")
+SELECT s.id, v.city_name
+FROM "State" s
+CROSS JOIN (
+    VALUES
+        ('Pune'),
+        ('Mumbai'),
+        ('Nashik'),
+        ('Aurangabad'),
+        ('Solapur'),
+        ('Amravati'),
+        ('Kolhapur'),
+        ('Nanded'),
+        ('Sangli')
+) AS v(city_name)
+WHERE s."code" = 'MH';
+
+ALTER TABLE "Bazar" ALTER COLUMN "updatedAt" SET DEFAULT CURRENT_TIMESTAMP;
+
+INSERT INTO "State" (name, code)
+VALUES ('Maharashtra', 'MH');
+
+INSERT INTO "City" ("stateId", name)
+SELECT id, 'Nagpur'
+FROM "State"
+WHERE code = 'MH';
+
+ALTER TABLE "Customer" ALTER COLUMN "bazarId" TYPE VARCHAR(70);
+
+

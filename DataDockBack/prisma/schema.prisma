@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id               Int        @id @default(autoincrement())
+  username         String     @unique @db.VarChar(100)
+  passwordHash     String     @db.VarChar(255)
+  fullName         String     @db.VarChar(150)
+  isActive         Boolean    @default(true)
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  customersCreated Customer[] @relation("CustomerCreatedBy")
+
+  @@index([username])
+  @@index([fullName])
+}
+
+model State {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique @db.VarChar(100)
+  code      String?    @unique @db.VarChar(10)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  cities    City[]
+  customers Customer[]
+
+  @@index([name])
+}
+
+model City {
+  id        Int        @id @default(autoincrement())
+  stateId   Int
+  name      String     @db.VarChar(100)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  state     State      @relation(fields: [stateId], references: [id])
+  pincodes  Pincode[]
+  customers Customer[]
+
+  @@unique([stateId, name])
+  @@index([name])
+}
+
+model Pincode {
+  id        Int        @id @default(autoincrement())
+  cityId    Int
+  pinCode   String     @db.VarChar(10)
+  areaName  String?    @db.VarChar(150)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
+  customers Customer[]
+  city      City       @relation(fields: [cityId], references: [id])
+
+  @@unique([cityId, pinCode, areaName], map: "Pincode_cityId_code_areaName_key")
+  @@index([pinCode], map: "Pincode_code_idx")
+  @@index([areaName])
+}
+
+model Bazar {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique @db.VarChar(150)
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([name])
+}
+
+model Customer {
+  id BigInt @id @default(autoincrement())
+
+  entryDate DateTime @default(now())
+
+  name String @db.VarChar(200)
+
+  codeName String? @unique @db.VarChar(100)
+
+  stateId   Int?
+  cityId    Int?
+  pincodeId Int?
+
+  phone1 String? @db.VarChar(20)
+  phone2 String? @db.VarChar(20)
+
+  officePhone1 String? @db.VarChar(20)
+  officePhone2 String? @db.VarChar(20)
+
+  bhawMD  String? @db.VarChar(500)
+  bhawKRM String? @db.VarChar(500)
+
+  creditLimit Decimal? @db.Decimal(14, 2)
+
+  bazarId String? @db.VarChar(70)
+
+  referenceNumber String? @db.VarChar(50)
+  referenceName   String? @db.VarChar(150)
+
+  remark String?
+
+  createdById Int?
+
+  editedOn DateTime?
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  createdBy User? @relation("CustomerCreatedBy", fields: [createdById], references: [id])
+
+  state State? @relation(fields: [stateId], references: [id])
+
+  city City? @relation(fields: [cityId], references: [id])
+
+  pincode Pincode? @relation(fields: [pincodeId], references: [id], onDelete: Restrict)
+
+  @@index([name])
+  @@index([codeName])
+  @@index([phone1])
+  @@index([stateId])
+  @@index([cityId])
+  @@index([pincodeId])
+  @@index([bazarId])
+  @@index([createdById])
+  @@index([createdAt])
+  @@index([referenceNumber])
+}
