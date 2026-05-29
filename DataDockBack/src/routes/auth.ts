@@ -55,7 +55,7 @@ router.post("/login", async (req, res) => {
         userId: user.id,
         // role: user.role,
       },
-      process.env.JWT_SECRET || "datadock-secret",
+      process.env.JWT_SECRET! || "datadock-secret",
       {
         expiresIn: "7d",
       },

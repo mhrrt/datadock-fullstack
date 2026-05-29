@@ -7,7 +7,7 @@ import { generateToken } from "../utils/jwt";
 export async function loginUser(userName: string, password: string) {
   const user = await prisma.user.findUnique({
     where: {
-      userName,
+      username,
     },
   });
 
@@ -27,16 +27,16 @@ export async function loginUser(userName: string, password: string) {
 
   const token = generateToken({
     id: user.id,
-    role: user.role,
-    userName: user.userName,
+    // role: user.role,
+    userName: user.username,
   });
 
   return {
     token,
     user: {
       id: user.id,
-      userName: user.userName,
-      role: user.role,
+      userName: user.username,
+      // role: user.role,
     },
   };
 }
