@@ -19,7 +19,7 @@ export default function LoginPage() {
       navigate("/search");
     } catch (error) {
       console.error(error);
-      alert("Login failed");
+      alert(`Login failed with error: ${error}');
     }
   };
 
