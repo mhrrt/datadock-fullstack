@@ -4,7 +4,7 @@ import { comparePassword } from "../utils/hash";
 
 import { generateToken } from "../utils/jwt";
 
-export async function loginUser(userName: string, password: string) {
+export async function loginUser(username: string, password: string) {
   const user = await prisma.user.findUnique({
     where: {
       username,

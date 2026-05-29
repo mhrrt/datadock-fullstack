@@ -42,7 +42,7 @@ export async function searchRecords(params: SearchParams) {
   }
 
   const [rows, total] = await Promise.all([
-    prisma.record.findMany({
+    prisma.customer.findMany({
       where: whereClause,
       skip,
       take: limit,
@@ -51,7 +51,7 @@ export async function searchRecords(params: SearchParams) {
       },
     }),
 
-    prisma.record.count({
+    prisma.customer.count({
       where: whereClause,
     }),
   ]);

@@ -16,9 +16,12 @@ export async function authenticate(
       });
     }
 
-    const token = authHeader.split(" ")[1];
+    const token = authHeader.split(" ")[1] as string;
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET as string,
+    );
 
     req.user = decoded;
 
