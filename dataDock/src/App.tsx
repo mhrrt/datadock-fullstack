@@ -2,7 +2,7 @@ import { Routes, Route, Link, Navigate } from "react-router-dom";
 
 import NewEntryPage from "./pages/NewEntryPage";
 import SearchPage from "./pages/SearchPage";
-import ProtectedRoute from "./routes/ProtectedRoute";
+// import ProtectedRoute from "./routes/ProtectedRoute"; // commented for Vercel deployment as its causing build error
 import LoginPage from "./pages/LoginPage";
 
 function App() {

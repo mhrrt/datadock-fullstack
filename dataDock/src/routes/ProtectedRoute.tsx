@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom"; //commenting as its causing build erro on Vercel deployment
 
 // export default function ProtectedRoute({ children }: any) {
 //   const token = localStorage.getItem("token");
