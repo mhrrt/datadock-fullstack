@@ -15,7 +15,7 @@ export default function LoginPage() {
       const data = await login(username, password);
 
       localStorage.setItem("token", data.token);
-
+      alert(`token generated: ${data.token}`);
       navigate("/search");
     } catch (error) {
       console.error(error);
