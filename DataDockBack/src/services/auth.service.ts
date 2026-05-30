@@ -1,16 +1,17 @@
-import { use } from "react";
-import prisma from "../config/prisma"
+//import { use } from "react";
+//import prisma from "../config/prisma"
 
-import { comparePassword } from "../utils/hash";
+//import { comparePassword } from "../utils/hash";
 
 import { generateToken } from "../utils/jwt";
+import { error } from "node:console";
 
 export async function loginUser(username: string, password: string) {
-  var user = await prisma.user.findUnique({
-    where: {
-      username,
-    },
-  });
+  // var user = await prisma.user.findUnique({
+  //   where: {
+  //     username,
+  //   },
+  // });
   // temp commented
   // console.log("user details:", user);
   // if (!user) {
@@ -33,13 +34,30 @@ export async function loginUser(username: string, password: string) {
   //   userName: user.username,
   // });
 
-  var token;
-  if(username === 'admin' && password === 'admin123') {
-      token = generateToken({
+  //var token;
+  // if(username === 'admin' && password === 'admin123') {
+  //     token = generateToken({
+  //     id: 1,
+  //     username: 'admin',
+  //   });
+  // }
+
+  if (username === "admin" && password === "admin123") {
+    const token = generateToken({
       id: 1,
-      username: 'admin',
+      username: "admin",
     });
+
+    return {
+      token,
+      user: {
+        id: 1,
+        userName: "admin",
+        fullName: "Admin User",
+      },
+    };
   }
+  throw new Error("Invalid credentaials....");
 
   // return {
   //   token,
@@ -49,12 +67,12 @@ export async function loginUser(username: string, password: string) {
   //     // role: user.role,
   //   },
   // };
-  return {
-    token,
-    user: {
-      id: 1,
-      userName: 'admin',
-      // role: user.role,
-    },
-  };
+  // return {
+  //   token,
+  //   user: {
+  //     id: 1,
+  //     userName: 'admin',
+  //     // role: user.role,
+  //   },
+  // };
 }
