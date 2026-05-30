@@ -14,14 +14,21 @@ const app = express();
 
 // Middleware
 // app.use(cors());
+// temp commet to allow everything
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:5173",
+//       "https://datadock-fullstack.vercel.app/",
+//     ],
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//     credentials: true,
+//   }),
+// );
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://datadock-fullstack.vercel.app/",
-    ],
-    credentials: true,
-  }),
+    origin: "*",
+  })
 );
 app.use(helmet());
 app.use(morgan("dev"));
