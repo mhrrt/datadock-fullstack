@@ -17,7 +17,7 @@ CREATE TABLE "State" (
     "name" VARCHAR(100) NOT NULL,
     "code" VARCHAR(10),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "State_pkey" PRIMARY KEY ("id")
 );
@@ -28,7 +28,7 @@ CREATE TABLE "City" (
     "stateId" INTEGER NOT NULL,
     "name" VARCHAR(100) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "City_pkey" PRIMARY KEY ("id")
 );
@@ -37,10 +37,10 @@ CREATE TABLE "City" (
 CREATE TABLE "Pincode" (
     "id" SERIAL NOT NULL,
     "cityId" INTEGER NOT NULL,
-    "code" VARCHAR(10) NOT NULL,
+    "pinCode" VARCHAR(10) NOT NULL,
     "areaName" VARCHAR(150),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Pincode_pkey" PRIMARY KEY ("id")
 );
@@ -62,6 +62,8 @@ CREATE TABLE "Customer" (
     "entryDate" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "name" VARCHAR(200) NOT NULL,
     "codeName" VARCHAR(100),
+    "stateId" INTEGER,
+    "cityId" INTEGER,
     "pincodeId" INTEGER,
     "phone1" VARCHAR(20),
     "phone2" VARCHAR(20),
@@ -70,7 +72,7 @@ CREATE TABLE "Customer" (
     "bhawMD" VARCHAR(500),
     "bhawKRM" VARCHAR(500),
     "creditLimit" DECIMAL(14,2),
-    "bazarId" VARCHAR(20),
+    "bazarId" VARCHAR(70),
     "referenceNumber" VARCHAR(50),
     "referenceName" VARCHAR(150),
     "remark" TEXT,
@@ -108,19 +110,22 @@ CREATE INDEX "City_name_idx" ON "City"("name");
 CREATE UNIQUE INDEX "City_stateId_name_key" ON "City"("stateId", "name");
 
 -- CreateIndex
-CREATE INDEX "Pincode_code_idx" ON "Pincode"("code");
+CREATE INDEX "Pincode_code_idx" ON "Pincode"("pinCode");
 
 -- CreateIndex
 CREATE INDEX "Pincode_areaName_idx" ON "Pincode"("areaName");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Pincode_cityId_code_areaName_key" ON "Pincode"("cityId", "code", "areaName");
+CREATE UNIQUE INDEX "Pincode_cityId_code_areaName_key" ON "Pincode"("cityId", "pinCode", "areaName");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Bazar_name_key" ON "Bazar"("name");
 
 -- CreateIndex
 CREATE INDEX "Bazar_name_idx" ON "Bazar"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Customer_codeName_key" ON "Customer"("codeName");
 
 -- CreateIndex
 CREATE INDEX "Customer_name_idx" ON "Customer"("name");
@@ -130,6 +135,12 @@ CREATE INDEX "Customer_codeName_idx" ON "Customer"("codeName");
 
 -- CreateIndex
 CREATE INDEX "Customer_phone1_idx" ON "Customer"("phone1");
+
+-- CreateIndex
+CREATE INDEX "Customer_stateId_idx" ON "Customer"("stateId");
+
+-- CreateIndex
+CREATE INDEX "Customer_cityId_idx" ON "Customer"("cityId");
 
 -- CreateIndex
 CREATE INDEX "Customer_pincodeId_idx" ON "Customer"("pincodeId");
@@ -146,9 +157,6 @@ CREATE INDEX "Customer_createdAt_idx" ON "Customer"("createdAt");
 -- CreateIndex
 CREATE INDEX "Customer_referenceNumber_idx" ON "Customer"("referenceNumber");
 
--- CreateIndex
-CREATE UNIQUE INDEX "Customer_codeName_key" ON "Customer"("codeName");
-
 -- AddForeignKey
 ALTER TABLE "City" ADD CONSTRAINT "City_stateId_fkey" FOREIGN KEY ("stateId") REFERENCES "State"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -156,10 +164,13 @@ ALTER TABLE "City" ADD CONSTRAINT "City_stateId_fkey" FOREIGN KEY ("stateId") RE
 ALTER TABLE "Pincode" ADD CONSTRAINT "Pincode_cityId_fkey" FOREIGN KEY ("cityId") REFERENCES "City"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Customer" ADD CONSTRAINT "Customer_pincodeId_fkey" FOREIGN KEY ("pincodeId") REFERENCES "Pincode"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Customer" ADD CONSTRAINT "Customer_bazarId_fkey" FOREIGN KEY ("bazarId") REFERENCES "Bazar"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Customer" ADD CONSTRAINT "Customer_createdById_fkey" FOREIGN KEY ("createdById") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Customer" ADD CONSTRAINT "Customer_stateId_fkey" FOREIGN KEY ("stateId") REFERENCES "State"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Customer" ADD CONSTRAINT "Customer_cityId_fkey" FOREIGN KEY ("cityId") REFERENCES "City"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Customer" ADD CONSTRAINT "Customer_pincodeId_fkey" FOREIGN KEY ("pincodeId") REFERENCES "Pincode"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
