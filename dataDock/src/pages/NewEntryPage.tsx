@@ -194,7 +194,7 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
         // const response = await axios.get("http://localhost:5000/states");
         const response = await api.get("/states");
         console.log(`Fetching state from ${response}`)
-        alert(`Fetching state from db: ${response}`);
+        //alert(`Fetching state from db: ${response}`);
         setStates(response.data);
       } catch (error) {
         console.error("Failed to fetch states", error);
@@ -217,7 +217,7 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
         // );
         const response = api.get(`/cities/${formData.stateId}`)
         setCities((await response).data);
-        alert(`Fetching cities from db: ${response}`);
+       // alert(`Fetching cities from db: ${response}`);
 
       } catch (error) {
         console.error("Failed to fetch cities", error);
@@ -238,8 +238,8 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
         // const response = await axios.get(
         //   `http://localhost:5000/pincodes/${formData.cityId}`,
         // );
-        const response = api.get(`/cities/${formData.cityId}`)
-        alert(`Fetching pincodes from db: ${response}`);
+        const response = api.get(`/pincodes/${formData.cityId}`)
+        //alert(`Fetching pincodes from db: ${response}`);
         setPincodes((await response).data);
       } catch (error) {
         console.error("Failed to fetch pincodes", error);
