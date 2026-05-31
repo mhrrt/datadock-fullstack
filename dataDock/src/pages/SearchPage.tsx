@@ -76,7 +76,7 @@ const SearchPage = () => {
       setLoading(true);
 
       // const response = await axios.get("http://localhost:5000/api/records");
-      const response = await api.get("/api/records");
+      const response = await api.get("/records");
 
       console.log(response.data);
       setRowData(response.data || []);
