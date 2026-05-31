@@ -1,6 +1,8 @@
 // import { TextField, Button } from "@mui/material"; // not req as using T
 import axios from "axios";
 import { useEffect, useState } from "react";
+import api from "../services/api";
+
 
 type FormData = {
     entryDate: string;
@@ -130,7 +132,7 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
     try {
       setLoading(true);
 
-      await axios.post("http://localhost:5000/api/records", {
+      await axios.post("/api/records", {
         ...formData,
 
         stateId: formData.stateId ? Number(formData.stateId) : null,
@@ -189,8 +191,8 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
   useEffect(() => {
     const fetchStates = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/states");
-
+        // const response = await axios.get("http://localhost:5000/states");
+        const response = await api.get("api/states");
         setStates(response.data);
       } catch (error) {
         console.error("Failed to fetch states", error);
@@ -208,11 +210,12 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
 
     const fetchCities = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/cities/${formData.stateId}`,
-        );
+        // const response = await axios.get(
+        //   `http://localhost:5000/cities/${formData.stateId}`,
+        // );
+        const response = api.get(`api/cities/${formData.stateId}`)
 
-        setCities(response.data);
+        setCities((await response).data);
       } catch (error) {
         console.error("Failed to fetch cities", error);
       }
@@ -229,11 +232,12 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
 
     const fetchPincodes = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/pincodes/${formData.cityId}`,
-        );
+        // const response = await axios.get(
+        //   `http://localhost:5000/pincodes/${formData.cityId}`,
+        // );
+        const response = api.get(`api/cities/${formData.cityId}`)
 
-        setPincodes(response.data);
+        setPincodes((await response).data);
       } catch (error) {
         console.error("Failed to fetch pincodes", error);
       }

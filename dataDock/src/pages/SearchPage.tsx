@@ -10,6 +10,8 @@ import { ModuleRegistry, AllCommunityModule } from "ag-grid-community";
 
 import "ag-grid-community/styles/ag-theme-quartz.css";
 
+import api from "../services/api";
+
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 type RecordRow = {
@@ -73,7 +75,9 @@ const SearchPage = () => {
     try {
       setLoading(true);
 
-      const response = await axios.get("http://localhost:5000/api/records");
+      // const response = await axios.get("http://localhost:5000/api/records");
+      const response = await api.get("/api/records");
+
       console.log(response.data);
       setRowData(response.data || []);
     } catch (error) {

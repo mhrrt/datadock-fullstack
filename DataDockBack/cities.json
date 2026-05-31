@@ -1,0 +1,79 @@
+[
+  {
+    "id": 2,
+    "stateId": 15,
+    "name": "Nagpur",
+    "createdAt": "2026-05-25T15:49:18.105Z",
+    "updatedAt": "2026-05-25T15:49:18.105Z"
+  },
+  {
+    "id": 4,
+    "stateId": 8,
+    "name": "Ahmedabad",
+    "createdAt": "2026-05-25T16:19:40.993Z",
+    "updatedAt": "2026-05-25T16:19:40.993Z"
+  },
+  {
+    "id": 5,
+    "stateId": 8,
+    "name": "Surat",
+    "createdAt": "2026-05-25T16:19:40.993Z",
+    "updatedAt": "2026-05-25T16:19:40.993Z"
+  },
+  {
+    "id": 6,
+    "stateId": 8,
+    "name": "Vadodara",
+    "createdAt": "2026-05-25T16:19:40.993Z",
+    "updatedAt": "2026-05-25T16:19:40.993Z"
+  },
+  {
+    "id": 7,
+    "stateId": 8,
+    "name": "Rajkot",
+    "createdAt": "2026-05-25T16:19:40.993Z",
+    "updatedAt": "2026-05-25T16:19:40.993Z"
+  },
+  {
+    "id": 8,
+    "stateId": 8,
+    "name": "Bhavnagar",
+    "createdAt": "2026-05-25T16:19:40.993Z",
+    "updatedAt": "2026-05-25T16:19:40.993Z"
+  },
+  {
+    "id": 9,
+    "stateId": 12,
+    "name": "Bengaluru",
+    "createdAt": "2026-05-25T16:19:49.005Z",
+    "updatedAt": "2026-05-25T16:19:49.005Z"
+  },
+  {
+    "id": 10,
+    "stateId": 12,
+    "name": "Mysuru",
+    "createdAt": "2026-05-25T16:19:49.005Z",
+    "updatedAt": "2026-05-25T16:19:49.005Z"
+  },
+  {
+    "id": 11,
+    "stateId": 12,
+    "name": "Mangalore",
+    "createdAt": "2026-05-25T16:19:49.005Z",
+    "updatedAt": "2026-05-25T16:19:49.005Z"
+  },
+  {
+    "id": 12,
+    "stateId": 12,
+    "name": "Hubli",
+    "createdAt": "2026-05-25T16:19:49.005Z",
+    "updatedAt": "2026-05-25T16:19:49.005Z"
+  },
+  {
+    "id": 13,
+    "stateId": 12,
+    "name": "Belgaum",
+    "createdAt": "2026-05-25T16:19:49.005Z",
+    "updatedAt": "2026-05-25T16:19:49.005Z"
+  }
+]
