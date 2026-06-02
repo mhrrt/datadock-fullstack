@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useRef } from "react";
 
 // import axios from "axios";
 
@@ -13,8 +13,8 @@ import "ag-grid-community/styles/ag-theme-quartz.css";
 import api from "../services/api";
 
 import * as XLSX from "xlsx";
+import type { GridApi } from "ag-grid-community";
 import { toast } from "react-toastify";
-
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -82,14 +82,13 @@ const SearchPage = () => {
       // const response = await axios.get("http://localhost:5000/api/records");
       const response = await api.get("api/records");
 
-      console.log(response.data);
+      //console.log(response.data);
       setRowData(response.data || []);
     } catch (error) {
       console.error(error);
 
-     // alert("Failed to fetch records");
+      // alert("Failed to fetch records");
       toast.error("Failed to fetch records");
-      
     } finally {
       setLoading(false);
     }
@@ -113,6 +112,17 @@ const SearchPage = () => {
         headerName: "Date",
         filter: "agDateColumnFilter",
         minWidth: 140,
+        valueFormatter: (params) => {
+          if (!params.value) return "";
+
+          const date = new Date(params.value);
+
+          return date.toLocaleDateString("en-UK", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          });
+        },
       },
 
       {
@@ -259,46 +269,98 @@ const SearchPage = () => {
   );
 
   // for data export
-  const exportToExcel = () => {
-  const excelData = rowData.map((row) => ({
-    ID: row.id,
-    Date: row.entryDate,
-    Name: row.name,
-    "Code Name": row.codeName,
-    State: row.state?.name || "",
-    City: row.city?.name || "",
-    Pincode: row.pincode?.code || "",
-    Bazar: row.bazar?.name || "",
-    "Phone 1": row.phone1,
-    "Phone 2": row.phone2,
-    "Office Phone 1": row.officePhone1,
-    "Office Phone 2": row.officePhone2,
-    "Bhaw MD": row.bhawMD,
-    "Bhaw KRM": row.bhawKRM,
-    "Credit Limit": row.creditLimit,
-    "Reference Number": row.referenceNumber,
-    "Reference Name": row.referenceName,
-    Remark: row.remark,
-    "Created By": row.createdBy?.userName || "",
-  }));
+  const gridApiRef = useRef<GridApi | null>(null);
+  // const exportToExcel = () => {
+  //   const excelData = rowData.map((row) => ({
+  //     ID: row.id,
+  //     Date: row.entryDate,
+  //     Name: row.name,
+  //     "Code Name": row.codeName,
+  //     State: row.state?.name || "",
+  //     City: row.city?.name || "",
+  //     Pincode: row.pincode?.code || "",
+  //     Bazar: row.bazar?.name || "",
+  //     "Phone 1": row.phone1,
+  //     "Phone 2": row.phone2,
+  //     "Office Phone 1": row.officePhone1,
+  //     "Office Phone 2": row.officePhone2,
+  //     "Bhaw MD": row.bhawMD,
+  //     "Bhaw KRM": row.bhawKRM,
+  //     "Credit Limit": row.creditLimit,
+  //     "Reference Number": row.referenceNumber,
+  //     "Reference Name": row.referenceName,
+  //     Remark: row.remark,
+  //     "Created By": row.createdBy?.userName || "",
+  //   }));
 
-  const worksheet = XLSX.utils.json_to_sheet(excelData);
+  //   const worksheet = XLSX.utils.json_to_sheet(excelData);
 
-  const workbook = XLSX.utils.book_new();
+  //   const workbook = XLSX.utils.book_new();
 
-  XLSX.utils.book_append_sheet(
-    workbook,
-    worksheet,
-    "Records"
-  );
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, "Records");
 
-  XLSX.writeFile(
-    workbook,
-    `DataDock_Records_${new Date()
-      .toISOString()
-      .split("T")[0]}.xlsx`
-  );
-};
+  //   XLSX.writeFile(
+  //     workbook,
+  //     `DataDock_Records_${new Date().toISOString().split("T")[0]}.xlsx`,
+  //   );
+  // };
+
+  // export all or listed rows only based on parameters
+  const exportRowsToExcel = (rows: RecordRow[], fileName: string) => {
+    const excelData = rows.map((row) => ({
+      ID: row.id,
+      Date: row.entryDate,
+      Name: row.name,
+      "Code Name": row.codeName,
+      State: row.state?.name || "",
+      City: row.city?.name || "",
+      Pincode: row.pincode?.code || "",
+      Bazar: row.bazar?.name || "",
+      "Phone 1": row.phone1,
+      "Phone 2": row.phone2,
+      "Office Phone 1": row.officePhone1,
+      "Office Phone 2": row.officePhone2,
+      "Bhaw MD": row.bhawMD,
+      "Bhaw KRM": row.bhawKRM,
+      "Credit Limit": row.creditLimit,
+      "Reference Number": row.referenceNumber,
+      "Reference Name": row.referenceName,
+      Remark: row.remark,
+      "Created By": row.createdBy?.userName || "",
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(excelData);
+
+    const workbook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Records");
+
+    XLSX.writeFile(workbook, fileName);
+  };
+
+  // will export all records in customer table
+  const exportAllRecords = () => {
+    exportRowsToExcel(
+      rowData,
+      `DataDock_All_Records_${new Date().toISOString().split("T")[0]}.xlsx`,
+    );
+  };
+
+  // will export records in grid only
+  const exportVisibleRecords = () => {
+    const visibleRows: RecordRow[] = [];
+
+    gridApiRef.current?.forEachNodeAfterFilterAndSort((node) => {
+      visibleRows.push(node.data);
+    });
+
+    exportRowsToExcel(
+      visibleRows,
+      `DataDock_Filtered_Records_${
+        new Date().toISOString().split("T")[0]
+      }.xlsx`,
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -313,13 +375,34 @@ const SearchPage = () => {
             onChange={(e) => setSearchText(e.target.value)}
             className="w-full rounded-lg border border-gray-300 p-3 md:w-80"
           />
-
-          <button
+          <div className="flex gap-3">
+            {/* this one is for export all records */}
+            {/* <button
             onClick={exportToExcel}
             className="rounded-lg bg-green-600 px-4 py-3 text-white hover:bg-green-700"
           >
             Export Excel
-          </button>
+          </button> */}
+            {/* added option to either export all records or selected one in grid only */}
+            <button
+              onClick={exportAllRecords}
+              className="rounded-lg bg-green-600 px-4 py-3 text-white hover:bg-green-700"
+            >
+              Export All
+            </button>
+
+            <button
+              onClick={exportVisibleRecords}
+              disabled={!searchText.trim()}
+              className={`rounded-lg px-4 py-3 text-white ${
+                searchText.trim()
+                  ? "bg-blue-600 hover:bg-blue-700"
+                  : "bg-gray-400 cursor-not-allowed"
+              }`}
+            >
+              Export Visible
+            </button>
+          </div>
         </div>
 
         <div
@@ -352,14 +435,17 @@ const SearchPage = () => {
             defaultColDef={defaultColDef}
             loading={loading}
             pagination={true}
-            paginationPageSize={20}
-            paginationPageSizeSelector={[20, 50, 100]}
+            paginationPageSize={50}
+            paginationPageSizeSelector={[50, 100, 150]}
             quickFilterText={searchText}
             animateRows={true}
             rowSelection={rowSelection}
             getRowId={(params) => String(params.data.id)}
             domLayout="normal"
             rowBuffer={10}
+            onGridReady={(params) => {
+              gridApiRef.current = params.api;
+            }}
           />
         </div>
       </div>
