@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import { toast } from "react-toastify";
 
 
 type FormData = {
@@ -149,7 +150,8 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
       });
       console.log("FormData:", formData);
 
-      alert("Record created successfully");
+      //alert("Record created successfully");
+      toast.success("Record created successfully");
 
       setFormData({
         entryDate: new Date().toISOString().split("T")[0],
@@ -182,7 +184,9 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
     } catch (error) {
       console.error(error);
 
-      alert("Failed to create record");
+      //alert("Failed to create record");
+      toast.error("Failed to create record");
+
     } finally {
       setLoading(false);
     }
@@ -192,8 +196,9 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
     const fetchStates = async () => {
       try {
         // const response = await axios.get("http://localhost:5000/states");
+        console.log(`API url is:`, api.defaults.baseURL);
         const response = await api.get("/states");
-        console.log(`Fetching state from ${response}`)
+        console.log(`Fetching state from ${response.data}`)
         //alert(`Fetching state from db: ${response}`);
         setStates(response.data);
       } catch (error) {

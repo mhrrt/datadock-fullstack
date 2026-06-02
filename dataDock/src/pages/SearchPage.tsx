@@ -12,6 +12,10 @@ import "ag-grid-community/styles/ag-theme-quartz.css";
 
 import api from "../services/api";
 
+import * as XLSX from "xlsx";
+import { toast } from "react-toastify";
+
+
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 type RecordRow = {
@@ -76,14 +80,16 @@ const SearchPage = () => {
       setLoading(true);
 
       // const response = await axios.get("http://localhost:5000/api/records");
-      const response = await api.get("/records");
+      const response = await api.get("api/records");
 
       console.log(response.data);
       setRowData(response.data || []);
     } catch (error) {
       console.error(error);
 
-      alert("Failed to fetch records");
+     // alert("Failed to fetch records");
+      toast.error("Failed to fetch records");
+      
     } finally {
       setLoading(false);
     }
@@ -252,6 +258,48 @@ const SearchPage = () => {
     [],
   );
 
+  // for data export
+  const exportToExcel = () => {
+  const excelData = rowData.map((row) => ({
+    ID: row.id,
+    Date: row.entryDate,
+    Name: row.name,
+    "Code Name": row.codeName,
+    State: row.state?.name || "",
+    City: row.city?.name || "",
+    Pincode: row.pincode?.code || "",
+    Bazar: row.bazar?.name || "",
+    "Phone 1": row.phone1,
+    "Phone 2": row.phone2,
+    "Office Phone 1": row.officePhone1,
+    "Office Phone 2": row.officePhone2,
+    "Bhaw MD": row.bhawMD,
+    "Bhaw KRM": row.bhawKRM,
+    "Credit Limit": row.creditLimit,
+    "Reference Number": row.referenceNumber,
+    "Reference Name": row.referenceName,
+    Remark: row.remark,
+    "Created By": row.createdBy?.userName || "",
+  }));
+
+  const worksheet = XLSX.utils.json_to_sheet(excelData);
+
+  const workbook = XLSX.utils.book_new();
+
+  XLSX.utils.book_append_sheet(
+    workbook,
+    worksheet,
+    "Records"
+  );
+
+  XLSX.writeFile(
+    workbook,
+    `DataDock_Records_${new Date()
+      .toISOString()
+      .split("T")[0]}.xlsx`
+  );
+};
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="rounded-xl bg-white p-6 shadow-lg">
@@ -265,6 +313,13 @@ const SearchPage = () => {
             onChange={(e) => setSearchText(e.target.value)}
             className="w-full rounded-lg border border-gray-300 p-3 md:w-80"
           />
+
+          <button
+            onClick={exportToExcel}
+            className="rounded-lg bg-green-600 px-4 py-3 text-white hover:bg-green-700"
+          >
+            Export Excel
+          </button>
         </div>
 
         <div
