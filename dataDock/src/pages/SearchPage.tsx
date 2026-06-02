@@ -14,6 +14,8 @@ import api from "../services/api";
 
 import * as XLSX from "xlsx";
 import type { GridApi } from "ag-grid-community";
+import { ZipWriter, BlobWriter, Uint8ArrayReader } from "@zip.js/zip.js";
+
 import { toast } from "react-toastify";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -306,7 +308,7 @@ const SearchPage = () => {
   // };
 
   // export all or listed rows only based on parameters
-  const exportRowsToExcel = (rows: RecordRow[], fileName: string) => {
+  const exportRowsToExcel = async (rows: RecordRow[], fileName: string) => {
     const excelData = rows.map((row) => ({
       ID: row.id,
       Date: row.entryDate,
@@ -335,11 +337,13 @@ const SearchPage = () => {
 
     XLSX.utils.book_append_sheet(workbook, worksheet, "Records");
 
-    XLSX.writeFile(workbook, fileName);
+    // commenting out as need to check if user is looking for normal export or protected export
+    // XLSX.writeFile(workbook, fileName);
+    await exportWorkbook(workbook, fileName);
   };
 
   // will export all records in customer table
-  const exportAllRecords = () => {
+  const exportAllRecords = async () => {
     exportRowsToExcel(
       rowData,
       `DataDock_All_Records_${new Date().toISOString().split("T")[0]}.xlsx`,
@@ -347,7 +351,7 @@ const SearchPage = () => {
   };
 
   // will export records in grid only
-  const exportVisibleRecords = () => {
+  const exportVisibleRecords = async () => {
     const visibleRows: RecordRow[] = [];
 
     gridApiRef.current?.forEachNodeAfterFilterAndSort((node) => {
@@ -360,6 +364,64 @@ const SearchPage = () => {
         new Date().toISOString().split("T")[0]
       }.xlsx`,
     );
+  };
+  // password protection
+  const [passwordProtect, setPasswordProtect] = useState(false);
+
+  const exportWorkbook = async (workbook: XLSX.WorkBook, fileName: string) => {
+    if (!passwordProtect) {
+      XLSX.writeFile(workbook, fileName);
+      return;
+    }
+
+    const password = prompt("Enter password for the ZIP file");
+
+    if (!password) {
+      return;
+    }
+
+    await downloadProtectedZip(
+      workbook,
+      fileName.replace(".xlsx", ".zip"),
+      password,
+    );
+  };
+
+  const downloadProtectedZip = async (
+    workbook: XLSX.WorkBook,
+    zipFileName: string,
+    password: string,
+  ) => {
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+
+    const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
+
+    await zipWriter.add(
+      "DataDock.xlsx",
+      new Uint8ArrayReader(new Uint8Array(excelBuffer)),
+      {
+        password,
+        encryptionStrength: 3, // AES-256
+      },
+    );
+
+    const zipBlob = await zipWriter.close();
+
+    const url = URL.createObjectURL(zipBlob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = zipFileName;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -402,6 +464,15 @@ const SearchPage = () => {
             >
               Export Visible
             </button>
+
+            <label className="ml-2 flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={passwordProtect}
+                onChange={(e) => setPasswordProtect(e.target.checked)}
+              />
+              Protected
+            </label>
           </div>
         </div>
 
