@@ -95,6 +95,15 @@ const NewEntryPage = () => {
   ) => {
     const { name, value } = e.target;
 
+    const phoneFields = ["phone1", "phone2", "officePhone1", "officePhone2"];
+    if (phoneFields.includes(name)) {
+      const regex = /^[0-9+\-\/ ]*$/;
+
+      if (!regex.test(value)) {
+        return;
+      }
+    }
+
     // Reset city + pincode when state changes
     if (name === "stateId") {
       setFormData((prev) => ({
