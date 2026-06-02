@@ -117,6 +117,7 @@ SELECT id, 'Nagpur'
 FROM "State"
 WHERE code = 'MH';
 
+
 ALTER TABLE "Customer" ALTER COLUMN "bazarId" TYPE VARCHAR(70);
 
 
