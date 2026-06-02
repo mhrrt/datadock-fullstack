@@ -1,9 +1,9 @@
 import axios from "axios";
 
 // Local
-const AUTH_API = "http://localhost:5000";
+//const AUTH_API = "http://localhost:5000";
 // remote
-// const AUTH_API = `${import.meta.env.VITE_API_URL}/auth`;
+const AUTH_API = `${import.meta.env.VITE_API_URL}`;
 console.log(import.meta.env);
 console.log(import.meta.env.VITE_API_URL);
 export async function login(username: string, password: string) {
@@ -12,7 +12,7 @@ export async function login(username: string, password: string) {
     username,
     password,
   });
-    // alert(`Auth response is: ${response}`);
+  // alert(`Auth response is: ${response}`);
 
   return response.data;
 }
