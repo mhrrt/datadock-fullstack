@@ -1,39 +1,38 @@
 // import { TextField, Button } from "@mui/material"; // not req as using T
-import axios from "axios";
+//import axios from "axios";
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { toast } from "react-toastify";
 
-
 type FormData = {
-    entryDate: string;
+  entryDate: string;
 
-    name: string;
-    codeName: string;
+  name: string;
+  codeName: string;
 
-    stateId: string;
-    cityId: string;
+  stateId: string;
+  cityId: string;
 
-    pincodeId: string;
+  pincodeId: string;
 
-    phone1: string;
-    phone2: string;
+  phone1: string;
+  phone2: string;
 
-    officePhone1: string;
-    officePhone2: string;
+  officePhone1: string;
+  officePhone2: string;
 
-    bhawMD: string;
-    bhawKRM: string;
+  bhawMD: string;
+  bhawKRM: string;
 
-    creditLimit: string;
+  creditLimit: string;
 
-    bazarId: string;
+  bazarId: string;
 
-    referenceNumber: string;
-    referenceName: string;
+  referenceNumber: string;
+  referenceName: string;
 
-    remark: string;
-}
+  remark: string;
+};
 
 type StateType = {
   id: number;
@@ -56,9 +55,9 @@ type PincodeType = {
 
 const NewEntryPage = () => {
   const [loading, setLoading] = useState(false);
-const [states, setStates] = useState<StateType[]>([]);
-const [cities, setCities] = useState<CityType[]>([]);
-const [pincodes, setPincodes] = useState<PincodeType[]>([]);
+  const [states, setStates] = useState<StateType[]>([]);
+  const [cities, setCities] = useState<CityType[]>([]);
+  const [pincodes, setPincodes] = useState<PincodeType[]>([]);
 
   const [formData, setFormData] = useState<FormData>({
     entryDate: new Date().toISOString().split("T")[0],
@@ -88,7 +87,6 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
 
     remark: "",
   });
-  
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -133,7 +131,7 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
     try {
       setLoading(true);
 
-      await axios.post("/records", {
+      await api.post("api/records", {
         ...formData,
 
         stateId: formData.stateId ? Number(formData.stateId) : null,
@@ -186,7 +184,6 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
 
       //alert("Failed to create record");
       toast.error("Failed to create record");
-
     } finally {
       setLoading(false);
     }
@@ -198,7 +195,7 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
         // const response = await axios.get("http://localhost:5000/states");
         console.log(`API url is:`, api.defaults.baseURL);
         const response = await api.get("/states");
-        console.log(`Fetching state from ${response.data}`)
+        console.log(`Fetching state from ${response.data}`);
         //alert(`Fetching state from db: ${response}`);
         setStates(response.data);
       } catch (error) {
@@ -220,10 +217,9 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
         // const response = await axios.get(
         //   `http://localhost:5000/cities/${formData.stateId}`,
         // );
-        const response = api.get(`/cities/${formData.stateId}`)
+        const response = api.get(`/cities/${formData.stateId}`);
         setCities((await response).data);
-       // alert(`Fetching cities from db: ${response}`);
-
+        // alert(`Fetching cities from db: ${response}`);
       } catch (error) {
         console.error("Failed to fetch cities", error);
       }
@@ -243,7 +239,7 @@ const [pincodes, setPincodes] = useState<PincodeType[]>([]);
         // const response = await axios.get(
         //   `http://localhost:5000/pincodes/${formData.cityId}`,
         // );
-        const response = api.get(`/pincodes/${formData.cityId}`)
+        const response = api.get(`/pincodes/${formData.cityId}`);
         //alert(`Fetching pincodes from db: ${response}`);
         setPincodes((await response).data);
       } catch (error) {
