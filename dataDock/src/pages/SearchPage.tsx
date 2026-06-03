@@ -105,7 +105,7 @@ const SearchPage = () => {
       {
         field: "id",
         headerName: "ID",
-        width: 100,
+        width: 30,
         pinned: "left",
       },
 
@@ -113,7 +113,7 @@ const SearchPage = () => {
         field: "entryDate",
         headerName: "Date",
         filter: "agDateColumnFilter",
-        minWidth: 140,
+        minWidth: 155,
         valueFormatter: (params) => {
           if (!params.value) return "";
 
@@ -136,38 +136,30 @@ const SearchPage = () => {
       {
         field: "codeName",
         headerName: "Code Name",
-        minWidth: 180,
+        minWidth: 100,
       },
 
       {
         headerName: "State",
-
         minWidth: 160,
-
         valueGetter: (params) => params.data?.state?.name || "",
       },
 
       {
         headerName: "City",
-
         minWidth: 160,
-
         valueGetter: (params) => params.data?.city?.name || "",
       },
 
       {
         headerName: "Pincode",
-
         minWidth: 140,
-
-        valueGetter: (params) => params.data?.pincodeId || "",
+        valueGetter: (params) => params.data?.pincode.pinCode || "",
       },
 
       {
         headerName: "Bazar",
-
         minWidth: 160,
-
         valueGetter: (params) => params.data?.bazarId || "",
       },
 
@@ -185,13 +177,13 @@ const SearchPage = () => {
 
       {
         field: "officePhone1",
-        headerName: "Office Phone 1",
+        headerName: "Off Phone 1",
         minWidth: 180,
       },
 
       {
         field: "officePhone2",
-        headerName: "Office Phone 2",
+        headerName: "Off Phone 2",
         minWidth: 180,
       },
 
@@ -256,6 +248,9 @@ const SearchPage = () => {
       minWidth: 120,
 
       flex: 1,
+
+      wrapHeaderText: true,
+      autoHeaderHeight: true,
     }),
     [],
   );
@@ -428,7 +423,7 @@ const SearchPage = () => {
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="rounded-xl bg-white p-6 shadow-lg">
         <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <h1 className="text-3xl font-bold">Search Records</h1>
+          <h1 className="text-3xl font-bold">Search Customer</h1>
 
           <input
             type="text"
@@ -477,7 +472,7 @@ const SearchPage = () => {
         </div>
 
         <div
-          className="ag-theme-quartz"
+          className="ag-theme-quartz border-2 border-slate-500 rounded-lg overflow-hidden shadow-sm"
           style={{
             height: "75vh",
             width: "100%",

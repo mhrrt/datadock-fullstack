@@ -1,0 +1,45 @@
+/* Alternate row colors */
+.ag-theme-quartz .ag-row-odd {
+  background-color: #d3d3d3;
+}
+
+/* Hover effect */
+.ag-theme-quartz .ag-row-hover {
+  background-color: #fff7cc !important;
+}
+
+/* Bigger, bolder cell values */
+.ag-theme-quartz .ag-cell {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Bigger, bolder column headers */
+.ag-theme-quartz .ag-header-cell-text {
+  font-size: 22px;
+  font-weight: 700;
+  align-content: center;
+}
+.ag-theme-quartz .ag-row-odd {
+  background-color: #e0dada !important;
+}
+
+.ag-theme-quartz .ag-cell {
+  border-right: 1px solid #d1d5db;
+}
+
+.ag-theme-quartz .ag-row {
+  border-bottom: 1px solid #e5e7eb;
+}
+.ag-theme-quartz .ag-header {
+  border-bottom: 2px solid #94a3b8;
+  text-align: center;
+}
+.ag-theme-quartz .ag-header-cell-label {
+  justify-content: center;
+}
+
+.ag-theme-quartz .ag-header-cell-text {
+  text-align: center;
+  width: 100%;
+}

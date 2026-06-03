@@ -1,6 +1,6 @@
 // import { TextField, Button } from "@mui/material"; // not req as using T
 //import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import api from "../services/api";
 import { toast } from "react-toastify";
 
@@ -259,10 +259,23 @@ const NewEntryPage = () => {
     fetchPincodes();
   }, [formData.cityId]);
 
+  // pattern validation
+  const patternValidation = "[0-9+\-\/]*";
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  // highlight active field
+  const inputClass =
+    "w-full rounded border p-3 text-medium font-semibold focus:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-blue-500";
+
+  const labelClass = "mb-1 block text-lg font-bold";
+
+  useEffect(() => {
+    nameInputRef.current?.focus();
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="mx-auto max-w-5xl rounded-xl bg-white p-8 shadow-lg">
-        <h1 className="mb-8 text-3xl font-bold">New Entry</h1>
+        <h1 className="mb-8 text-3xl font-bold">Customer Entry</h1>
 
         <form
           onSubmit={handleSubmit}
@@ -270,53 +283,54 @@ const NewEntryPage = () => {
         >
           {/* Entry Date */}
           <div>
-            <label className="mb-1 block font-medium">Entry Date</label>
+            <label className={labelClass}>Entry Date</label>
 
             <input
               type="date"
               name="entryDate"
               value={formData.entryDate}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              className={inputClass}
             />
           </div>
 
           {/* Name */}
           <div>
-            <label className="mb-1 block font-medium">Name</label>
+            <label className={labelClass}>Name</label>
 
             <input
+              ref={nameInputRef}
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              className={inputClass}
               required
             />
           </div>
 
           {/* Code Name */}
           <div>
-            <label className="mb-1 block font-medium">Code Name</label>
+            <label className={labelClass}>Code Name</label>
 
             <input
               type="text"
               name="codeName"
               value={formData.codeName}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              className={inputClass}
             />
           </div>
 
           {/* State */}
           <div>
-            <label className="mb-1 block font-medium">State</label>
+            <label className={labelClass}>State</label>
 
             <select
               name="stateId"
               value={formData.stateId}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              className={inputClass}
             >
               <option value="">Select State</option>
 
@@ -330,13 +344,13 @@ const NewEntryPage = () => {
 
           {/* City */}
           <div>
-            <label className="mb-1 block font-medium">City</label>
+            <label className={labelClass}>City</label>
 
             <select
               name="cityId"
               value={formData.cityId}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              className={inputClass}
             >
               <option value="">Select City</option>
 
@@ -350,13 +364,13 @@ const NewEntryPage = () => {
 
           {/* Pincode */}
           <div>
-            <label className="mb-1 block font-medium">Pincode</label>
+            <label className={labelClass}>Pincode</label>
 
             <select
               name="pincodeId"
               value={formData.pincodeId}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              className={inputClass}
             >
               <option value="">Select Pincode</option>
 
@@ -370,59 +384,63 @@ const NewEntryPage = () => {
 
           {/* Phone 1 */}
           <div>
-            <label className="mb-1 block font-medium">Phone 1</label>
+            <label className={labelClass}>Phone 1</label>
 
             <input
               type="text"
               name="phone1"
               value={formData.phone1}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              pattern={patternValidation}
+              className={inputClass}
             />
           </div>
 
           {/* Phone 2 */}
           <div>
-            <label className="mb-1 block font-medium">Phone 2</label>
+            <label className={labelClass}>Phone 2</label>
 
             <input
               type="text"
               name="phone2"
               value={formData.phone2}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              pattern={patternValidation}
+              className={inputClass}
             />
           </div>
 
           {/* Office Phone 1 */}
           <div>
-            <label className="mb-1 block font-medium">Office Phone 1</label>
+            <label className={labelClass}>Office Phone 1</label>
 
             <input
               type="text"
               name="officePhone1"
               value={formData.officePhone1}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              pattern={patternValidation}
+              className={inputClass}
             />
           </div>
 
           {/* Office Phone 2 */}
           <div>
-            <label className="mb-1 block font-medium">Office Phone 2</label>
+            <label className={labelClass}>Office Phone 2</label>
 
             <input
               type="text"
               name="officePhone2"
               value={formData.officePhone2}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              pattern={patternValidation}
+              className={inputClass}
             />
           </div>
 
           {/* Bhaw MD */}
           <div>
-            <label className="mb-1 block font-medium">Bhaw MD</label>
+            <label className={labelClass}>Bhaw MD</label>
 
             <input
               type="text"
@@ -430,13 +448,13 @@ const NewEntryPage = () => {
               value={formData.bhawMD}
               onChange={handleChange}
               placeholder="1-0-1.2-4.5-3.2-0-0"
-              className="w-full rounded border p-3"
+              className={inputClass}
             />
           </div>
 
           {/* Bhaw KRM */}
           <div>
-            <label className="mb-1 block font-medium">Bhaw KRM</label>
+            <label className={labelClass}>Bhaw KRM</label>
 
             <input
               type="text"
@@ -444,39 +462,39 @@ const NewEntryPage = () => {
               value={formData.bhawKRM}
               onChange={handleChange}
               placeholder="1-0-1.2-4.5-3.2-0-0"
-              className="w-full rounded border p-3"
+              className={inputClass}
             />
           </div>
 
           {/* Credit Limit */}
           <div>
-            <label className="mb-1 block font-medium">Credit Limit</label>
+            <label className={labelClass}>Credit Limit</label>
 
             <input
               type="number"
               name="creditLimit"
               value={formData.creditLimit}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              className={inputClass}
             />
           </div>
 
           {/* Bazar dropdown*/}
           {/* <div>
-            <label className="mb-1 block font-medium">Bazar</label>
+            <label className={labelClass}>Bazar</label>
 
             <select
               name="bazarId"
               value={formData.bazarId}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              className={inputClass}
             >
               <option value="">Select Bazar</option>
             </select>
           </div> */}
           {/* Bazar */}
           <div>
-            <label className="mb-1 block font-medium">Bazar</label>
+            <label className={labelClass}>Bazar</label>
 
             <input
               type="text"
@@ -484,46 +502,56 @@ const NewEntryPage = () => {
               value={formData.bazarId}
               onChange={handleChange}
               placeholder="Enter Bazar"
-              className="w-full rounded border p-3"
-            />
-          </div>
-
-          {/* Reference Number */}
-          <div>
-            <label className="mb-1 block font-medium">Reference Number</label>
-
-            <input
-              type="text"
-              name="referenceNumber"
-              value={formData.referenceNumber}
-              onChange={handleChange}
-              className="w-full rounded border p-3"
+              className={inputClass}
             />
           </div>
 
           {/* Reference Name */}
           <div>
-            <label className="mb-1 block font-medium">Reference Name</label>
+            <label className={labelClass}>Reference Name</label>
 
             <input
               type="text"
               name="referenceName"
               value={formData.referenceName}
               onChange={handleChange}
-              className="w-full rounded border p-3"
+              className={inputClass}
+            />
+          </div>
+
+          {/* Reference Number */}
+          <div>
+            <label className={labelClass}>Reference Number</label>
+
+            <input
+              type="text"
+              name="referenceNumber"
+              value={formData.referenceNumber}
+              onChange={handleChange}
+              className={inputClass}
             />
           </div>
 
           {/* Remark */}
           <div className="md:col-span-2">
-            <label className="mb-1 block font-medium">Remark</label>
+            <label className={labelClass}>Remark</label>
 
             <textarea
               name="remark"
               value={formData.remark}
               onChange={handleChange}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+
+                  // Submit the form
+                  (
+                    e.currentTarget.form as HTMLFormElement | null
+                  )?.requestSubmit();
+                }
+              }}
               rows={4}
-              className="w-full rounded border p-3"
+              className={inputClass}
             />
           </div>
 

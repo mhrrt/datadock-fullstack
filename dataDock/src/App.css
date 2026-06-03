@@ -167,7 +167,7 @@
 
   &::before,
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: -4.5px;
     border: 5px solid transparent;
@@ -181,4 +181,16 @@
     right: 0;
     border-right-color: var(--border);
   }
+}
+
+.ag-row-even {
+  background-color: #ffffff;
+}
+
+.ag-row-odd {
+  background-color: #f8fafc;
+}
+
+.ag-row-hover {
+  background-color: #fff7cc !important;
 }
