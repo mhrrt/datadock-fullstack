@@ -157,7 +157,7 @@ const SearchPage = () => {
       {
         headerName: "Pincode",
         minWidth: 140,
-        valueGetter: (params) => params.data?.pincode.pinCode || "",
+        valueGetter: (params) => params.data?.pincode?.pinCode || "",
       },
 
       {
