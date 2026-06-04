@@ -24,8 +24,12 @@
 // });
 
 import { Router } from "express";
-import { getRecords, 
-    createRecord } from "../controllers/record.controller";
+import {
+  getRecords,
+  createRecord,
+  getRecordById,
+  updateRecord,
+} from "../controllers/record.controller";
 import { authenticate } from "../middleware/auth.middleware";
 
 const router = Router();
@@ -34,5 +38,7 @@ const router = Router();
 // router.get("/", authenticate, getRecords);
 router.get("/", getRecords);
 router.post("/", createRecord);
+router.get("/:id", getRecordById);
+router.put("/:id", updateRecord);
 
 export default router;

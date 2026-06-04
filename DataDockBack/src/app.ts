@@ -5,10 +5,9 @@ import morgan from "morgan";
 
 import recordRoutes from "./routes/record.routes";
 import authRoutes from "./routes/auth";
-import stateRoutes from "./routes/stateRoutes"
+import stateRoutes from "./routes/stateRoutes";
 import cityRoutes from "./routes/cityRoutes";
 import pincodeRoutes from "./routes/pincodeRoutes";
-
 
 const app = express();
 
@@ -30,7 +29,7 @@ app.use(
     origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  })
+  }),
 );
 
 app.use(helmet());
@@ -43,7 +42,6 @@ app.use("/api/records", recordRoutes);
 app.use("/states", stateRoutes);
 app.use("/cities", cityRoutes);
 app.use("/pincodes", pincodeRoutes);
-
 
 // Health Check
 app.get("/", (_, res) => {

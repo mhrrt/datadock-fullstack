@@ -42,20 +42,13 @@ function App() {
 
           {/* Protected Search */}
 
-          <Route
-  path="/search"
-  element={<SearchPage />}
-/>
+          <Route path="/search" element={<SearchPage />} />
 
           {/* Protected New Entry */}
-          <Route
-            path="/new"
-            element={
-              
-                <NewEntryPage />
-              
-            }
-          />
+          <Route path="/new" element={<NewEntryPage />} />
+
+          {/* Route for Edit record */}
+          <Route path="/edit/:id" element={<NewEntryPage />} />
         </Routes>
       </main>
     </div>

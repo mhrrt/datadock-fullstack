@@ -17,6 +17,7 @@ import type { GridApi } from "ag-grid-community";
 import { ZipWriter, BlobWriter, Uint8ArrayReader } from "@zip.js/zip.js";
 
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -95,6 +96,8 @@ const SearchPage = () => {
       setLoading(false);
     }
   }, []);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchRecords();
@@ -511,6 +514,9 @@ const SearchPage = () => {
             rowBuffer={10}
             onGridReady={(params) => {
               gridApiRef.current = params.api;
+            }}
+            onRowDoubleClicked={(event) => {
+              navigate(`/edit/${event.data.id}`);
             }}
           />
         </div>

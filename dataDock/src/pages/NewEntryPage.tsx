@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import api from "../services/api";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom"; // detect edit mode
 
 type FormData = {
   entryDate: string;
@@ -138,9 +139,7 @@ const NewEntryPage = () => {
     e.preventDefault();
 
     try {
-      setLoading(true);
-
-      await api.post("api/records", {
+      const payload = {
         ...formData,
 
         stateId: formData.stateId ? Number(formData.stateId) : null,
@@ -154,40 +153,51 @@ const NewEntryPage = () => {
         bazarId: formData.bazarId || null,
 
         creditLimit: formData.creditLimit ? Number(formData.creditLimit) : null,
-      });
+      };
+
+      setLoading(true);
+
+      if (isEditMode) {
+        await api.put(`api/records/${id}`, payload);
+      } else {
+        await api.post("api/records", payload);
+      }
+
       console.log("FormData:", formData);
 
       //alert("Record created successfully");
       toast.success("Record created successfully");
 
-      setFormData({
-        entryDate: new Date().toISOString().split("T")[0],
+      if (!isEditMode) {
+        setFormData({
+          entryDate: new Date().toISOString().split("T")[0],
 
-        name: "",
-        codeName: "",
+          name: "",
+          codeName: "",
 
-        stateId: "",
-        cityId: "",
-        pincodeId: "",
+          stateId: "",
+          cityId: "",
+          pincodeId: "",
 
-        phone1: "",
-        phone2: "",
+          phone1: "",
+          phone2: "",
 
-        officePhone1: "",
-        officePhone2: "",
+          officePhone1: "",
+          officePhone2: "",
 
-        bhawMD: "",
-        bhawKRM: "",
+          bhawMD: "",
+          bhawKRM: "",
 
-        creditLimit: "",
+          creditLimit: "",
 
-        bazarId: "",
+          bazarId: "",
 
-        referenceNumber: "",
-        referenceName: "",
+          referenceNumber: "",
+          referenceName: "",
 
-        remark: "",
-      });
+          remark: "",
+        });
+      }
     } catch (error) {
       console.error(error);
 
@@ -197,6 +207,9 @@ const NewEntryPage = () => {
       setLoading(false);
     }
   };
+
+  const { id } = useParams();
+  const isEditMode = !!id;
 
   useEffect(() => {
     const fetchStates = async () => {
@@ -266,20 +279,69 @@ const NewEntryPage = () => {
   const inputClass =
     "w-full rounded border p-3 text-medium font-semibold focus:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-blue-500";
 
-  const labelClass = "mb-1 block text-lg font-bold";
+  const labelClass = "mb-1 block text-xl font-bold";
 
   useEffect(() => {
     nameInputRef.current?.focus();
   }, []);
 
+  // for Edit record
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchRecord = async () => {
+      try {
+        const response = await api.get(`api/records/${id}`);
+
+        const record = response.data;
+
+        setFormData({
+          entryDate: record.entryDate?.split("T")[0] ?? "",
+
+          name: record.name ?? "",
+          codeName: record.codeName ?? "",
+
+          stateId: String(record.stateId ?? ""),
+          cityId: String(record.cityId ?? ""),
+          pincodeId: String(record.pincodeId ?? ""),
+
+          phone1: record.phone1 ?? "",
+          phone2: record.phone2 ?? "",
+
+          officePhone1: record.officePhone1 ?? "",
+          officePhone2: record.officePhone2 ?? "",
+
+          bhawMD: record.bhawMD ?? "",
+          bhawKRM: record.bhawKRM ?? "",
+
+          creditLimit: String(record.creditLimit ?? ""),
+
+          bazarId: record.bazarId ?? "",
+
+          referenceNumber: record.referenceNumber ?? "",
+          referenceName: record.referenceName ?? "",
+
+          remark: record.remark ?? "",
+        });
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to load record");
+      }
+    };
+
+    fetchRecord();
+  }, [id]);
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <div className="mx-auto max-w-5xl rounded-xl bg-white p-8 shadow-lg">
-        <h1 className="mb-8 text-3xl font-bold">Customer Entry</h1>
+      <div className="mx-auto max-w-5xl rounded-xl border-2 border-slate-500 bg-white p-8 shadow-lg">
+        <h1 className="mb-8 text-3xl font-bold">
+          {isEditMode ? "Customer Edit" : "Customer Entry"}
+        </h1>
 
         <form
           onSubmit={handleSubmit}
-          className="grid grid-cols-1 gap-5 md:grid-cols-2"
+          className="grid grid-cols-1  gap-5 md:grid-cols-2"
         >
           {/* Entry Date */}
           <div>
@@ -562,7 +624,11 @@ const NewEntryPage = () => {
               disabled={loading}
               className="rounded bg-blue-600 px-6 py-3 text-white hover:bg-blue-700 disabled:opacity-50"
             >
-              {loading ? "Saving..." : "Save Record"}
+              {loading
+                ? "Saving..."
+                : isEditMode
+                  ? "Update Record"
+                  : "Save Record"}
             </button>
           </div>
         </form>
