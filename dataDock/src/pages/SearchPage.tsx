@@ -258,15 +258,16 @@ const SearchPage = () => {
     [],
   );
 
-  const rowSelection = useMemo(
-    () => ({
-      mode: "multiRow" as const,
-      checkboxes: true,
-      headerCheckbox: true,
-      enableClickSelection: true,
-    }),
-    [],
-  );
+  // commented as row selection not required
+  // const rowSelection = useMemo(
+  //   () => ({
+  //     mode: "multiRow" as const,
+  //     checkboxes: true,
+  //     headerCheckbox: true,
+  //     enableClickSelection: true,
+  //   }),
+  //   [],
+  // );
 
   // for data export
   const gridApiRef = useRef<GridApi | null>(null);
