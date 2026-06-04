@@ -2,7 +2,7 @@ import { Routes, Route, Link, Navigate } from "react-router-dom";
 
 import NewEntryPage from "./pages/NewEntryPage";
 import SearchPage from "./pages/SearchPage";
-// import ProtectedRoute from "./routes/ProtectedRoute"; // commented for Vercel deployment as its causing build error
+import ProtectedRoute from "./routes/ProtectedRoute"; // commented for Vercel deployment as its causing build error
 import LoginPage from "./pages/LoginPage";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
 
           <nav className="flex gap-4">
             <Link
-              to="/"
+              to="/search"
               className="rounded bg-blue-600 px-4 py-2 hover:bg-blue-500"
             >
               Search
@@ -35,20 +35,50 @@ function App() {
       <main className="p-4">
         <Routes>
           {/* Redirect root to login */}
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route
+            path="/"
+            element={
+              localStorage.getItem("token") ? (
+                <Navigate to="/search" replace />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
 
           {/* Login */}
           <Route path="/login" element={<LoginPage />} />
 
           {/* Protected Search */}
 
-          <Route path="/search" element={<SearchPage />} />
+          <Route
+            path="/search"
+            element={
+              <ProtectedRoute>
+                <SearchPage />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Protected New Entry */}
-          <Route path="/new" element={<NewEntryPage />} />
+          <Route
+            path="/new"
+            element={
+              <ProtectedRoute>
+                <NewEntryPage key="new" />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Route for Edit record */}
-          <Route path="/edit/:id" element={<NewEntryPage />} />
+          <Route
+            path="/edit/:id"
+            element={
+              <ProtectedRoute>
+                <NewEntryPage key="edit" />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
     </div>

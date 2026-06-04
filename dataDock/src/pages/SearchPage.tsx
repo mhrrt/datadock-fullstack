@@ -508,7 +508,7 @@ const SearchPage = () => {
             paginationPageSizeSelector={[50, 100, 150]}
             quickFilterText={searchText}
             animateRows={true}
-            rowSelection={rowSelection}
+            // rowSelection={rowSelection}
             getRowId={(params) => String(params.data.id)}
             domLayout="normal"
             rowBuffer={10}

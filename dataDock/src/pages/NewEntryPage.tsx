@@ -54,12 +54,43 @@ type PincodeType = {
   pinCode: number;
 };
 
+//empty form data tobe loaded when "new" is clicked
+// const emptyFormData: FormData = {
+//   entryDate: new Date().toISOString().split("T")[0],
+
+//   name: "",
+//   codeName: "",
+
+//   stateId: "",
+//   cityId: "",
+//   pincodeId: "",
+
+//   phone1: "",
+//   phone2: "",
+
+//   officePhone1: "",
+//   officePhone2: "",
+
+//   bhawMD: "",
+//   bhawKRM: "",
+
+//   creditLimit: "",
+
+//   bazarId: "",
+
+//   referenceNumber: "",
+//   referenceName: "",
+
+//   remark: "",
+// };
+
 const NewEntryPage = () => {
   const [loading, setLoading] = useState(false);
   const [states, setStates] = useState<StateType[]>([]);
   const [cities, setCities] = useState<CityType[]>([]);
   const [pincodes, setPincodes] = useState<PincodeType[]>([]);
 
+  // commented as created emptyfordata object
   const [formData, setFormData] = useState<FormData>({
     entryDate: new Date().toISOString().split("T")[0],
 
@@ -89,6 +120,7 @@ const NewEntryPage = () => {
     remark: "",
   });
 
+  // const [formData, setFormData] = useState<FormData>(emptyFormData);
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -273,7 +305,7 @@ const NewEntryPage = () => {
   }, [formData.cityId]);
 
   // pattern validation
-  const patternValidation = "[0-9+\-\/]*";
+  const patternValidation = "[0-9+\\-/ ]*";
   const nameInputRef = useRef<HTMLInputElement>(null);
   // highlight active field
   const inputClass =
@@ -331,6 +363,16 @@ const NewEntryPage = () => {
 
     fetchRecord();
   }, [id]);
+
+  // // reset screen when id is cleared
+  // useEffect(() => {
+  //   if (!id) {
+  //     setFormData(emptyFormData);
+
+  //     setCities([]);
+  //     setPincodes([]);
+  //   }
+  // }, [id]);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
