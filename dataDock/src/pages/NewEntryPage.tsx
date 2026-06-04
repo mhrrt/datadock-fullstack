@@ -308,10 +308,11 @@ const NewEntryPage = () => {
   const patternValidation = "[0-9+\\-/ ]*";
   const nameInputRef = useRef<HTMLInputElement>(null);
   // highlight active field
+  // const inputClass =
+  //   "w-full rounded border p-3 text-medium font-semibold focus:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-blue-500";
   const inputClass =
-    "w-full rounded border p-3 text-medium font-semibold focus:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-blue-500";
-
-  const labelClass = "mb-1 block text-xl font-bold";
+    "w-full rounded border p-3 text-medium font-semibold text-#1e3a8a-700 focus:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500";
+  const labelClass = "mb-1 block text-xl text-#4f3dd9-800 font-bold";
 
   useEffect(() => {
     nameInputRef.current?.focus();
@@ -377,7 +378,7 @@ const NewEntryPage = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="mx-auto max-w-5xl rounded-xl border-2 border-slate-500 bg-white p-8 shadow-lg">
-        <h1 className="mb-8 text-3xl font-bold">
+        <h1 className="mb-8 text-3xl font-bold text-[#1E40AF]">
           {isEditMode ? "Customer Edit" : "Customer Entry"}
         </h1>
 

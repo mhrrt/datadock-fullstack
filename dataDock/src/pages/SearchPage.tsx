@@ -427,7 +427,7 @@ const SearchPage = () => {
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="rounded-xl bg-white p-6 shadow-lg">
         <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <h1 className="text-3xl font-bold">Search Customer</h1>
+          <h1 className="text-3xl text-blue-600 font-bold">Search Customer</h1>
 
           <input
             type="text"

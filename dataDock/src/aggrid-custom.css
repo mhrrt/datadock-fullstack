@@ -1,11 +1,31 @@
+.ag-theme-quartz {
+  --ag-header-background-color: #eff6ff;
+  --ag-header-foreground-color: #1e3a8a;
+  --ag-foreground-color: #142845e0;
+}
+
+.ag-row-even {
+  background-color: #f8fafc;
+}
+
 /* Alternate row colors */
-.ag-theme-quartz .ag-row-odd {
+/* .ag-theme-quartz .ag-row-odd {
   background-color: #d3d3d3;
+} */
+.ag-theme-quartz .ag-row-odd {
+  background-color: #e0dada !important;
 }
 
 /* Hover effect */
-.ag-theme-quartz .ag-row-hover {
+/* .ag-theme-quartz .ag-row-hover {
   background-color: #fff7cc !important;
+} */
+.ag-row:hover {
+  background-color: #e0f2fe !important;
+}
+
+.ag-row-selected {
+  background-color: #dbeafe !important;
 }
 
 /* Bigger, bolder cell values */
@@ -19,9 +39,6 @@
   font-size: 22px;
   font-weight: 700;
   align-content: center;
-}
-.ag-theme-quartz .ag-row-odd {
-  background-color: #e0dada !important;
 }
 
 .ag-theme-quartz .ag-cell {
@@ -42,4 +59,6 @@
 .ag-theme-quartz .ag-header-cell-text {
   text-align: center;
   width: 100%;
+  color: #4f3dd9;
+  font-weight: 600;
 }
