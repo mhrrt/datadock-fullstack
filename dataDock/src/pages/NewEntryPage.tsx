@@ -191,14 +191,15 @@ const NewEntryPage = () => {
 
       if (isEditMode) {
         await api.put(`api/records/${id}`, payload);
+        //alert("Record created successfully");
+        toast.success("Record updated successfully");
       } else {
         await api.post("api/records", payload);
+        //alert("Record created successfully");
+        toast.success("Record created successfully");
       }
 
       console.log("FormData:", formData);
-
-      //alert("Record created successfully");
-      toast.success("Record created successfully");
 
       if (!isEditMode) {
         setFormData({
