@@ -103,6 +103,11 @@ const SearchPage = () => {
     fetchRecords();
   }, [fetchRecords]);
 
+  useEffect(() => {
+    searchInputRef.current?.focus();
+    searchInputRef.current?.select();
+  }, []);
+
   const columnDefs = useMemo<ColDef[]>(
     () => [
       {
@@ -277,6 +282,7 @@ const SearchPage = () => {
     setHasFilters(gridRef.current?.api?.isAnyFilterPresent() ?? false);
   };
   const canExportVisible = !!searchText.trim() || hasFilters;
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // const exportToExcel = () => {
   //   const excelData = rowData.map((row) => ({
@@ -437,6 +443,7 @@ const SearchPage = () => {
           <h1 className="text-3xl text-blue-600 font-bold">Search Customer</h1>
 
           <input
+            ref={searchInputRef}
             type="text"
             placeholder="Search records..."
             value={searchText}
