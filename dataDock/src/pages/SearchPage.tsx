@@ -18,6 +18,7 @@ import { ZipWriter, BlobWriter, Uint8ArrayReader } from "@zip.js/zip.js";
 
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { exportRecordsToExcel } from "../utils/excelExport";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -59,12 +60,13 @@ type RecordRow = {
   };
 
   pincode?: {
-    code: string;
+    pinCode: string;
   };
 
-  bazar?: {
-    name: string;
-  };
+  // bazar?: {
+  //   name: string;
+  // };
+  bazarId?: string;
 
   createdBy?: {
     userName: string;
@@ -284,6 +286,19 @@ const SearchPage = () => {
   const canExportVisible = !!searchText.trim() || hasFilters;
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  const getTimestamp = () => {
+    const now = new Date();
+
+    const dd = String(now.getDate()).padStart(2, "0");
+    const mm = String(now.getMonth() + 1).padStart(2, "0");
+    const yyyy = now.getFullYear();
+
+    const hh = String(now.getHours()).padStart(2, "0");
+    const min = String(now.getMinutes()).padStart(2, "0");
+    const ss = String(now.getSeconds()).padStart(2, "0");
+
+    return `${dd}-${mm}-${yyyy}-${hh}-${min}-${ss}`;
+  };
   // const exportToExcel = () => {
   //   const excelData = rowData.map((row) => ({
   //     ID: row.id,
@@ -320,45 +335,52 @@ const SearchPage = () => {
   // };
 
   // export all or listed rows only based on parameters
-  const exportRowsToExcel = async (rows: RecordRow[], fileName: string) => {
-    const excelData = rows.map((row) => ({
-      ID: row.id,
-      Date: row.entryDate,
-      Name: row.name,
-      "Code Name": row.codeName,
-      State: row.state?.name || "",
-      City: row.city?.name || "",
-      Pincode: row.pincode?.code || "",
-      Bazar: row.bazar?.name || "",
-      "Phone 1": row.phone1,
-      "Phone 2": row.phone2,
-      "Office Phone 1": row.officePhone1,
-      "Office Phone 2": row.officePhone2,
-      "Bhaw MD": row.bhawMD,
-      "Bhaw KRM": row.bhawKRM,
-      "Credit Limit": row.creditLimit,
-      "Reference Number": row.referenceNumber,
-      "Reference Name": row.referenceName,
-      Remark: row.remark,
-      "Created By": row.createdBy?.userName || "",
-    }));
+  // const exportRowsToExcel = async (rows: RecordRow[], fileName: string) => {
+  //   const excelData = rows.map((row) => ({
+  //     ID: row.id,
+  //     Date: row.entryDate,
+  //     Name: row.name,
+  //     "Code Name": row.codeName,
+  //     State: row.state?.name || "",
+  //     City: row.city?.name || "",
+  //     Pincode: row.pincode?.pinCode || "",
+  //     Bazar: row.bazarId || "",
+  //     "Phone 1": row.phone1,
+  //     "Phone 2": row.phone2,
+  //     "Office Phone 1": row.officePhone1,
+  //     "Office Phone 2": row.officePhone2,
+  //     "Bhaw MD": row.bhawMD,
+  //     "Bhaw KRM": row.bhawKRM,
+  //     "Credit Limit": row.creditLimit,
+  //     "Reference Number": row.referenceNumber,
+  //     "Reference Name": row.referenceName,
+  //     Remark: row.remark,
+  //     "Created By": row.createdBy?.userName || "",
+  //   }));
 
-    const worksheet = XLSX.utils.json_to_sheet(excelData);
+  //   const worksheet = XLSX.utils.json_to_sheet(excelData);
 
-    const workbook = XLSX.utils.book_new();
+  //   const workbook = XLSX.utils.book_new();
 
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Records");
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, "Records");
 
-    // commenting out as need to check if user is looking for normal export or protected export
-    // XLSX.writeFile(workbook, fileName);
-    await exportWorkbook(workbook, fileName);
-  };
+  //   // commenting out as need to check if user is looking for normal export or protected export
+  //   // XLSX.writeFile(workbook, fileName);
+  //   await exportWorkbook(workbook, fileName);
+  // };
 
   // will export all records in customer table
   const exportAllRecords = async () => {
-    exportRowsToExcel(
+    // exportRowsToExcel(
+    //   rowData,
+    //   `DataDock_All_Records_${new Date().toISOString().split("T")[0]}.xlsx`,
+    // );
+
+    const today = getTimestamp();
+    await exportRecordsToExcel(
       rowData,
-      `DataDock_All_Records_${new Date().toISOString().split("T")[0]}.xlsx`,
+      `DataDock_All_Records_${today}.xlsx`,
+      passwordProtect,
     );
   };
 
@@ -370,71 +392,78 @@ const SearchPage = () => {
       visibleRows.push(node.data);
     });
 
-    exportRowsToExcel(
+    // exportRowsToExcel(
+    //   visibleRows,
+    //   `DataDock_Filtered_Records_${
+    //     new Date().toISOString().split("T")[0]
+    //   }.xlsx`,
+    // );
+
+    const today = getTimestamp();
+    await exportRecordsToExcel(
       visibleRows,
-      `DataDock_Filtered_Records_${
-        new Date().toISOString().split("T")[0]
-      }.xlsx`,
+      `DataDock_Filtered_Records_${today}.xlsx`,
+      passwordProtect,
     );
   };
   // password protection
   const [passwordProtect, setPasswordProtect] = useState(false);
 
-  const exportWorkbook = async (workbook: XLSX.WorkBook, fileName: string) => {
-    if (!passwordProtect) {
-      XLSX.writeFile(workbook, fileName);
-      return;
-    }
+  // const exportWorkbook = async (workbook: XLSX.WorkBook, fileName: string) => {
+  //   if (!passwordProtect) {
+  //     XLSX.writeFile(workbook, fileName);
+  //     return;
+  //   }
 
-    const password = prompt("Enter password for the ZIP file");
+  //   const password = prompt("Enter password for the ZIP file");
 
-    if (!password) {
-      return;
-    }
+  //   if (!password) {
+  //     return;
+  //   }
 
-    await downloadProtectedZip(
-      workbook,
-      fileName.replace(".xlsx", ".zip"),
-      password,
-    );
-  };
+  //   await downloadProtectedZip(
+  //     workbook,
+  //     fileName.replace(".xlsx", ".zip"),
+  //     password,
+  //   );
+  // };
 
-  const downloadProtectedZip = async (
-    workbook: XLSX.WorkBook,
-    zipFileName: string,
-    password: string,
-  ) => {
-    const excelBuffer = XLSX.write(workbook, {
-      bookType: "xlsx",
-      type: "array",
-    });
+  // const downloadProtectedZip = async (
+  //   workbook: XLSX.WorkBook,
+  //   zipFileName: string,
+  //   password: string,
+  // ) => {
+  //   const excelBuffer = XLSX.write(workbook, {
+  //     bookType: "xlsx",
+  //     type: "array",
+  //   });
 
-    const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
+  //   const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
 
-    await zipWriter.add(
-      "DataDock.xlsx",
-      new Uint8ArrayReader(new Uint8Array(excelBuffer)),
-      {
-        password,
-        encryptionStrength: 3, // AES-256
-      },
-    );
+  //   await zipWriter.add(
+  //     "DataDock.xlsx",
+  //     new Uint8ArrayReader(new Uint8Array(excelBuffer)),
+  //     {
+  //       password,
+  //       encryptionStrength: 3, // AES-256
+  //     },
+  //   );
 
-    const zipBlob = await zipWriter.close();
+  //   const zipBlob = await zipWriter.close();
 
-    const url = URL.createObjectURL(zipBlob);
+  //   const url = URL.createObjectURL(zipBlob);
 
-    const link = document.createElement("a");
+  //   const link = document.createElement("a");
 
-    link.href = url;
-    link.download = zipFileName;
+  //   link.href = url;
+  //   link.download = zipFileName;
 
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
 
-    URL.revokeObjectURL(url);
-  };
+  //   URL.revokeObjectURL(url);
+  // };
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
