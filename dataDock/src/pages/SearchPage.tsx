@@ -271,6 +271,13 @@ const SearchPage = () => {
 
   // for data export
   const gridApiRef = useRef<GridApi | null>(null);
+  const [hasFilters, setHasFilters] = useState(false);
+  const gridRef = useRef<AgGridReact>(null);
+  const onFilterChanged = () => {
+    setHasFilters(gridRef.current?.api?.isAnyFilterPresent() ?? false);
+  };
+  const canExportVisible = !!searchText.trim() || hasFilters;
+
   // const exportToExcel = () => {
   //   const excelData = rowData.map((row) => ({
   //     ID: row.id,
@@ -454,9 +461,9 @@ const SearchPage = () => {
 
             <button
               onClick={exportVisibleRecords}
-              disabled={!searchText.trim()}
+              disabled={!canExportVisible}
               className={`rounded-lg px-4 py-3 text-white ${
-                searchText.trim()
+                canExportVisible
                   ? "bg-blue-600 hover:bg-blue-700"
                   : "bg-gray-400 cursor-not-allowed"
               }`}
@@ -500,6 +507,7 @@ const SearchPage = () => {
             }}
           /> */}
           <AgGridReact
+            ref={gridRef}
             rowData={rowData}
             columnDefs={columnDefs}
             defaultColDef={defaultColDef}
@@ -519,6 +527,7 @@ const SearchPage = () => {
             onRowDoubleClicked={(event) => {
               navigate(`/edit/${event.data.id}`);
             }}
+            onFilterChanged={onFilterChanged}
           />
         </div>
       </div>

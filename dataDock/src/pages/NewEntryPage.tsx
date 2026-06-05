@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import api from "../services/api";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom"; // detect edit mode
+import { useNavigate } from "react-router-dom";
 
 type FormData = {
   entryDate: string;
@@ -193,6 +194,7 @@ const NewEntryPage = () => {
         await api.put(`api/records/${id}`, payload);
         //alert("Record created successfully");
         toast.success("Record updated successfully");
+        navigate("/search");
       } else {
         await api.post("api/records", payload);
         //alert("Record created successfully");
@@ -230,6 +232,8 @@ const NewEntryPage = () => {
 
         remark: "",
       });
+      // set focus on name
+      nameInputRef.current?.focus();
       // }
     } catch (error) {
       console.error(error);
@@ -243,6 +247,7 @@ const NewEntryPage = () => {
 
   const { id } = useParams();
   const isEditMode = !!id;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStates = async () => {
@@ -306,7 +311,7 @@ const NewEntryPage = () => {
   }, [formData.cityId]);
 
   // pattern validation
-  const patternValidation = "[0-9+\\-/ ]*";
+  // const patternValidation = "[0-9+\\-/ ]*";
   const nameInputRef = useRef<HTMLInputElement>(null);
   // highlight active field
   // const inputClass =
