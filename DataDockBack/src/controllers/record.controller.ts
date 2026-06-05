@@ -97,6 +97,9 @@ function serializeBigInt(data: any) {
 // ==========================================
 
 export async function createRecord(req: Request, res: Response) {
+  console.log("===== CREATE =====");
+  console.log("TIME:", new Date().toISOString());
+  console.log("BODY:", req.body);
   try {
     const { stateId, cityId, ...customerData } = req.body;
 
@@ -134,6 +137,7 @@ export async function createRecord(req: Request, res: Response) {
 // Update Record
 export async function updateRecord(req: Request, res: Response) {
   //logs need to be removed
+  console.log("========Update=====");
   console.log("METHOD:", req.method);
   console.log("PARAMS:", req.params);
   console.log("BODY:", req.body);
