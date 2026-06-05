@@ -12,9 +12,9 @@ import "ag-grid-community/styles/ag-theme-quartz.css";
 
 import api from "../services/api";
 
-import * as XLSX from "xlsx";
+// import * as XLSX from "xlsx";
 import type { GridApi } from "ag-grid-community";
-import { ZipWriter, BlobWriter, Uint8ArrayReader } from "@zip.js/zip.js";
+// import { ZipWriter, BlobWriter, Uint8ArrayReader } from "@zip.js/zip.js";
 
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
