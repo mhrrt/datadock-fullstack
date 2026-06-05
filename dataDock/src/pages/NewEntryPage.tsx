@@ -200,37 +200,37 @@ const NewEntryPage = () => {
       }
 
       console.log("FormData:", formData);
+      // clear field for edit as well
+      // if (!isEditMode) {
+      setFormData({
+        entryDate: new Date().toISOString().split("T")[0],
 
-      if (!isEditMode) {
-        setFormData({
-          entryDate: new Date().toISOString().split("T")[0],
+        name: "",
+        codeName: "",
 
-          name: "",
-          codeName: "",
+        stateId: "",
+        cityId: "",
+        pincodeId: "",
 
-          stateId: "",
-          cityId: "",
-          pincodeId: "",
+        phone1: "",
+        phone2: "",
 
-          phone1: "",
-          phone2: "",
+        officePhone1: "",
+        officePhone2: "",
 
-          officePhone1: "",
-          officePhone2: "",
+        bhawMD: "",
+        bhawKRM: "",
 
-          bhawMD: "",
-          bhawKRM: "",
+        creditLimit: "",
 
-          creditLimit: "",
+        bazarId: "",
 
-          bazarId: "",
+        referenceNumber: "",
+        referenceName: "",
 
-          referenceNumber: "",
-          referenceName: "",
-
-          remark: "",
-        });
-      }
+        remark: "",
+      });
+      // }
     } catch (error) {
       console.error(error);
 
@@ -376,6 +376,18 @@ const NewEntryPage = () => {
   //   }
   // }, [id]);
 
+  const handleFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key !== "Enter") return;
+
+    // // Allow multiline remarks
+    // if (e.target instanceof HTMLTextAreaElement) {
+    //   return;
+    // }
+
+    e.preventDefault();
+
+    (e.currentTarget as HTMLFormElement).requestSubmit();
+  };
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="mx-auto max-w-5xl rounded-xl border-2 border-slate-500 bg-white p-8 shadow-lg">
@@ -385,6 +397,7 @@ const NewEntryPage = () => {
 
         <form
           onSubmit={handleSubmit}
+          onKeyDown={handleFormKeyDown}
           className="grid grid-cols-1  gap-5 md:grid-cols-2"
         >
           {/* Entry Date */}
@@ -497,7 +510,7 @@ const NewEntryPage = () => {
               name="phone1"
               value={formData.phone1}
               onChange={handleChange}
-              pattern={patternValidation}
+              //pattern={patternValidation}
               className={inputClass}
             />
           </div>
@@ -511,7 +524,7 @@ const NewEntryPage = () => {
               name="phone2"
               value={formData.phone2}
               onChange={handleChange}
-              pattern={patternValidation}
+              //pattern={patternValidation}
               className={inputClass}
             />
           </div>
@@ -525,7 +538,7 @@ const NewEntryPage = () => {
               name="officePhone1"
               value={formData.officePhone1}
               onChange={handleChange}
-              pattern={patternValidation}
+              //pattern={patternValidation}
               className={inputClass}
             />
           </div>
@@ -539,7 +552,7 @@ const NewEntryPage = () => {
               name="officePhone2"
               value={formData.officePhone2}
               onChange={handleChange}
-              pattern={patternValidation}
+              //pattern={patternValidation}
               className={inputClass}
             />
           </div>
@@ -646,16 +659,16 @@ const NewEntryPage = () => {
               name="remark"
               value={formData.remark}
               onChange={handleChange}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
+              // onKeyDown={(e) => {
+              //   if (e.key === "Enter") {
+              //     e.preventDefault();
 
-                  // Submit the form
-                  (
-                    e.currentTarget.form as HTMLFormElement | null
-                  )?.requestSubmit();
-                }
-              }}
+              //     // Submit the form
+              //     (
+              //       e.currentTarget.form as HTMLFormElement | null
+              //     )?.requestSubmit();
+              //   }
+              // }} //moved to form level
               rows={4}
               className={inputClass}
             />
