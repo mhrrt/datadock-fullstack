@@ -4,6 +4,10 @@
   --ag-foreground-color: #142845e0;
 }
 
+.ag-theme-quartz .ag-cell {
+  border-bottom: 2px solid #130105ce;
+}
+
 .ag-row-even {
   background-color: #f8fafc;
 }

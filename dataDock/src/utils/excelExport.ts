@@ -2,15 +2,43 @@ import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { ZipWriter, BlobWriter, Uint8ArrayReader } from "@zip.js/zip.js";
 
+export const getTimestamp = () => {
+  const now = new Date();
+
+  const dd = String(now.getDate()).padStart(2, "0");
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const yyyy = now.getFullYear();
+
+  const hh = String(now.getHours()).padStart(2, "0");
+  const min = String(now.getMinutes()).padStart(2, "0");
+  const ss = String(now.getSeconds()).padStart(2, "0");
+
+  return `${dd}-${mm}-${yyyy}-${hh}-${min}-${ss}`;
+};
+
 export async function exportRecordsToExcel(
   rows: any[],
   fileName: string,
   passwordProtect = false,
 ) {
+  const EXPORT_THEME = {
+    titleBg: "1976D2", // same as AG Grid header
+    titleText: "FFFFFF",
+
+    headerBg: "1976D2",
+    headerText: "FFFFFF",
+
+    rowText: "212121",
+
+    oddRowBg: "FFFFFF",
+    evenRowBg: "F5F5F5",
+  };
+
   const workbook = new ExcelJS.Workbook();
 
   const worksheet = workbook.addWorksheet("Records");
 
+  // suggested excel template with frozen header, Adding title row
   worksheet.columns = [
     { header: "ID", key: "id", width: 10 },
     { header: "Date", key: "entryDate", width: 15 },
@@ -31,6 +59,76 @@ export async function exportRecordsToExcel(
     { header: "Reference Name", key: "referenceName", width: 25 },
     { header: "Remark", key: "remark", width: 40 },
     { header: "Created By", key: "createdBy", width: 20 },
+  ];
+
+  //move to third row now
+  worksheet.spliceRows(1, 0, [], []);
+
+  worksheet.mergeCells("A1:S1");
+
+  const titleCell = worksheet.getCell("A1");
+  titleCell.value = "DATA DOCK CUSTOMER EXPORT";
+
+  titleCell.font = {
+    bold: true,
+    size: 16,
+    color: { argb: EXPORT_THEME.titleText },
+  };
+
+  titleCell.alignment = {
+    horizontal: "center",
+    vertical: "middle",
+  };
+
+  titleCell.fill = {
+    type: "pattern",
+    pattern: "solid",
+    fgColor: { argb: EXPORT_THEME.titleBg },
+  };
+  worksheet.getRow(1).height = 28;
+
+  // add timestamp
+  worksheet.mergeCells("A2:S2");
+
+  const dateCell = worksheet.getCell("A2");
+  dateCell.value = `Generated On: ${getTimestamp()}`;
+
+  dateCell.font = {
+    italic: true,
+  };
+
+  dateCell.alignment = {
+    horizontal: "center",
+  };
+
+  worksheet.getRow(2).height = 20;
+
+  // Header Styling, moving to thired row
+  const headerRow = worksheet.getRow(3);
+
+  headerRow.font = {
+    bold: true,
+    color: { argb: EXPORT_THEME.headerText },
+  };
+
+  headerRow.fill = {
+    type: "pattern",
+    pattern: "solid",
+    fgColor: { argb: EXPORT_THEME.headerBg },
+  };
+
+  headerRow.alignment = {
+    horizontal: "center",
+    vertical: "middle",
+  };
+  headerRow.height = 22;
+
+  //freeze header row
+  worksheet.views = [
+    {
+      state: "frozen",
+      ySplit: 3,
+    },
   ];
 
   rows.forEach((row) => {
@@ -59,33 +157,28 @@ export async function exportRecordsToExcel(
     });
   });
 
-  // Header Styling
-  const headerRow = worksheet.getRow(1);
-
-  headerRow.font = {
-    bold: true,
-    color: { argb: "FFFFFF" },
-  };
-
-  headerRow.fill = {
-    type: "pattern",
-    pattern: "solid",
-    fgColor: { argb: "1E40AF" },
-  };
-
-  headerRow.alignment = {
-    horizontal: "center",
-    vertical: "middle",
+  //adding excel filters by default in template
+  worksheet.autoFilter = {
+    from: "A3",
+    to: "S3",
   };
 
   // Alternate row colors
   worksheet.eachRow((row, rowNumber) => {
-    if (rowNumber > 1 && rowNumber % 2 === 0) {
+    if (rowNumber > 3 && rowNumber % 2 === 0) {
       row.eachCell((cell) => {
         cell.fill = {
           type: "pattern",
           pattern: "solid",
-          fgColor: { argb: "F8FAFC" },
+          fgColor: { argb: EXPORT_THEME.evenRowBg },
+        };
+      });
+    } else if (rowNumber > 3 && rowNumber % 2 != 0) {
+      row.eachCell((cell) => {
+        cell.fill = {
+          type: "pattern",
+          pattern: "solid",
+          fgColor: { argb: EXPORT_THEME.oddRowBg },
         };
       });
     }
@@ -95,11 +188,49 @@ export async function exportRecordsToExcel(
   worksheet.eachRow((row) => {
     row.eachCell((cell) => {
       cell.border = {
-        top: { style: "thin" },
-        bottom: { style: "thin" },
-        left: { style: "thin" },
-        right: { style: "thin" },
+        top: { style: "thin", color: { argb: "#130105ce" } },
+        bottom: { style: "thin", color: { argb: "#130105ce" } },
+        left: { style: "thin", color: { argb: "#130105ce" } },
+        right: { style: "thin", color: { argb: "#130105ce" } },
       };
+    });
+  });
+
+  //making values as bold
+  worksheet.eachRow((row, rowNumber) => {
+    // Skip title, timestamp and header rows
+    if (rowNumber > 3) {
+      row.font = {
+        bold: true,
+      };
+    }
+  });
+  //custome column aligmnet to match with header
+  worksheet.eachRow((row, rowNumber) => {
+    if (rowNumber <= 3) return;
+
+    row.eachCell((cell, colNumber) => {
+      // ID
+      if (colNumber === 1) {
+        cell.alignment = {
+          horizontal: "center",
+        };
+      }
+
+      // Credit Limit
+      if (colNumber === 15) {
+        cell.alignment = {
+          horizontal: "right",
+        };
+        cell.numFmt = "#,##0.00";
+      }
+
+      // Phones
+      if ([9, 10, 11, 12].includes(colNumber)) {
+        cell.alignment = {
+          horizontal: "center",
+        };
+      }
     });
   });
 

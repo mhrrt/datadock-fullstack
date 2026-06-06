@@ -18,7 +18,7 @@ import type { GridApi } from "ag-grid-community";
 
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { exportRecordsToExcel } from "../utils/excelExport";
+import { exportRecordsToExcel, getTimestamp } from "../utils/excelExport";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -286,19 +286,6 @@ const SearchPage = () => {
   const canExportVisible = !!searchText.trim() || hasFilters;
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const getTimestamp = () => {
-    const now = new Date();
-
-    const dd = String(now.getDate()).padStart(2, "0");
-    const mm = String(now.getMonth() + 1).padStart(2, "0");
-    const yyyy = now.getFullYear();
-
-    const hh = String(now.getHours()).padStart(2, "0");
-    const min = String(now.getMinutes()).padStart(2, "0");
-    const ss = String(now.getSeconds()).padStart(2, "0");
-
-    return `${dd}-${mm}-${yyyy}-${hh}-${min}-${ss}`;
-  };
   // const exportToExcel = () => {
   //   const excelData = rowData.map((row) => ({
   //     ID: row.id,
