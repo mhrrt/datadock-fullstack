@@ -158,10 +158,10 @@ export async function exportRecordsToExcel(
   });
 
   //adding excel filters by default in template
-  worksheet.autoFilter = {
-    from: "A3",
-    to: "S3",
-  };
+  //   worksheet.autoFilter = {
+  //     from: "A3",
+  //     to: "S3",
+  //   };
 
   // Alternate row colors
   worksheet.eachRow((row, rowNumber) => {
