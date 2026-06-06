@@ -164,7 +164,7 @@ const NewEntryPage = () => {
     // Normal updates
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: value.toUpperCase(),
     }));
   };
 
@@ -407,7 +407,7 @@ const NewEntryPage = () => {
         >
           {/* Entry Date */}
           <div>
-            <label className={labelClass}>Entry Date</label>
+            <label className={labelClass}>ENTRY DATE</label>
 
             <input
               type="date"
@@ -420,7 +420,7 @@ const NewEntryPage = () => {
 
           {/* Name */}
           <div>
-            <label className={labelClass}>Name</label>
+            <label className={labelClass}>NAME</label>
 
             <input
               ref={nameInputRef}
@@ -435,7 +435,7 @@ const NewEntryPage = () => {
 
           {/* Code Name */}
           <div>
-            <label className={labelClass}>Code Name</label>
+            <label className={labelClass}>CODE NAME</label>
 
             <input
               type="text"
@@ -448,7 +448,7 @@ const NewEntryPage = () => {
 
           {/* State */}
           <div>
-            <label className={labelClass}>State</label>
+            <label className={labelClass}>STATE</label>
 
             <select
               name="stateId"
@@ -460,7 +460,7 @@ const NewEntryPage = () => {
 
               {states.map((state) => (
                 <option key={state.id} value={state.id}>
-                  {state.name}
+                  {state.name.toUpperCase()}
                 </option>
               ))}
             </select>
@@ -468,7 +468,7 @@ const NewEntryPage = () => {
 
           {/* City */}
           <div>
-            <label className={labelClass}>City</label>
+            <label className={labelClass}>CITY</label>
 
             <select
               name="cityId"
@@ -480,7 +480,7 @@ const NewEntryPage = () => {
 
               {cities.map((city) => (
                 <option key={city.id} value={city.id}>
-                  {city.name}
+                  {city.name.toUpperCase()}
                 </option>
               ))}
             </select>
@@ -488,7 +488,7 @@ const NewEntryPage = () => {
 
           {/* Pincode */}
           <div>
-            <label className={labelClass}>Pincode</label>
+            <label className={labelClass}>PINCODE</label>
 
             <select
               name="pincodeId"
@@ -500,7 +500,7 @@ const NewEntryPage = () => {
 
               {pincodes.map((pincode) => (
                 <option key={pincode.id} value={pincode.id}>
-                  {pincode.pinCode} - {pincode.areaName}
+                  {pincode.pinCode} - {pincode.areaName.toUpperCase()}
                 </option>
               ))}
             </select>
@@ -508,7 +508,7 @@ const NewEntryPage = () => {
 
           {/* Phone 1 */}
           <div>
-            <label className={labelClass}>Phone 1</label>
+            <label className={labelClass}>PHONE 1</label>
 
             <input
               type="text"
@@ -522,7 +522,7 @@ const NewEntryPage = () => {
 
           {/* Phone 2 */}
           <div>
-            <label className={labelClass}>Phone 2</label>
+            <label className={labelClass}>PHONE 2</label>
 
             <input
               type="text"
@@ -536,7 +536,7 @@ const NewEntryPage = () => {
 
           {/* Office Phone 1 */}
           <div>
-            <label className={labelClass}>Office Phone 1</label>
+            <label className={labelClass}>OFFICE PHONE 1</label>
 
             <input
               type="text"
@@ -550,7 +550,7 @@ const NewEntryPage = () => {
 
           {/* Office Phone 2 */}
           <div>
-            <label className={labelClass}>Office Phone 2</label>
+            <label className={labelClass}>OFFICE PHONE 2</label>
 
             <input
               type="text"
@@ -564,7 +564,7 @@ const NewEntryPage = () => {
 
           {/* Bhaw MD */}
           <div>
-            <label className={labelClass}>Bhaw MD</label>
+            <label className={labelClass}>BHAV MD</label>
 
             <input
               type="text"
@@ -578,7 +578,7 @@ const NewEntryPage = () => {
 
           {/* Bhaw KRM */}
           <div>
-            <label className={labelClass}>Bhaw KRM</label>
+            <label className={labelClass}>BHAV KRM</label>
 
             <input
               type="text"
@@ -592,7 +592,7 @@ const NewEntryPage = () => {
 
           {/* Credit Limit */}
           <div>
-            <label className={labelClass}>Credit Limit</label>
+            <label className={labelClass}>CREDIT LIMIT</label>
 
             <input
               type="number"
@@ -618,7 +618,7 @@ const NewEntryPage = () => {
           </div> */}
           {/* Bazar */}
           <div>
-            <label className={labelClass}>Bazar</label>
+            <label className={labelClass}>BAZAR</label>
 
             <input
               type="text"
@@ -632,7 +632,7 @@ const NewEntryPage = () => {
 
           {/* Reference Name */}
           <div>
-            <label className={labelClass}>Reference Name</label>
+            <label className={labelClass}>REFERENCE NAME</label>
 
             <input
               type="text"
@@ -645,7 +645,7 @@ const NewEntryPage = () => {
 
           {/* Reference Number */}
           <div>
-            <label className={labelClass}>Reference Number</label>
+            <label className={labelClass}>REFERENCE NUMBER</label>
 
             <input
               type="text"
@@ -658,7 +658,7 @@ const NewEntryPage = () => {
 
           {/* Remark */}
           <div className="md:col-span-2">
-            <label className={labelClass}>Remark</label>
+            <label className={labelClass}>REMARK</label>
 
             <textarea
               name="remark"

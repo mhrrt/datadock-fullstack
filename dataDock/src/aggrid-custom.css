@@ -5,7 +5,8 @@
 }
 
 .ag-theme-quartz .ag-cell {
-  border-bottom: 2px solid #130105ce;
+  border-bottom: 2px solid #010213ce !important;
+  border-right: 2px solid #130105ce !important;
 }
 
 .ag-row-even {
@@ -57,10 +58,14 @@
   text-align: center;
 }
 .ag-theme-quartz .ag-floating-filter {
-  border-top: 2px solid #94a3b8;
+  border-top: 2px solid #130105ce;
 }
 .ag-theme-quartz .ag-header-cell-label {
   justify-content: center;
+}
+
+.ag-theme-quartz .ag-header-cell {
+  border-right: 2px solid #130105ce;
 }
 
 .ag-theme-quartz .ag-header-cell-text {

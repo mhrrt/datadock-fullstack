@@ -139,97 +139,101 @@ const SearchPage = () => {
 
       {
         field: "name",
-        headerName: "Name",
+        headerName: "NAME",
         minWidth: 220,
       },
 
       {
         field: "codeName",
-        headerName: "Code Name",
+        headerName: "CODE NAME",
         minWidth: 100,
       },
 
       {
-        headerName: "State",
+        field: "State",
+        headerName: "STATE",
         minWidth: 160,
         valueGetter: (params) => params.data?.state?.name || "",
       },
 
       {
+        field: "CITY",
         headerName: "City",
         minWidth: 160,
         valueGetter: (params) => params.data?.city?.name || "",
       },
 
       {
-        headerName: "Pincode",
+        field: "Pincode",
+        headerName: "PINCODE",
         minWidth: 140,
         valueGetter: (params) => params.data?.pincode?.pinCode || "",
       },
 
       {
-        headerName: "Bazar",
+        field: "Bazar",
+        headerName: "BAZAR",
         minWidth: 160,
         valueGetter: (params) => params.data?.bazarId || "",
       },
 
       {
         field: "phone1",
-        headerName: "Phone 1",
+        headerName: "PHONE 1",
         minWidth: 160,
       },
 
       {
         field: "phone2",
-        headerName: "Phone 2",
+        headerName: "PHONE 2",
         minWidth: 160,
       },
 
       {
         field: "officePhone1",
-        headerName: "Off Phone 1",
+        headerName: "OFF PHONE 1",
         minWidth: 180,
       },
 
       {
         field: "officePhone2",
-        headerName: "Off Phone 2",
+        headerName: "OFF PHONE 2",
         minWidth: 180,
       },
 
       {
         field: "bhawMD",
-        headerName: "Bhaw MD",
+        headerName: "BHAV MD",
         minWidth: 140,
       },
 
       {
         field: "bhawKRM",
-        headerName: "Bhaw KRM",
+        headerName: "BHAV KRM",
         minWidth: 140,
       },
 
       {
         field: "creditLimit",
-        headerName: "Limit",
+        headerName: "LIMIT",
         minWidth: 140,
       },
 
       {
         field: "referenceNumber",
-        headerName: "Reference No",
+        headerName: "REFERANCE NO",
         minWidth: 180,
       },
 
       {
         field: "referenceName",
-        headerName: "Reference Name",
+        headerName: "REFERENCE NAME",
         minWidth: 220,
       },
 
       {
         field: "remark",
-        headerName: "Remark",
+        headerName: "REMARK",
         flex: 1,
         minWidth: 250,
       },
