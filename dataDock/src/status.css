@@ -1,0 +1,17 @@
+.status-active {
+  color: wheat;
+  font-weight: 600;
+  background-color: green;
+}
+
+.status-restricted {
+  color: wheat;
+  font-weight: 600;
+  background-color: orange;
+}
+
+.status-inactive {
+  color: wheat;
+  font-weight: 600;
+  background-color: red;
+}

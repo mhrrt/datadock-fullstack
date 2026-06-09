@@ -2,6 +2,10 @@ import { Request, Response } from "express";
 import { searchRecordSchema } from "../validators/record.validator";
 import { searchRecords } from "../services/record.service";
 import prisma from "../config/prisma";
+import {
+  calculateStatus,
+  validateRecoveryAmounts,
+} from "../utils/customerStatus";
 
 // ==========================================
 // GET RECORDS
@@ -92,6 +96,7 @@ function serializeBigInt(data: any) {
     ),
   );
 }
+
 // ==========================================
 // CREATE RECORD
 // ==========================================
@@ -102,6 +107,19 @@ export async function createRecord(req: Request, res: Response) {
   console.log("BODY:", req.body);
   try {
     const { stateId, cityId, ...customerData } = req.body;
+
+    // adding option for addeing Pending, outstanding and customer status
+    const pendingAmount = Number(req.body.pendingAmount || 0);
+
+    const receivedAmount = Number(req.body.receivedAmount || 0);
+
+    //check if pending and received amount are valid
+    validateRecoveryAmounts(pendingAmount, receivedAmount);
+
+    const { status, outstandingAmount } = calculateStatus(
+      pendingAmount,
+      receivedAmount,
+    );
 
     const record = await prisma.customer.create({
       data: {
@@ -121,6 +139,11 @@ export async function createRecord(req: Request, res: Response) {
         creditLimit: customerData.creditLimit
           ? Number(customerData.creditLimit)
           : null,
+
+        pendingAmount,
+        receivedAmount,
+        outstandingAmount,
+        status,
       },
     });
     console.log("record in DB:", record);
@@ -147,6 +170,14 @@ export async function updateRecord(req: Request, res: Response) {
 
     const { stateId, cityId, ...customerData } = req.body;
 
+    const pendingAmount = Number(req.body.pendingAmount || 0);
+
+    const receivedAmount = Number(req.body.receivedAmount || 0);
+
+    const { status, outstandingAmount } = calculateStatus(
+      pendingAmount,
+      receivedAmount,
+    );
     const record = await prisma.customer.update({
       where: { id },
 
@@ -168,6 +199,11 @@ export async function updateRecord(req: Request, res: Response) {
         creditLimit: customerData.creditLimit
           ? Number(customerData.creditLimit)
           : null,
+
+        pendingAmount,
+        receivedAmount,
+        outstandingAmount,
+        status,
       },
     });
 

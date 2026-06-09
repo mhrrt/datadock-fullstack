@@ -5,6 +5,7 @@ import api from "../services/api";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom"; // detect edit mode
 import { useNavigate } from "react-router-dom";
+import "../status.css";
 
 type FormData = {
   entryDate: string;
@@ -34,6 +35,13 @@ type FormData = {
   referenceName: string;
 
   remark: string;
+
+  //adding option for pending, recoved and status for customer
+  pendingAmount: number;
+  receivedAmount: number;
+  outstandingAmount: number;
+  recoveryRemark: string;
+  status: "ACTIVE" | "INACTIVE" | "RESTRICTED";
 };
 
 type StateType = {
@@ -119,6 +127,13 @@ const NewEntryPage = () => {
     referenceName: "",
 
     remark: "",
+
+    // adding option for pending amount, recoved amount, status
+    pendingAmount: 0,
+    receivedAmount: 0,
+    outstandingAmount: 0,
+    recoveryRemark: "",
+    status: "ACTIVE",
   });
 
   // const [formData, setFormData] = useState<FormData>(emptyFormData);
@@ -158,6 +173,14 @@ const NewEntryPage = () => {
         pincodeId: "",
       }));
 
+      return;
+    }
+
+    if (["pendingAmount", "receivedAmount"].includes(name)) {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: Number(value),
+      }));
       return;
     }
 
@@ -231,6 +254,14 @@ const NewEntryPage = () => {
         referenceName: "",
 
         remark: "",
+
+        //update pending, recoved and status
+        // adding option for pending amount, recoved amount, status
+        pendingAmount: 0,
+        receivedAmount: 0,
+        outstandingAmount: 0,
+        recoveryRemark: "",
+        status: "ACTIVE",
       });
       // set focus on name
       nameInputRef.current?.focus();
@@ -361,6 +392,15 @@ const NewEntryPage = () => {
           referenceName: record.referenceName ?? "",
 
           remark: record.remark ?? "",
+
+          // adding option for pending amount, recoved amount, status
+          pendingAmount: record.pendingAmount ?? 0,
+          receivedAmount: record.receivedAmount ?? 0,
+          outstandingAmount:
+            Number(record.pendingAmount || 0) -
+            Number(record.receivedAmount || 0),
+          recoveryRemark: "",
+          status: "ACTIVE",
         });
       } catch (error) {
         console.error(error);
@@ -393,6 +433,31 @@ const NewEntryPage = () => {
 
     (e.currentTarget as HTMLFormElement).requestSubmit();
   };
+
+  useEffect(() => {
+    const pending = Number(formData.pendingAmount || 0);
+
+    const received = Number(formData.receivedAmount || 0);
+
+    const outstanding = pending - received;
+
+    let status: FormData["status"] = "ACTIVE";
+
+    if (pending > 0) {
+      if (received === 0) {
+        status = "INACTIVE";
+      } else if (outstanding > 0) {
+        status = "RESTRICTED";
+      }
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      outstandingAmount: outstanding,
+      status,
+    }));
+  }, [formData.pendingAmount, formData.receivedAmount]);
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="mx-auto max-w-5xl rounded-xl border-2 border-slate-500 bg-white p-8 shadow-lg">
@@ -664,17 +729,87 @@ const NewEntryPage = () => {
               name="remark"
               value={formData.remark}
               onChange={handleChange}
-              // onKeyDown={(e) => {
-              //   if (e.key === "Enter") {
-              //     e.preventDefault();
-
-              //     // Submit the form
-              //     (
-              //       e.currentTarget.form as HTMLFormElement | null
-              //     )?.requestSubmit();
-              //   }
-              // }} //moved to form level
               rows={4}
+              className={inputClass}
+            />
+          </div>
+
+          {/* <div className="form-row"> */}
+          <div>
+            {/* <label htmlFor="pendingAmount">Pending Amount</label> */}
+            <label className={labelClass}>PENDING AMOUNT</label>
+            <input
+              id="pendingAmount"
+              name="pendingAmount"
+              type="number"
+              min="0"
+              step="1000"
+              value={formData.pendingAmount}
+              onChange={handleChange}
+              className={inputClass}
+            />
+          </div>
+
+          <div>
+            <label className={labelClass}>RECEIVED AMOUNT</label>
+            <input
+              id="receivedAmount"
+              name="receivedAmount"
+              type="number"
+              min="0"
+              step="1000"
+              value={formData.receivedAmount}
+              onChange={handleChange}
+              className={inputClass}
+            />
+          </div>
+          {/* </div> */}
+
+          {/* <div className="form-row"> */}
+          <div>
+            <label className={labelClass}>OUTSTANDING AMOUNT</label>
+            <input
+              id="outstandingAmount"
+              name="outstandingAmount"
+              type="number"
+              value={formData.outstandingAmount}
+              readOnly
+              disabled
+              className={inputClass}
+            />
+          </div>
+
+          <div>
+            <label className={labelClass}>STATUS</label>
+            <input
+              id="status"
+              name="status"
+              type="text"
+              value={formData.status}
+              readOnly
+              disabled
+              // className={`status-${formData.status.toLowerCase()}`}
+              className={`w-full rounded border p-3 text-medium font-semibold text-blue-700 focus:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                formData.status?.toLowerCase() === "active"
+                  ? "bg-green-400"
+                  : formData.status?.toLowerCase() === "restricted"
+                    ? "bg-orange-300"
+                    : "bg-red-400"
+              }`}
+            />
+          </div>
+          {/* </div> */}
+
+          <div className="md:col-span-2">
+            <label className={labelClass}>RECOVERY REMARK</label>
+
+            <textarea
+              id="recoveryRemark"
+              name="recoveryRemark"
+              rows={4}
+              value={formData.recoveryRemark}
+              onChange={handleChange}
+              placeholder="Enter recovery details, payment commitments, follow-up notes, etc."
               className={inputClass}
             />
           </div>

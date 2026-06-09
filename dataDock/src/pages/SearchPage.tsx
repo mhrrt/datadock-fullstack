@@ -71,6 +71,13 @@ type RecordRow = {
   createdBy?: {
     userName: string;
   };
+
+  //adding option for pending, recoved and status for customer
+  pendingAmount: number;
+  receivedAmount: number;
+  outstandingAmount: number;
+  recoveryRemark: string;
+  status: "ACTIVE" | "INACTIVE" | "RESTRICTED";
 };
 
 const SearchPage = () => {
@@ -117,6 +124,7 @@ const SearchPage = () => {
         headerName: "ID",
         width: 30,
         pinned: "left",
+        hide: true,
       },
 
       {
@@ -222,13 +230,13 @@ const SearchPage = () => {
       {
         field: "referenceNumber",
         headerName: "REFERANCE NO",
-        minWidth: 180,
+        minWidth: 100,
       },
 
       {
         field: "referenceName",
         headerName: "REFERENCE NAME",
-        minWidth: 220,
+        minWidth: 100,
       },
 
       {
@@ -236,6 +244,44 @@ const SearchPage = () => {
         headerName: "REMARK",
         flex: 1,
         minWidth: 250,
+      },
+
+      {
+        field: "pendingAmount",
+        headerName: "PENDING AMT",
+        minWidth: 150,
+      },
+      {
+        field: "receivedAmount",
+        headerName: "RECEIVED AMT",
+        minWidth: 150,
+      },
+      {
+        field: "outstandingAmount",
+        headerName: "OUTSTANDING AMT",
+        minWidth: 150,
+      },
+
+      {
+        headerName: "Status",
+        field: "status",
+        cellClassRules: {
+          "status-active": (params) => params.value?.toUpperCase() === "ACTIVE",
+
+          "status-inactive": (params) =>
+            params.value?.toUpperCase() === "INACTIVE",
+
+          "status-restricted": (params) =>
+            params.value?.toUpperCase() === "RESTRICTED",
+        },
+        width: 150,
+      },
+
+      {
+        field: "recoveryRemark",
+        headerName: "Recovery Notes",
+        flex: 1,
+        minWidth: 200,
       },
 
       {
@@ -399,62 +445,6 @@ const SearchPage = () => {
   };
   // password protection
   const [passwordProtect, setPasswordProtect] = useState(false);
-
-  // const exportWorkbook = async (workbook: XLSX.WorkBook, fileName: string) => {
-  //   if (!passwordProtect) {
-  //     XLSX.writeFile(workbook, fileName);
-  //     return;
-  //   }
-
-  //   const password = prompt("Enter password for the ZIP file");
-
-  //   if (!password) {
-  //     return;
-  //   }
-
-  //   await downloadProtectedZip(
-  //     workbook,
-  //     fileName.replace(".xlsx", ".zip"),
-  //     password,
-  //   );
-  // };
-
-  // const downloadProtectedZip = async (
-  //   workbook: XLSX.WorkBook,
-  //   zipFileName: string,
-  //   password: string,
-  // ) => {
-  //   const excelBuffer = XLSX.write(workbook, {
-  //     bookType: "xlsx",
-  //     type: "array",
-  //   });
-
-  //   const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
-
-  //   await zipWriter.add(
-  //     "DataDock.xlsx",
-  //     new Uint8ArrayReader(new Uint8Array(excelBuffer)),
-  //     {
-  //       password,
-  //       encryptionStrength: 3, // AES-256
-  //     },
-  //   );
-
-  //   const zipBlob = await zipWriter.close();
-
-  //   const url = URL.createObjectURL(zipBlob);
-
-  //   const link = document.createElement("a");
-
-  //   link.href = url;
-  //   link.download = zipFileName;
-
-  //   document.body.appendChild(link);
-  //   link.click();
-  //   document.body.removeChild(link);
-
-  //   URL.revokeObjectURL(url);
-  // };
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">

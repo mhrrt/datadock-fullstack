@@ -1,0 +1,2011 @@
+[
+  {
+    "id": 2,
+    "stateId": 15,
+    "name": "Nagpur",
+    "createdAt": "2026-05-25T15:49:18.105Z",
+    "updatedAt": "2026-05-25T15:49:18.105Z"
+  },
+  {
+    "id": 4,
+    "stateId": 8,
+    "name": "Ahmedabad",
+    "createdAt": "2026-05-25T16:19:40.993Z",
+    "updatedAt": "2026-05-25T16:19:40.993Z"
+  },
+  {
+    "id": 5,
+    "stateId": 8,
+    "name": "Surat",
+    "createdAt": "2026-05-25T16:19:40.993Z",
+    "updatedAt": "2026-05-25T16:19:40.993Z"
+  },
+  {
+    "id": 6,
+    "stateId": 8,
+    "name": "Vadodara",
+    "createdAt": "2026-05-25T16:19:40.993Z",
+    "updatedAt": "2026-05-25T16:19:40.993Z"
+  },
+  {
+    "id": 7,
+    "stateId": 8,
+    "name": "Rajkot",
+    "createdAt": "2026-05-25T16:19:40.993Z",
+    "updatedAt": "2026-05-25T16:19:40.993Z"
+  },
+  {
+    "id": 8,
+    "stateId": 8,
+    "name": "Bhavnagar",
+    "createdAt": "2026-05-25T16:19:40.993Z",
+    "updatedAt": "2026-05-25T16:19:40.993Z"
+  },
+  {
+    "id": 9,
+    "stateId": 12,
+    "name": "Bengaluru",
+    "createdAt": "2026-05-25T16:19:49.005Z",
+    "updatedAt": "2026-05-25T16:19:49.005Z"
+  },
+  {
+    "id": 10,
+    "stateId": 12,
+    "name": "Mysuru",
+    "createdAt": "2026-05-25T16:19:49.005Z",
+    "updatedAt": "2026-05-25T16:19:49.005Z"
+  },
+  {
+    "id": 11,
+    "stateId": 12,
+    "name": "Mangalore",
+    "createdAt": "2026-05-25T16:19:49.005Z",
+    "updatedAt": "2026-05-25T16:19:49.005Z"
+  },
+  {
+    "id": 12,
+    "stateId": 12,
+    "name": "Hubli",
+    "createdAt": "2026-05-25T16:19:49.005Z",
+    "updatedAt": "2026-05-25T16:19:49.005Z"
+  },
+  {
+    "id": 13,
+    "stateId": 12,
+    "name": "Belgaum",
+    "createdAt": "2026-05-25T16:19:49.005Z",
+    "updatedAt": "2026-05-25T16:19:49.005Z"
+  },
+  {
+    "id": 14,
+    "stateId": 2,
+    "name": "Visakhapatnam",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 15,
+    "stateId": 2,
+    "name": "Vijayawada",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 16,
+    "stateId": 2,
+    "name": "Guntur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 17,
+    "stateId": 2,
+    "name": "Tirupati",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 18,
+    "stateId": 2,
+    "name": "Kakinada",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 19,
+    "stateId": 2,
+    "name": "Rajahmundry",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 20,
+    "stateId": 2,
+    "name": "Nellore",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 21,
+    "stateId": 2,
+    "name": "Kadapa",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 22,
+    "stateId": 2,
+    "name": "Kurnool",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 23,
+    "stateId": 2,
+    "name": "Anantapur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 24,
+    "stateId": 2,
+    "name": "Ongole",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 25,
+    "stateId": 2,
+    "name": "Eluru",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 26,
+    "stateId": 2,
+    "name": "Srikakulam",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 27,
+    "stateId": 2,
+    "name": "Vizianagaram",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 28,
+    "stateId": 2,
+    "name": "Machilipatnam",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 29,
+    "stateId": 3,
+    "name": "Itanagar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 30,
+    "stateId": 3,
+    "name": "Naharlagun",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 31,
+    "stateId": 3,
+    "name": "Pasighat",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 32,
+    "stateId": 3,
+    "name": "Tawang",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 33,
+    "stateId": 3,
+    "name": "Bomdila",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 34,
+    "stateId": 3,
+    "name": "Ziro",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 35,
+    "stateId": 3,
+    "name": "Tezu",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 36,
+    "stateId": 3,
+    "name": "Roing",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 37,
+    "stateId": 4,
+    "name": "Guwahati",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 38,
+    "stateId": 4,
+    "name": "Dibrugarh",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 39,
+    "stateId": 4,
+    "name": "Jorhat",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 40,
+    "stateId": 4,
+    "name": "Silchar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 41,
+    "stateId": 4,
+    "name": "Tezpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 42,
+    "stateId": 4,
+    "name": "Nagaon",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 43,
+    "stateId": 4,
+    "name": "Tinsukia",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 44,
+    "stateId": 4,
+    "name": "Bongaigaon",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 45,
+    "stateId": 4,
+    "name": "Karimganj",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 46,
+    "stateId": 4,
+    "name": "Sivasagar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 47,
+    "stateId": 5,
+    "name": "Patna",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 48,
+    "stateId": 5,
+    "name": "Gaya",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 49,
+    "stateId": 5,
+    "name": "Muzaffarpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 50,
+    "stateId": 5,
+    "name": "Bhagalpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 51,
+    "stateId": 5,
+    "name": "Darbhanga",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 52,
+    "stateId": 5,
+    "name": "Purnia",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 53,
+    "stateId": 5,
+    "name": "Ara",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 54,
+    "stateId": 5,
+    "name": "Begusarai",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 55,
+    "stateId": 5,
+    "name": "Katihar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 56,
+    "stateId": 5,
+    "name": "Munger",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 57,
+    "stateId": 5,
+    "name": "Samastipur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 58,
+    "stateId": 6,
+    "name": "Raipur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 59,
+    "stateId": 6,
+    "name": "Bhilai",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 60,
+    "stateId": 6,
+    "name": "Bilaspur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 61,
+    "stateId": 6,
+    "name": "Korba",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 62,
+    "stateId": 6,
+    "name": "Raigarh",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 63,
+    "stateId": 6,
+    "name": "Jagdalpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 64,
+    "stateId": 6,
+    "name": "Ambikapur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 65,
+    "stateId": 6,
+    "name": "Dhamtari",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 66,
+    "stateId": 6,
+    "name": "Rajnandgaon",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 67,
+    "stateId": 7,
+    "name": "Panaji",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 68,
+    "stateId": 7,
+    "name": "Margao",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 69,
+    "stateId": 7,
+    "name": "Mapusa",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 70,
+    "stateId": 7,
+    "name": "Ponda",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 71,
+    "stateId": 7,
+    "name": "Vasco da Gama",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 72,
+    "stateId": 7,
+    "name": "Bicholim",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 78,
+    "stateId": 8,
+    "name": "Jamnagar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 79,
+    "stateId": 8,
+    "name": "Junagadh",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 80,
+    "stateId": 8,
+    "name": "Gandhinagar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 81,
+    "stateId": 8,
+    "name": "Anand",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 82,
+    "stateId": 8,
+    "name": "Morbi",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 83,
+    "stateId": 8,
+    "name": "Bhuj",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 84,
+    "stateId": 8,
+    "name": "Navsari",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 85,
+    "stateId": 8,
+    "name": "Valsad",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 86,
+    "stateId": 8,
+    "name": "Porbandar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 87,
+    "stateId": 9,
+    "name": "Gurugram",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 88,
+    "stateId": 9,
+    "name": "Faridabad",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 89,
+    "stateId": 9,
+    "name": "Panipat",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 90,
+    "stateId": 9,
+    "name": "Hisar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 91,
+    "stateId": 9,
+    "name": "Ambala",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 92,
+    "stateId": 9,
+    "name": "Karnal",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 93,
+    "stateId": 9,
+    "name": "Rohtak",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 94,
+    "stateId": 9,
+    "name": "Sonipat",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 95,
+    "stateId": 9,
+    "name": "Yamunanagar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 96,
+    "stateId": 9,
+    "name": "Sirsa",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 97,
+    "stateId": 10,
+    "name": "Shimla",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 98,
+    "stateId": 10,
+    "name": "Dharamshala",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 99,
+    "stateId": 10,
+    "name": "Solan",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 100,
+    "stateId": 10,
+    "name": "Mandi",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 101,
+    "stateId": 10,
+    "name": "Kullu",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 102,
+    "stateId": 10,
+    "name": "Hamirpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 103,
+    "stateId": 10,
+    "name": "Bilaspur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 104,
+    "stateId": 10,
+    "name": "Una",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 105,
+    "stateId": 11,
+    "name": "Ranchi",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 106,
+    "stateId": 11,
+    "name": "Jamshedpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 107,
+    "stateId": 11,
+    "name": "Dhanbad",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 108,
+    "stateId": 11,
+    "name": "Bokaro",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 109,
+    "stateId": 11,
+    "name": "Hazaribagh",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 110,
+    "stateId": 11,
+    "name": "Deoghar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 111,
+    "stateId": 11,
+    "name": "Giridih",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 112,
+    "stateId": 11,
+    "name": "Ramgarh",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 118,
+    "stateId": 12,
+    "name": "Shivamogga",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 119,
+    "stateId": 12,
+    "name": "Davanagere",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 120,
+    "stateId": 12,
+    "name": "Ballari",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 121,
+    "stateId": 12,
+    "name": "Tumakuru",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 122,
+    "stateId": 12,
+    "name": "Udupi",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 123,
+    "stateId": 12,
+    "name": "Bidar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 124,
+    "stateId": 12,
+    "name": "Kalaburagi",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 125,
+    "stateId": 12,
+    "name": "Vijayapura",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 126,
+    "stateId": 13,
+    "name": "Thiruvananthapuram",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 127,
+    "stateId": 13,
+    "name": "Kochi",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 128,
+    "stateId": 13,
+    "name": "Kozhikode",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 129,
+    "stateId": 13,
+    "name": "Thrissur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 130,
+    "stateId": 13,
+    "name": "Kannur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 131,
+    "stateId": 13,
+    "name": "Kollam",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 132,
+    "stateId": 13,
+    "name": "Alappuzha",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 133,
+    "stateId": 13,
+    "name": "Palakkad",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 134,
+    "stateId": 13,
+    "name": "Malappuram",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 135,
+    "stateId": 13,
+    "name": "Kottayam",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 136,
+    "stateId": 14,
+    "name": "Indore",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 137,
+    "stateId": 14,
+    "name": "Bhopal",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 138,
+    "stateId": 14,
+    "name": "Jabalpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 139,
+    "stateId": 14,
+    "name": "Gwalior",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 140,
+    "stateId": 14,
+    "name": "Ujjain",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 141,
+    "stateId": 14,
+    "name": "Sagar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 142,
+    "stateId": 14,
+    "name": "Satna",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 143,
+    "stateId": 14,
+    "name": "Rewa",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 144,
+    "stateId": 14,
+    "name": "Dewas",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 145,
+    "stateId": 14,
+    "name": "Ratlam",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 146,
+    "stateId": 14,
+    "name": "Chhindwara",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 147,
+    "stateId": 15,
+    "name": "Mumbai",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 148,
+    "stateId": 15,
+    "name": "Pune",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 150,
+    "stateId": 15,
+    "name": "Nashik",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 151,
+    "stateId": 15,
+    "name": "Aurangabad",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 152,
+    "stateId": 15,
+    "name": "Kolhapur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 153,
+    "stateId": 15,
+    "name": "Amravati",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 154,
+    "stateId": 15,
+    "name": "Solapur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 155,
+    "stateId": 15,
+    "name": "Nanded",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 156,
+    "stateId": 15,
+    "name": "Akola",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 157,
+    "stateId": 15,
+    "name": "Chandrapur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 158,
+    "stateId": 15,
+    "name": "Jalgaon",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 159,
+    "stateId": 15,
+    "name": "Sangli",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 160,
+    "stateId": 15,
+    "name": "Latur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 161,
+    "stateId": 15,
+    "name": "Dhule",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 162,
+    "stateId": 15,
+    "name": "Ahmednagar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 163,
+    "stateId": 15,
+    "name": "Ratnagiri",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 164,
+    "stateId": 15,
+    "name": "Wardha",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 165,
+    "stateId": 15,
+    "name": "Yavatmal",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 166,
+    "stateId": 15,
+    "name": "Bhandara",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 167,
+    "stateId": 16,
+    "name": "Imphal",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 168,
+    "stateId": 16,
+    "name": "Thoubal",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 169,
+    "stateId": 16,
+    "name": "Bishnupur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 170,
+    "stateId": 16,
+    "name": "Churachandpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 171,
+    "stateId": 16,
+    "name": "Ukhrul",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 172,
+    "stateId": 17,
+    "name": "Shillong",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 173,
+    "stateId": 17,
+    "name": "Tura",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 174,
+    "stateId": 17,
+    "name": "Jowai",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 175,
+    "stateId": 17,
+    "name": "Nongpoh",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 176,
+    "stateId": 17,
+    "name": "Baghmara",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 177,
+    "stateId": 18,
+    "name": "Aizawl",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 178,
+    "stateId": 18,
+    "name": "Lunglei",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 179,
+    "stateId": 18,
+    "name": "Champhai",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 180,
+    "stateId": 18,
+    "name": "Serchhip",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 181,
+    "stateId": 18,
+    "name": "Kolasib",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 182,
+    "stateId": 19,
+    "name": "Kohima",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 183,
+    "stateId": 19,
+    "name": "Dimapur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 184,
+    "stateId": 19,
+    "name": "Mokokchung",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 185,
+    "stateId": 19,
+    "name": "Tuensang",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 186,
+    "stateId": 19,
+    "name": "Wokha",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 187,
+    "stateId": 20,
+    "name": "Bhubaneswar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 188,
+    "stateId": 20,
+    "name": "Cuttack",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 189,
+    "stateId": 20,
+    "name": "Rourkela",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 190,
+    "stateId": 20,
+    "name": "Sambalpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 191,
+    "stateId": 20,
+    "name": "Puri",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 192,
+    "stateId": 20,
+    "name": "Balasore",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 193,
+    "stateId": 20,
+    "name": "Berhampur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 194,
+    "stateId": 20,
+    "name": "Jharsuguda",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 195,
+    "stateId": 20,
+    "name": "Baripada",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 196,
+    "stateId": 21,
+    "name": "Ludhiana",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 197,
+    "stateId": 21,
+    "name": "Amritsar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 198,
+    "stateId": 21,
+    "name": "Jalandhar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 199,
+    "stateId": 21,
+    "name": "Patiala",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 200,
+    "stateId": 21,
+    "name": "Bathinda",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 201,
+    "stateId": 21,
+    "name": "Mohali",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 202,
+    "stateId": 21,
+    "name": "Pathankot",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 203,
+    "stateId": 21,
+    "name": "Hoshiarpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 204,
+    "stateId": 21,
+    "name": "Moga",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 205,
+    "stateId": 22,
+    "name": "Jaipur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 206,
+    "stateId": 22,
+    "name": "Jodhpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 207,
+    "stateId": 22,
+    "name": "Udaipur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 208,
+    "stateId": 22,
+    "name": "Kota",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 209,
+    "stateId": 22,
+    "name": "Ajmer",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 210,
+    "stateId": 22,
+    "name": "Bikaner",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 211,
+    "stateId": 22,
+    "name": "Alwar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 212,
+    "stateId": 22,
+    "name": "Bharatpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 213,
+    "stateId": 22,
+    "name": "Sikar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 214,
+    "stateId": 22,
+    "name": "Pali",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 215,
+    "stateId": 23,
+    "name": "Gangtok",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 216,
+    "stateId": 23,
+    "name": "Namchi",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 217,
+    "stateId": 23,
+    "name": "Mangan",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 218,
+    "stateId": 23,
+    "name": "Gyalshing",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 219,
+    "stateId": 24,
+    "name": "Chennai",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 220,
+    "stateId": 24,
+    "name": "Coimbatore",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 221,
+    "stateId": 24,
+    "name": "Madurai",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 222,
+    "stateId": 24,
+    "name": "Salem",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 223,
+    "stateId": 24,
+    "name": "Tiruchirappalli",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 224,
+    "stateId": 24,
+    "name": "Erode",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 225,
+    "stateId": 24,
+    "name": "Vellore",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 226,
+    "stateId": 24,
+    "name": "Thoothukudi",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 227,
+    "stateId": 24,
+    "name": "Tirunelveli",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 228,
+    "stateId": 24,
+    "name": "Thanjavur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 229,
+    "stateId": 24,
+    "name": "Dindigul",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 230,
+    "stateId": 25,
+    "name": "Hyderabad",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 231,
+    "stateId": 25,
+    "name": "Warangal",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 232,
+    "stateId": 25,
+    "name": "Karimnagar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 233,
+    "stateId": 25,
+    "name": "Nizamabad",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 234,
+    "stateId": 25,
+    "name": "Khammam",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 235,
+    "stateId": 25,
+    "name": "Nalgonda",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 236,
+    "stateId": 25,
+    "name": "Mahbubnagar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 237,
+    "stateId": 25,
+    "name": "Adilabad",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 238,
+    "stateId": 25,
+    "name": "Ramagundam",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 239,
+    "stateId": 26,
+    "name": "Agartala",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 240,
+    "stateId": 26,
+    "name": "Dharmanagar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 241,
+    "stateId": 26,
+    "name": "Udaipur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 242,
+    "stateId": 26,
+    "name": "Belonia",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 243,
+    "stateId": 26,
+    "name": "Kailasahar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 244,
+    "stateId": 27,
+    "name": "Lucknow",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 245,
+    "stateId": 27,
+    "name": "Kanpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 246,
+    "stateId": 27,
+    "name": "Varanasi",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 247,
+    "stateId": 27,
+    "name": "Agra",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 248,
+    "stateId": 27,
+    "name": "Prayagraj",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 249,
+    "stateId": 27,
+    "name": "Noida",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 250,
+    "stateId": 27,
+    "name": "Ghaziabad",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 251,
+    "stateId": 27,
+    "name": "Meerut",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 252,
+    "stateId": 27,
+    "name": "Gorakhpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 253,
+    "stateId": 27,
+    "name": "Jhansi",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 254,
+    "stateId": 27,
+    "name": "Aligarh",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 255,
+    "stateId": 27,
+    "name": "Bareilly",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 256,
+    "stateId": 27,
+    "name": "Moradabad",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 257,
+    "stateId": 27,
+    "name": "Mathura",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 258,
+    "stateId": 27,
+    "name": "Ayodhya",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 259,
+    "stateId": 27,
+    "name": "Saharanpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 260,
+    "stateId": 28,
+    "name": "Dehradun",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 261,
+    "stateId": 28,
+    "name": "Haridwar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 262,
+    "stateId": 28,
+    "name": "Rishikesh",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 263,
+    "stateId": 28,
+    "name": "Haldwani",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 264,
+    "stateId": 28,
+    "name": "Roorkee",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 265,
+    "stateId": 28,
+    "name": "Rudrapur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 266,
+    "stateId": 28,
+    "name": "Kashipur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 267,
+    "stateId": 29,
+    "name": "Kolkata",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 268,
+    "stateId": 29,
+    "name": "Howrah",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 269,
+    "stateId": 29,
+    "name": "Durgapur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 270,
+    "stateId": 29,
+    "name": "Siliguri",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 271,
+    "stateId": 29,
+    "name": "Asansol",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 272,
+    "stateId": 29,
+    "name": "Kharagpur",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 273,
+    "stateId": 29,
+    "name": "Bardhaman",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 274,
+    "stateId": 29,
+    "name": "Malda",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 275,
+    "stateId": 29,
+    "name": "Haldia",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 276,
+    "stateId": 30,
+    "name": "Port Blair",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 277,
+    "stateId": 31,
+    "name": "Chandigarh",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 278,
+    "stateId": 32,
+    "name": "Silvassa",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 279,
+    "stateId": 32,
+    "name": "Daman",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 280,
+    "stateId": 32,
+    "name": "Diu",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 281,
+    "stateId": 33,
+    "name": "New Delhi",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 282,
+    "stateId": 33,
+    "name": "Dwarka",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 283,
+    "stateId": 33,
+    "name": "Rohini",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 284,
+    "stateId": 33,
+    "name": "Saket",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 285,
+    "stateId": 33,
+    "name": "Karol Bagh",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 286,
+    "stateId": 33,
+    "name": "Janakpuri",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 287,
+    "stateId": 33,
+    "name": "Pitampura",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 288,
+    "stateId": 34,
+    "name": "Srinagar",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 289,
+    "stateId": 34,
+    "name": "Jammu",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 290,
+    "stateId": 34,
+    "name": "Anantnag",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 291,
+    "stateId": 34,
+    "name": "Baramulla",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 292,
+    "stateId": 34,
+    "name": "Kathua",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 293,
+    "stateId": 34,
+    "name": "Pulwama",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 294,
+    "stateId": 35,
+    "name": "Leh",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 295,
+    "stateId": 35,
+    "name": "Kargil",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 296,
+    "stateId": 36,
+    "name": "Kavaratti",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 297,
+    "stateId": 37,
+    "name": "Puducherry",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 298,
+    "stateId": 37,
+    "name": "Karaikal",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 299,
+    "stateId": 37,
+    "name": "Mahe",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  },
+  {
+    "id": 300,
+    "stateId": 37,
+    "name": "Yanam",
+    "createdAt": "2026-06-07T11:05:03.376Z",
+    "updatedAt": "2026-06-07T11:05:03.376Z"
+  }
+]

@@ -7,9 +7,9 @@ async function main() {
   const cities = await prisma.city.findMany();
   const pincodes = await prisma.pincode.findMany();
 
-  fs.writeFileSync("states.json", JSON.stringify(states, null, 2));
-  fs.writeFileSync("cities.json", JSON.stringify(cities, null, 2));
-  fs.writeFileSync("pincodes.json", JSON.stringify(pincodes, null, 2));
+  fs.writeFileSync("states_all.json", JSON.stringify(states, null, 2));
+  fs.writeFileSync("cities_all.json", JSON.stringify(cities, null, 2));
+  fs.writeFileSync("pincodes_all.json", JSON.stringify(pincodes, null, 2));
 
   console.log("Export completed");
   console.log("States:", states.length);

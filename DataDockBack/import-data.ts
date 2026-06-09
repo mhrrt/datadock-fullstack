@@ -3,31 +3,31 @@ import fs from "fs";
 import prisma from "./src/config/prisma";
 
 async function main() {
-  const states = JSON.parse(
-    fs.readFileSync("states.json", "utf8")
-  );
+  // const states = JSON.parse(
+  //   fs.readFileSync("states.json", "utf8")
+  // );
 
-  const cities = JSON.parse(
-    fs.readFileSync("cities.json", "utf8")
-  );
+  // const cities = JSON.parse(
+  //   fs.readFileSync("datadock_india_cities_production.json", "utf8"),
+  // );
 
   const pincodes = JSON.parse(
-    fs.readFileSync("pincodes.json", "utf8")
+    fs.readFileSync("pincode_all_datadock_import.json", "utf8"),
   );
 
-  await prisma.state.createMany({
-    data: states,
-    skipDuplicates: true,
-  });
+  // await prisma.state.createMany({
+  //   data: states,
+  //   skipDuplicates: true,
+  // });
 
-  console.log(`Imported ${states.length} states`);
+  // console.log(`Imported ${states.length} states`);
 
-  await prisma.city.createMany({
-    data: cities,
-    skipDuplicates: true,
-  });
+  // await prisma.city.createMany({
+  //   data: cities,
+  //   skipDuplicates: true,
+  // });
 
-  console.log(`Imported ${cities.length} cities`);
+  // console.log(`Imported ${cities.length} cities`);
 
   await prisma.pincode.createMany({
     data: pincodes,

@@ -58,13 +58,18 @@ export async function exportRecordsToExcel(
     { header: "REFERENCE NUMBER", key: "referenceNumber", width: 20 },
     { header: "REFERENCE NAME", key: "referenceName", width: 25 },
     { header: "REMARK", key: "remark", width: 40 },
+    { header: "PENDING AMT", key: "pendingAmount", width: 15 },
+    { header: "RECEIVED AMT", key: "receivedAmount", width: 15 },
+    { header: "OUTSTANDING AMT", key: "outstandingAmount", width: 18 },
+    { header: "STATUS", key: "status", width: 15 },
+    { header: "RECOVERY NOTES", key: "recoveryRemark", width: 40 },
     { header: "CREATED BY", key: "createdBy", width: 20 },
   ];
 
   //move to third row now
   worksheet.spliceRows(1, 0, [], []);
 
-  worksheet.mergeCells("A1:S1");
+  worksheet.mergeCells("A1:X1");
 
   const titleCell = worksheet.getCell("A1");
   titleCell.value = "DATA DOCK CUSTOMER EXPORT";
@@ -88,7 +93,7 @@ export async function exportRecordsToExcel(
   worksheet.getRow(1).height = 28;
 
   // add timestamp
-  worksheet.mergeCells("A2:S2");
+  worksheet.mergeCells("A2:X2");
 
   const dateCell = worksheet.getCell("A2");
   dateCell.value = `Generated On: ${getTimestamp()}`;
@@ -153,6 +158,12 @@ export async function exportRecordsToExcel(
       referenceNumber: row.referenceNumber,
       referenceName: row.referenceName,
       remark: row.remark,
+      // for pending amount etc
+      pendingAmount: row.pendingAmount,
+      receivedAmount: row.receivedAmount,
+      outstandingAmount: row.outstandingAmount,
+      recoveryRemark: row.recoveryRemark,
+      status: row.status,
       createdBy: row.createdBy?.userName ?? "",
     });
   });
@@ -160,7 +171,7 @@ export async function exportRecordsToExcel(
   //adding excel filters by default in template
   //   worksheet.autoFilter = {
   //     from: "A3",
-  //     to: "S3",
+  //     to: "X3",
   //   };
 
   // Alternate row colors
@@ -188,10 +199,10 @@ export async function exportRecordsToExcel(
   worksheet.eachRow((row) => {
     row.eachCell((cell) => {
       cell.border = {
-        top: { style: "thin", color: { argb: "#130105ce" } },
-        bottom: { style: "thin", color: { argb: "#130105ce" } },
-        left: { style: "thin", color: { argb: "#130105ce" } },
-        right: { style: "thin", color: { argb: "#130105ce" } },
+        top: { style: "thin", color: { argb: "130105CE" } },
+        bottom: { style: "thin", color: { argb: "130105CE" } },
+        left: { style: "thin", color: { argb: "130105CE" } },
+        right: { style: "thin", color: { argb: "130105CE" } },
       };
     });
   });
@@ -209,6 +220,54 @@ export async function exportRecordsToExcel(
   worksheet.eachRow((row, rowNumber) => {
     if (rowNumber <= 3) return;
 
+    const statusColumnIndex =
+      worksheet.columns.findIndex((col) => col.key === "status") + 1;
+
+    const statusCell = row.getCell(statusColumnIndex);
+
+    const status = String(statusCell.value || "")
+      .trim()
+      .toUpperCase();
+
+    if (status === "ACTIVE") {
+      statusCell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "C6EFCE" }, // Light Green
+      };
+
+      statusCell.font = {
+        bold: true,
+        color: { argb: "006100" },
+      };
+    } else if (status === "RESTRICTED") {
+      statusCell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "FFEB9C" }, // Light Orange/Yellow
+      };
+
+      statusCell.font = {
+        bold: true,
+        color: { argb: "9C6500" },
+      };
+    } else if (status === "INACTIVE") {
+      statusCell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "FFC7CE" }, // Light Red
+      };
+
+      statusCell.font = {
+        bold: true,
+        color: { argb: "9C0006" },
+      };
+    }
+
+    statusCell.alignment = {
+      horizontal: "center",
+      vertical: "middle",
+    };
     row.eachCell((cell, colNumber) => {
       // ID
       if (colNumber === 1) {
@@ -217,8 +276,8 @@ export async function exportRecordsToExcel(
         };
       }
 
-      // Credit Limit
-      if (colNumber === 15) {
+      // Credit Limit and other number format
+      if ([15, 19, 20, 21].includes(colNumber)) {
         cell.alignment = {
           horizontal: "right",
         };
@@ -229,6 +288,13 @@ export async function exportRecordsToExcel(
       if ([9, 10, 11, 12].includes(colNumber)) {
         cell.alignment = {
           horizontal: "center",
+        };
+      }
+
+      if (colNumber === 23 || colNumber === 19) {
+        cell.alignment = {
+          wrapText: true,
+          vertical: "top",
         };
       }
     });
