@@ -285,10 +285,32 @@ const SearchPage = () => {
       },
 
       {
+        field: "isActive",
+        headerName: "CUST STATUS",
+        minWidth: 140,
+
+        cellStyle: {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        },
+
+        headerClass: "ag-center-header",
+
+        cellRenderer: (params: { value: boolean }) => (
+          <span
+            style={{
+              color: params.value ? "#16A34A" : "#DC2626",
+              fontWeight: "bold",
+            }}
+          >
+            {params.value ? "✓" : "✗"}
+          </span>
+        ),
+      },
+      {
         headerName: "Created By",
-
         minWidth: 180,
-
         valueGetter: (params) => params.data?.createdBy?.userName || "",
       },
     ],

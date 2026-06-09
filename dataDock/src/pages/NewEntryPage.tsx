@@ -42,6 +42,7 @@ type FormData = {
   outstandingAmount: number;
   recoveryRemark: string;
   status: "ACTIVE" | "INACTIVE" | "RESTRICTED";
+  isActive: boolean;
 };
 
 type StateType = {
@@ -98,6 +99,8 @@ const NewEntryPage = () => {
   const [states, setStates] = useState<StateType[]>([]);
   const [cities, setCities] = useState<CityType[]>([]);
   const [pincodes, setPincodes] = useState<PincodeType[]>([]);
+  //for Working vs suspended
+  const [originalIsActive, setOriginalIsActive] = useState<boolean>(true);
 
   // commented as created emptyfordata object
   const [formData, setFormData] = useState<FormData>({
@@ -134,6 +137,9 @@ const NewEntryPage = () => {
     outstandingAmount: 0,
     recoveryRemark: "",
     status: "ACTIVE",
+
+    //for working vs suspended customer
+    isActive: true,
   });
 
   // const [formData, setFormData] = useState<FormData>(emptyFormData);
@@ -184,6 +190,14 @@ const NewEntryPage = () => {
       return;
     }
 
+    if (name === "isActive") {
+      setFormData((prev) => ({
+        ...prev,
+        isActive: value === "true",
+      }));
+      return;
+    }
+
     // Normal updates
     setFormData((prev) => ({
       ...prev,
@@ -193,7 +207,10 @@ const NewEntryPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    if (!validateForm()) {
+      // will be for edit mode only
+      return;
+    }
     try {
       const payload = {
         ...formData,
@@ -262,6 +279,7 @@ const NewEntryPage = () => {
         outstandingAmount: 0,
         recoveryRemark: "",
         status: "ACTIVE",
+        isActive: true,
       });
       // set focus on name
       nameInputRef.current?.focus();
@@ -353,6 +371,9 @@ const NewEntryPage = () => {
 
   useEffect(() => {
     nameInputRef.current?.focus();
+    console.log("isActive:", formData.isActive);
+    console.log("isActive type:", typeof formData.isActive);
+    console.log("isActive value:", JSON.stringify(formData.isActive));
   }, []);
 
   // for Edit record
@@ -364,6 +385,8 @@ const NewEntryPage = () => {
         const response = await api.get(`api/records/${id}`);
 
         const record = response.data;
+        //on loading set userstate
+        setOriginalIsActive(Boolean(record.isActive));
 
         setFormData({
           entryDate: record.entryDate?.split("T")[0] ?? "",
@@ -399,8 +422,9 @@ const NewEntryPage = () => {
           outstandingAmount:
             Number(record.pendingAmount || 0) -
             Number(record.receivedAmount || 0),
-          recoveryRemark: "",
-          status: "ACTIVE",
+          recoveryRemark: record.recoveryRemark || "",
+          status: record.status || "ACTIVE",
+          isActive: Boolean(record.isActive),
         });
       } catch (error) {
         console.error(error);
@@ -458,6 +482,19 @@ const NewEntryPage = () => {
     }));
   }, [formData.pendingAmount, formData.receivedAmount]);
 
+  const validateForm = () => {
+    if (
+      isEditMode &&
+      formData.isActive !== originalIsActive &&
+      !formData.recoveryRemark?.trim()
+    ) {
+      alert("Recovery Remark is mandatory when Customer Status is changed.");
+      return false;
+    }
+
+    return true;
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="mx-auto max-w-5xl rounded-xl border-2 border-slate-500 bg-white p-8 shadow-lg">
@@ -470,6 +507,49 @@ const NewEntryPage = () => {
           onKeyDown={handleFormKeyDown}
           className="grid grid-cols-1  gap-5 md:grid-cols-2"
         >
+          {/* {For Customer Status as WORKING SUSPENDED} */}
+          {isEditMode && (
+            <div>
+              <label className={labelClass}>CUSTOMER STATUS</label>
+
+              {/* <select
+                name="isActive"
+                value={String(formData.isActive)}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    isActive: e.target.value === "true",
+                  }))
+                }
+                className={`w-full rounded border p-3 font-semibold ${
+                  formData.isActive
+                    ? "bg-green-400 text-black"
+                    : "bg-red-400 text-white"
+                }`}
+              >
+                <option value="WORKING">WORKING</option>
+                <option value="SUSPENDED">SUSPENDED</option>
+              </select> */}
+              <select
+                name="isActive"
+                value={String(formData.isActive)}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    isActive: e.target.value === "true",
+                  }))
+                }
+                className={`w-full rounded border p-3 font-semibold ${
+                  formData.isActive
+                    ? "bg-green-400 text-black"
+                    : "bg-red-400 text-white"
+                }`}
+              >
+                <option value="true">WORKING</option>
+                <option value="false">SUSPENDED</option>
+              </select>
+            </div>
+          )}
           {/* Entry Date */}
           <div>
             <label className={labelClass}>ENTRY DATE</label>
@@ -801,7 +881,12 @@ const NewEntryPage = () => {
           {/* </div> */}
 
           <div className="md:col-span-2">
-            <label className={labelClass}>RECOVERY REMARK</label>
+            <label className={labelClass}>
+              RECOVERY REMARK
+              {isEditMode && formData.isActive !== originalIsActive && (
+                <span className="text-red-500"> *</span>
+              )}
+            </label>
 
             <textarea
               id="recoveryRemark"
@@ -810,7 +895,13 @@ const NewEntryPage = () => {
               value={formData.recoveryRemark}
               onChange={handleChange}
               placeholder="Enter recovery details, payment commitments, follow-up notes, etc."
-              className={inputClass}
+              className={`w-full rounded border p-3 text-medium font-semibold text-#1e3a8a-700 focus:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                isEditMode &&
+                formData.isActive !== originalIsActive &&
+                !formData.recoveryRemark?.trim()
+                  ? "border-red-500"
+                  : ""
+              }`}
             />
           </div>
 
