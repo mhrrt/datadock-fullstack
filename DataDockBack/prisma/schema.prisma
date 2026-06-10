@@ -99,6 +99,11 @@ model Customer {
   createdBy       User?     @relation("CustomerCreatedBy", fields: [createdById], references: [id])
   pincode         Pincode?  @relation(fields: [pincodeId], references: [id], onDelete: Restrict)
   state           State?    @relation(fields: [stateId], references: [id])
+  pendingAmount     Decimal  @default(0) @db.Decimal(14, 2)
+  receivedAmount    Decimal  @default(0) @db.Decimal(14, 2)
+  outstandingAmount Decimal  @default(0) @db.Decimal(14, 2)
+  status            String   @default("ACTIVE") @db.VarChar(20)
+  recoveryRemark    String?
 
   @@index([name])
   @@index([codeName])
