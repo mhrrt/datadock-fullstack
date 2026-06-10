@@ -98,6 +98,7 @@ const SearchPage = () => {
       setRowData(response.data || []);
     } catch (error) {
       console.error(error);
+      console.error("Full error:", JSON.stringify(error, null, 2));
 
       // alert("Failed to fetch records");
       toast.error("Failed to fetch records");
