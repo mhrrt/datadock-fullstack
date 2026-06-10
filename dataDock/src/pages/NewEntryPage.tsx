@@ -101,6 +101,8 @@ const NewEntryPage = () => {
   const [pincodes, setPincodes] = useState<PincodeType[]>([]);
   //for Working vs suspended
   const [originalIsActive, setOriginalIsActive] = useState<boolean>(true);
+  const [originalRecoveryRemark, setOriginalRecoveryRemark] =
+    useState<string>("");
 
   // commented as created emptyfordata object
   const [formData, setFormData] = useState<FormData>({
@@ -393,6 +395,7 @@ const NewEntryPage = () => {
         const record = response.data;
         //on loading set userstate
         setOriginalIsActive(Boolean(record.isActive));
+        setOriginalRecoveryRemark(record.recoveryRemark);
 
         setFormData({
           entryDate: record.entryDate?.split("T")[0] ?? "",
@@ -459,6 +462,23 @@ const NewEntryPage = () => {
     //   return;
     // }
 
+    console.log({
+      key: e.key,
+      ctrl: e.ctrlKey,
+      shift: e.shiftKey,
+      meta: e.metaKey,
+      target: e.target,
+    });
+
+    if (e.target instanceof HTMLTextAreaElement) {
+      if (e.ctrlKey || e.metaKey) {
+        return; // allow newline
+      }
+
+      e.preventDefault();
+      e.currentTarget.requestSubmit();
+      return;
+    }
     e.preventDefault();
 
     (e.currentTarget as HTMLFormElement).requestSubmit();
@@ -492,7 +512,7 @@ const NewEntryPage = () => {
     if (
       isEditMode &&
       formData.isActive !== originalIsActive &&
-      !formData.recoveryRemark?.trim()
+      formData.recoveryRemark?.trim() === originalRecoveryRemark?.trim()
     ) {
       alert("Recovery Remark is mandatory when Customer Status is changed.");
       return false;
@@ -817,6 +837,25 @@ const NewEntryPage = () => {
               onChange={handleChange}
               rows={4}
               className={inputClass}
+              onKeyDown={(e) => {
+                if (e.ctrlKey && e.key === "Enter") {
+                  e.preventDefault();
+
+                  const textarea = e.currentTarget;
+                  const start = textarea.selectionStart;
+                  const end = textarea.selectionEnd;
+
+                  const newValue =
+                    formData.remark.slice(0, start) +
+                    "\n" +
+                    formData.remark.slice(end);
+
+                  setFormData((prev) => ({
+                    ...prev,
+                    remark: newValue,
+                  }));
+                }
+              }}
             />
           </div>
 
@@ -908,6 +947,25 @@ const NewEntryPage = () => {
                   ? "border-red-500"
                   : ""
               }`}
+              onKeyDown={(e) => {
+                if (e.ctrlKey && e.key === "Enter") {
+                  e.preventDefault();
+
+                  const textarea = e.currentTarget;
+                  const start = textarea.selectionStart;
+                  const end = textarea.selectionEnd;
+
+                  const newValue =
+                    formData.recoveryRemark.slice(0, start) +
+                    "\n" +
+                    formData.recoveryRemark.slice(end);
+
+                  setFormData((prev) => ({
+                    ...prev,
+                    recoveryRemark: newValue,
+                  }));
+                }
+              }}
             />
           </div>
 
