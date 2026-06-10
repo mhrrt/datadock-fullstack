@@ -72,38 +72,38 @@ model Bazar {
 }
 
 model Customer {
-  id              BigInt    @id @default(autoincrement())
-  entryDate       DateTime  @default(now())
-  name            String    @db.VarChar(200)
-  codeName        String?   @unique @db.VarChar(100)
-  stateId         Int?
-  cityId          Int?
-  pincodeId       Int?
-  phone1          String?   @db.VarChar(20)
-  phone2          String?   @db.VarChar(20)
-  officePhone1    String?   @db.VarChar(20)
-  officePhone2    String?   @db.VarChar(20)
-  bhawMD          String?   @db.VarChar(500)
-  bhawKRM         String?   @db.VarChar(500)
-  creditLimit     Decimal?  @db.Decimal(14, 2)
-  bazarId         String?   @db.VarChar(70)
-  referenceNumber String?   @db.VarChar(50)
-  referenceName   String?   @db.VarChar(150)
-  remark          String?
-  createdById     Int?
-  editedOn        DateTime?
-  isActive        Boolean   @default(true)
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  city            City?     @relation(fields: [cityId], references: [id])
-  createdBy       User?     @relation("CustomerCreatedBy", fields: [createdById], references: [id])
-  pincode         Pincode?  @relation(fields: [pincodeId], references: [id], onDelete: Restrict)
-  state           State?    @relation(fields: [stateId], references: [id])
-  pendingAmount     Decimal  @default(0) @db.Decimal(14, 2)
-  receivedAmount    Decimal  @default(0) @db.Decimal(14, 2)
-  outstandingAmount Decimal  @default(0) @db.Decimal(14, 2)
-  status            String   @default("ACTIVE") @db.VarChar(20)
+  id                BigInt    @id @default(autoincrement())
+  entryDate         DateTime  @default(now())
+  name              String    @db.VarChar(200)
+  codeName          String?   @unique @db.VarChar(100)
+  pincodeId         Int?
+  phone1            String?   @db.VarChar(20)
+  phone2            String?   @db.VarChar(20)
+  officePhone1      String?   @db.VarChar(20)
+  officePhone2      String?   @db.VarChar(20)
+  bhawMD            String?   @db.VarChar(500)
+  bhawKRM           String?   @db.VarChar(500)
+  creditLimit       Decimal?  @db.Decimal(14, 2)
+  bazarId           String?   @db.VarChar(70)
+  referenceNumber   String?   @db.VarChar(50)
+  referenceName     String?   @db.VarChar(150)
+  remark            String?
+  createdById       Int?
+  editedOn          DateTime?
+  isActive          Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  cityId            Int?
+  stateId           Int?
+  status            String    @default("ACTIVE") @db.VarChar(20)
+  outstandingAmount Decimal   @default(0) @db.Decimal(14, 2)
+  pendingAmount     Decimal   @default(0) @db.Decimal(14, 2)
+  receivedAmount    Decimal   @default(0) @db.Decimal(14, 2)
   recoveryRemark    String?
+  city              City?     @relation(fields: [cityId], references: [id])
+  createdBy         User?     @relation("CustomerCreatedBy", fields: [createdById], references: [id])
+  pincode           Pincode?  @relation(fields: [pincodeId], references: [id], onDelete: Restrict)
+  state             State?    @relation(fields: [stateId], references: [id])
 
   @@index([name])
   @@index([codeName])
@@ -115,4 +115,6 @@ model Customer {
   @@index([createdById])
   @@index([createdAt])
   @@index([referenceNumber])
+  @@index([outstandingAmount])
+  @@index([status])
 }
