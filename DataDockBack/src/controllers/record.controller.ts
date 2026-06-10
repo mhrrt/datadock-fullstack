@@ -164,6 +164,7 @@ export async function updateRecord(req: Request, res: Response) {
   console.log("METHOD:", req.method);
   console.log("PARAMS:", req.params);
   console.log("BODY:", req.body);
+  console.log(prisma.customer.fields ?? "No fields metadata");
 
   try {
     const id = Number(req.params.id);
