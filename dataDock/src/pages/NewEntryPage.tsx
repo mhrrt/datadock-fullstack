@@ -231,6 +231,7 @@ const NewEntryPage = () => {
       setLoading(true);
 
       if (isEditMode) {
+        console.log(`record updateding for: ${payload}`);
         await api.put(`api/records/${id}`, payload);
         //alert("Record created successfully");
         toast.success("Record updated successfully");
