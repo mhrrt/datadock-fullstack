@@ -230,6 +230,11 @@ const NewEntryPage = () => {
 
       setLoading(true);
 
+      console.log("UPDATE DATA:", {
+        ...payload,
+        pincodeId: formData.pincodeId ? Number(formData.pincodeId) : null,
+      });
+
       if (isEditMode) {
         console.log(`record updateding for: ${payload}`);
         await api.put(`api/records/${id}`, payload);
