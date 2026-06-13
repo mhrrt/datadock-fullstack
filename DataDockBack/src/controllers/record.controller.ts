@@ -32,6 +32,8 @@ export async function getRecords(req: Request, res: Response) {
       };
     }
     console.log(`mode and whareclause: ${mode} and clause:${whereClause}`);
+    console.log("mode:", mode);
+    console.log("whereClause:", JSON.stringify(whereClause, null, 2));
     const records = await prisma.customer.findMany({
       include: {
         state: true,
