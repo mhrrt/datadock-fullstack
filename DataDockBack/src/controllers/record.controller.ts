@@ -153,6 +153,7 @@ export async function createRecord(req: Request, res: Response) {
         receivedAmount,
         outstandingAmount,
         status,
+        isActive: customerData.isActive ?? true,
       },
     });
     console.log("record in DB:", record);
