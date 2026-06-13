@@ -8,6 +8,7 @@ import authRoutes from "./routes/auth";
 import stateRoutes from "./routes/stateRoutes";
 import cityRoutes from "./routes/cityRoutes";
 import pincodeRoutes from "./routes/pincodeRoutes";
+import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
 
@@ -42,6 +43,8 @@ app.use("/api/records", recordRoutes);
 app.use("/states", stateRoutes);
 app.use("/cities", cityRoutes);
 app.use("/pincodes", pincodeRoutes);
+
+app.use(errorHandler);
 
 // Health Check
 app.get("/", (_, res) => {

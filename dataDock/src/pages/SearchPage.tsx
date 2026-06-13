@@ -17,7 +17,7 @@ import type { GridApi } from "ag-grid-community";
 // import { ZipWriter, BlobWriter, Uint8ArrayReader } from "@zip.js/zip.js";
 
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { exportRecordsToExcel, getTimestamp } from "../utils/excelExport";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -82,6 +82,9 @@ type RecordRow = {
 
 const SearchPage = () => {
   const [rowData, setRowData] = useState<RecordRow[]>([]);
+  // for loading All or Defaulter list
+  const { mode } = useParams();
+  const isForActiveMode = mode === "true";
 
   const [loading, setLoading] = useState(false);
 
@@ -92,7 +95,8 @@ const SearchPage = () => {
       setLoading(true);
 
       // const response = await axios.get("http://localhost:5000/api/records");
-      const response = await api.get("api/records");
+      console.log(`fetchRecords url: ${mode}`);
+      const response = await api.get(`api/records?mode=${mode}`);
 
       //console.log(response.data);
       setRowData(response.data || []);
@@ -105,7 +109,7 @@ const SearchPage = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [mode]);
 
   const navigate = useNavigate();
 
@@ -318,6 +322,206 @@ const SearchPage = () => {
     [],
   );
 
+  const defaulterColumnDefs = useMemo<ColDef[]>(
+    () => [
+      {
+        field: "id",
+        headerName: "ID",
+        width: 30,
+        pinned: "left",
+        hide: true,
+      },
+
+      {
+        field: "entryDate",
+        headerName: "Date",
+        filter: "agDateColumnFilter",
+        minWidth: 155,
+        valueFormatter: (params) => {
+          if (!params.value) return "";
+
+          const date = new Date(params.value);
+
+          return date.toLocaleDateString("en-UK", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          });
+        },
+      },
+
+      {
+        field: "name",
+        headerName: "NAME",
+        minWidth: 220,
+      },
+
+      {
+        field: "codeName",
+        headerName: "CODE NAME",
+        minWidth: 100,
+      },
+
+      //  {
+      //    field: "State",
+      //    headerName: "STATE",
+      //    minWidth: 160,
+      //    valueGetter: (params) => params.data?.state?.name || "",
+      //  },
+
+      //  {
+      //    field: "CITY",
+      //    headerName: "City",
+      //    minWidth: 160,
+      //    valueGetter: (params) => params.data?.city?.name || "",
+      //  },
+
+      //  {
+      //    field: "Pincode",
+      //    headerName: "PINCODE",
+      //    minWidth: 140,
+      //    valueGetter: (params) => params.data?.pincode?.pinCode || "",
+      //  },
+
+      //  {
+      //    field: "Bazar",
+      //    headerName: "BAZAR",
+      //    minWidth: 160,
+      //    valueGetter: (params) => params.data?.bazarId || "",
+      //  },
+
+      {
+        field: "phone1",
+        headerName: "PHONE 1",
+        minWidth: 160,
+      },
+
+      {
+        field: "phone2",
+        headerName: "PHONE 2",
+        minWidth: 160,
+      },
+
+      // {
+      //   field: "officePhone1",
+      //   headerName: "OFF PHONE 1",
+      //   minWidth: 180,
+      // },
+
+      // {
+      //   field: "officePhone2",
+      //   headerName: "OFF PHONE 2",
+      //   minWidth: 180,
+      // },
+
+      //  {
+      //    field: "bhawMD",
+      //    headerName: "BHAV MD",
+      //    minWidth: 140,
+      //  },
+
+      //  {
+      //    field: "bhawKRM",
+      //    headerName: "BHAV KRM",
+      //    minWidth: 140,
+      //  },
+
+      //  {
+      //    field: "creditLimit",
+      //    headerName: "LIMIT",
+      //    minWidth: 140,
+      //  },
+
+      //  {
+      //    field: "referenceNumber",
+      //    headerName: "REFERANCE NO",
+      //    minWidth: 100,
+      //  },
+
+      //  {
+      //    field: "referenceName",
+      //    headerName: "REFERENCE NAME",
+      //    minWidth: 100,
+      //  },
+
+      {
+        field: "pendingAmount",
+        headerName: "PENDING AMT",
+        minWidth: 150,
+      },
+      {
+        field: "receivedAmount",
+        headerName: "RECEIVED AMT",
+        minWidth: 150,
+      },
+      {
+        field: "outstandingAmount",
+        headerName: "OUTSTANDING AMT",
+        minWidth: 150,
+      },
+
+      // {
+      //   headerName: "Status",
+      //   field: "status",
+      //   cellClassRules: {
+      //     "status-active": (params) => params.value?.toUpperCase() === "ACTIVE",
+
+      //     "status-inactive": (params) =>
+      //       params.value?.toUpperCase() === "INACTIVE",
+
+      //     "status-restricted": (params) =>
+      //       params.value?.toUpperCase() === "RESTRICTED",
+      //   },
+      //   width: 150,
+      // },
+
+      {
+        field: "remark",
+        headerName: "REMARK",
+        flex: 1,
+        minWidth: 250,
+      },
+
+      {
+        field: "recoveryRemark",
+        headerName: "Recovery Notes",
+        flex: 1,
+        minWidth: 200,
+      },
+
+      {
+        field: "isActive",
+        headerName: "CUST STATUS",
+        minWidth: 140,
+
+        cellStyle: {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        },
+
+        headerClass: "ag-center-header",
+
+        cellRenderer: (params: { value: boolean }) => (
+          <span
+            style={{
+              color: params.value ? "#16A34A" : "#DC2626",
+              fontWeight: "bold",
+            }}
+          >
+            {params.value ? "✓" : "✗"}
+          </span>
+        ),
+      },
+      //  {
+      //    headerName: "Created By",
+      //    minWidth: 180,
+      //    valueGetter: (params) => params.data?.createdBy?.userName || "",
+      //  },
+    ],
+    [],
+  );
+
   const defaultColDef = useMemo<ColDef>(
     () => ({
       sortable: true,
@@ -338,17 +542,6 @@ const SearchPage = () => {
     [],
   );
 
-  // commented as row selection not required
-  // const rowSelection = useMemo(
-  //   () => ({
-  //     mode: "multiRow" as const,
-  //     checkboxes: true,
-  //     headerCheckbox: true,
-  //     enableClickSelection: true,
-  //   }),
-  //   [],
-  // );
-
   // for data export
   const gridApiRef = useRef<GridApi | null>(null);
   const [hasFilters, setHasFilters] = useState(false);
@@ -358,76 +551,6 @@ const SearchPage = () => {
   };
   const canExportVisible = !!searchText.trim() || hasFilters;
   const searchInputRef = useRef<HTMLInputElement>(null);
-
-  // const exportToExcel = () => {
-  //   const excelData = rowData.map((row) => ({
-  //     ID: row.id,
-  //     Date: row.entryDate,
-  //     Name: row.name,
-  //     "Code Name": row.codeName,
-  //     State: row.state?.name || "",
-  //     City: row.city?.name || "",
-  //     Pincode: row.pincode?.code || "",
-  //     Bazar: row.bazar?.name || "",
-  //     "Phone 1": row.phone1,
-  //     "Phone 2": row.phone2,
-  //     "Office Phone 1": row.officePhone1,
-  //     "Office Phone 2": row.officePhone2,
-  //     "Bhaw MD": row.bhawMD,
-  //     "Bhaw KRM": row.bhawKRM,
-  //     "Credit Limit": row.creditLimit,
-  //     "Reference Number": row.referenceNumber,
-  //     "Reference Name": row.referenceName,
-  //     Remark: row.remark,
-  //     "Created By": row.createdBy?.userName || "",
-  //   }));
-
-  //   const worksheet = XLSX.utils.json_to_sheet(excelData);
-
-  //   const workbook = XLSX.utils.book_new();
-
-  //   XLSX.utils.book_append_sheet(workbook, worksheet, "Records");
-
-  //   XLSX.writeFile(
-  //     workbook,
-  //     `DataDock_Records_${new Date().toISOString().split("T")[0]}.xlsx`,
-  //   );
-  // };
-
-  // export all or listed rows only based on parameters
-  // const exportRowsToExcel = async (rows: RecordRow[], fileName: string) => {
-  //   const excelData = rows.map((row) => ({
-  //     ID: row.id,
-  //     Date: row.entryDate,
-  //     Name: row.name,
-  //     "Code Name": row.codeName,
-  //     State: row.state?.name || "",
-  //     City: row.city?.name || "",
-  //     Pincode: row.pincode?.pinCode || "",
-  //     Bazar: row.bazarId || "",
-  //     "Phone 1": row.phone1,
-  //     "Phone 2": row.phone2,
-  //     "Office Phone 1": row.officePhone1,
-  //     "Office Phone 2": row.officePhone2,
-  //     "Bhaw MD": row.bhawMD,
-  //     "Bhaw KRM": row.bhawKRM,
-  //     "Credit Limit": row.creditLimit,
-  //     "Reference Number": row.referenceNumber,
-  //     "Reference Name": row.referenceName,
-  //     Remark: row.remark,
-  //     "Created By": row.createdBy?.userName || "",
-  //   }));
-
-  //   const worksheet = XLSX.utils.json_to_sheet(excelData);
-
-  //   const workbook = XLSX.utils.book_new();
-
-  //   XLSX.utils.book_append_sheet(workbook, worksheet, "Records");
-
-  //   // commenting out as need to check if user is looking for normal export or protected export
-  //   // XLSX.writeFile(workbook, fileName);
-  //   await exportWorkbook(workbook, fileName);
-  // };
 
   // will export all records in customer table
   const exportAllRecords = async () => {
@@ -439,7 +562,7 @@ const SearchPage = () => {
     const today = getTimestamp();
     await exportRecordsToExcel(
       rowData,
-      `DataDock_All_Records_${today}.xlsx`,
+      `DataDock_All_Records_${isForActiveMode ? "defaulter" : ""}_${today}.xlsx`,
       passwordProtect,
     );
   };
@@ -452,17 +575,10 @@ const SearchPage = () => {
       visibleRows.push(node.data);
     });
 
-    // exportRowsToExcel(
-    //   visibleRows,
-    //   `DataDock_Filtered_Records_${
-    //     new Date().toISOString().split("T")[0]
-    //   }.xlsx`,
-    // );
-
     const today = getTimestamp();
     await exportRecordsToExcel(
       visibleRows,
-      `DataDock_Filtered_Records_${today}.xlsx`,
+      `DataDock_Filtered_Records_${isForActiveMode ? "defaulter" : ""}_${today}.xlsx`,
       passwordProtect,
     );
   };
@@ -473,7 +589,9 @@ const SearchPage = () => {
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="rounded-xl bg-white p-6 shadow-lg">
         <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <h1 className="text-3xl text-blue-600 font-bold">Search Customer</h1>
+          <h1 className="text-3xl text-blue-600 font-bold">
+            {isForActiveMode ? "Defaulter List" : "Search Customer"}
+          </h1>
 
           <input
             ref={searchInputRef}
@@ -529,27 +647,10 @@ const SearchPage = () => {
             width: "100%",
           }}
         >
-          {/* <AgGridReact
-            rowData={rowData}
-            columnDefs={columnDefs}
-            defaultColDef={defaultColDef}
-            loading={loading}
-            pagination={true}
-            paginationPageSize={20}
-            paginationPageSizeSelector={[20, 50, 100]}
-            quickFilterText={searchText}
-            animateRows={true}
-            rowSelection={{
-              mode: "multiRow" as const,
-              checkboxes: true,
-              headerCheckbox: true,
-              enableClickSelection: true,
-            }}
-          /> */}
           <AgGridReact
             ref={gridRef}
             rowData={rowData}
-            columnDefs={columnDefs}
+            columnDefs={isForActiveMode ? columnDefs : defaulterColumnDefs}
             defaultColDef={defaultColDef}
             loading={loading}
             pagination={true}

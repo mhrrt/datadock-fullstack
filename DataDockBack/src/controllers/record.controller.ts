@@ -6,25 +6,32 @@ import {
   calculateStatus,
   validateRecoveryAmounts,
 } from "../utils/customerStatus";
+import { AppError } from "../utils/AppError";
+import { Prisma } from "@prisma/client";
 
 // ==========================================
 // GET RECORDS
 // ==========================================
 
 export async function getRecords(req: Request, res: Response) {
-  // {
-  //   try {
-  //     const validated = searchRecordSchema.parse(req.query);
-  //     const result = await searchRecords(validated);
-
-  //     return res.status(200).json(result);
-  //   } catch (error: any) {
-  //     return res.status(400).json({
-  //       message: error.message || "Invalid request",
-  //     });
-  //   }
-  // }
   try {
+    //as we are using same search page for active and defaulter both
+    const mode = req.query.mode;
+    console.log(`datadockbackend selecting records for mode:${mode}`);
+    let whereClause: Prisma.CustomerWhereInput = {
+      isActive: true,
+    };
+
+    if (mode === "false") {
+      console.log("datadock backend within mode condtion as false");
+      whereClause = {
+        isActive: false,
+        pendingAmount: {
+          gte: 0,
+        },
+      };
+    }
+    console.log(`mode and whareclause: ${mode} and clause:${whereClause}`);
     const records = await prisma.customer.findMany({
       include: {
         state: true,
@@ -32,7 +39,7 @@ export async function getRecords(req: Request, res: Response) {
         pincode: true,
         createdBy: true,
       },
-
+      where: whereClause,
       orderBy: {
         createdAt: "desc",
       },

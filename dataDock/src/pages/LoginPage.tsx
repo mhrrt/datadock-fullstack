@@ -16,7 +16,7 @@ export default function LoginPage() {
 
       localStorage.setItem("token", data.token);
       // alert(`token generated: ${data.token}`);
-      navigate("/search");
+      navigate("/search/true");
     } catch (error) {
       console.error(error);
       alert(`Login failed with error: ${error}`);

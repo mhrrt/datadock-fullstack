@@ -15,7 +15,20 @@ function App() {
 
           <nav className="flex gap-4">
             <Link
-              to="/search"
+              to="/search/false"
+              className="rounded bg-red-600 px-4 py-2 hover:bg-blue-500"
+            >
+              Defaulter
+            </Link>
+            <Link
+              to="/new/defaulter"
+              className="rounded bg-orange-600 px-4 py-2 hover:bg-green-500"
+            >
+              Add Defaulter
+            </Link>
+            <div> </div>
+            <Link
+              to="/search/true"
               className="rounded bg-blue-600 px-4 py-2 hover:bg-blue-500"
             >
               Search
@@ -52,14 +65,23 @@ function App() {
           {/* Protected Search */}
 
           <Route
-            path="/search"
+            // path="/search"
+            path="/search/:mode"
             element={
               <ProtectedRoute>
                 <SearchPage />
               </ProtectedRoute>
             }
           />
-
+          {/* Protected for Defaulter Entry */}
+          <Route
+            path="/new/:mode"
+            element={
+              <ProtectedRoute>
+                <NewEntryPage key="new" />
+              </ProtectedRoute>
+            }
+          />
           {/* Protected New Entry */}
           <Route
             path="/new"

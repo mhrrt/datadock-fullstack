@@ -99,6 +99,12 @@ const NewEntryPage = () => {
   const [states, setStates] = useState<StateType[]>([]);
   const [cities, setCities] = useState<CityType[]>([]);
   const [pincodes, setPincodes] = useState<PincodeType[]>([]);
+
+  //for adding defaulter customer
+  // for loading All or Defaulter list
+  const { mode } = useParams();
+  const isDefaulterMode = mode === "defaulter";
+
   //for Working vs suspended
   const [originalIsActive, setOriginalIsActive] = useState<boolean>(true);
   const [originalRecoveryRemark, setOriginalRecoveryRemark] =
@@ -228,6 +234,13 @@ const NewEntryPage = () => {
         bazarId: formData.bazarId || null,
 
         creditLimit: formData.creditLimit ? Number(formData.creditLimit) : null,
+
+        //if adding defaulter make this record isActive to false
+        isActive: isDefaulterMode
+          ? false
+          : isEditMode
+            ? formData.isActive
+            : true,
       };
 
       setLoading(true);
@@ -236,13 +249,16 @@ const NewEntryPage = () => {
         ...payload,
         pincodeId: formData.pincodeId ? Number(formData.pincodeId) : null,
       });
+      console.log(
+        `current Editmode is: ${isEditMode} and isDefaulter is: ${isDefaulterMode}`,
+      );
 
       if (isEditMode) {
         console.log(`record updateding for: ${payload}`);
         await api.put(`api/records/${id}`, payload);
         //alert("Record created successfully");
         toast.success("Record updated successfully");
-        navigate("/search");
+        navigate("/search/true");
       } else {
         await api.post("api/records", payload);
         //alert("Record created successfully");
@@ -384,6 +400,10 @@ const NewEntryPage = () => {
     console.log("isActive value:", JSON.stringify(formData.isActive));
   }, []);
 
+  useEffect(() => {
+    console.log(`loading for defaulter: ${isDefaulterMode}`);
+  }, [isDefaulterMode]);
+
   // for Edit record
   useEffect(() => {
     if (!id) return;
@@ -395,7 +415,7 @@ const NewEntryPage = () => {
         const record = response.data;
         //on loading set userstate
         setOriginalIsActive(Boolean(record.isActive));
-        setOriginalRecoveryRemark(record.recoveryRemark);
+        setOriginalRecoveryRemark(record.remark);
 
         setFormData({
           entryDate: record.entryDate?.split("T")[0] ?? "",
@@ -443,16 +463,6 @@ const NewEntryPage = () => {
 
     fetchRecord();
   }, [id]);
-
-  // // reset screen when id is cleared
-  // useEffect(() => {
-  //   if (!id) {
-  //     setFormData(emptyFormData);
-
-  //     setCities([]);
-  //     setPincodes([]);
-  //   }
-  // }, [id]);
 
   const handleFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
     if (e.key !== "Enter") return;
@@ -525,7 +535,11 @@ const NewEntryPage = () => {
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="mx-auto max-w-5xl rounded-xl border-2 border-slate-500 bg-white p-8 shadow-lg">
         <h1 className="mb-8 text-3xl font-bold text-[#1E40AF]">
-          {isEditMode ? "Customer Edit" : "Customer Entry"}
+          {!isDefaulterMode
+            ? isEditMode
+              ? "Customer Edit"
+              : "Customer Entry"
+            : "Defaulter Entry"}
         </h1>
 
         <form
@@ -618,64 +632,70 @@ const NewEntryPage = () => {
           </div>
 
           {/* State */}
-          <div>
-            <label className={labelClass}>STATE</label>
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>STATE</label>
 
-            <select
-              name="stateId"
-              value={formData.stateId}
-              onChange={handleChange}
-              className={inputClass}
-            >
-              <option value="">Select State</option>
+              <select
+                name="stateId"
+                value={formData.stateId}
+                onChange={handleChange}
+                className={inputClass}
+              >
+                <option value="">Select State</option>
 
-              {states.map((state) => (
-                <option key={state.id} value={state.id}>
-                  {state.name.toUpperCase()}
-                </option>
-              ))}
-            </select>
-          </div>
+                {states.map((state) => (
+                  <option key={state.id} value={state.id}>
+                    {state.name.toUpperCase()}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
           {/* City */}
-          <div>
-            <label className={labelClass}>CITY</label>
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>CITY</label>
 
-            <select
-              name="cityId"
-              value={formData.cityId}
-              onChange={handleChange}
-              className={inputClass}
-            >
-              <option value="">Select City</option>
+              <select
+                name="cityId"
+                value={formData.cityId}
+                onChange={handleChange}
+                className={inputClass}
+              >
+                <option value="">Select City</option>
 
-              {cities.map((city) => (
-                <option key={city.id} value={city.id}>
-                  {city.name.toUpperCase()}
-                </option>
-              ))}
-            </select>
-          </div>
+                {cities.map((city) => (
+                  <option key={city.id} value={city.id}>
+                    {city.name.toUpperCase()}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
           {/* Pincode */}
-          <div>
-            <label className={labelClass}>PINCODE</label>
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>PINCODE</label>
 
-            <select
-              name="pincodeId"
-              value={formData.pincodeId}
-              onChange={handleChange}
-              className={inputClass}
-            >
-              <option value="">Select Pincode</option>
+              <select
+                name="pincodeId"
+                value={formData.pincodeId}
+                onChange={handleChange}
+                className={inputClass}
+              >
+                <option value="">Select Pincode</option>
 
-              {pincodes.map((pincode) => (
-                <option key={pincode.id} value={pincode.id}>
-                  {pincode.pinCode} - {pincode.areaName.toUpperCase()}
-                </option>
-              ))}
-            </select>
-          </div>
+                {pincodes.map((pincode) => (
+                  <option key={pincode.id} value={pincode.id}>
+                    {pincode.pinCode} - {pincode.areaName.toUpperCase()}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
           {/* Phone 1 */}
           <div>
@@ -734,45 +754,51 @@ const NewEntryPage = () => {
           </div>
 
           {/* Bhaw MD */}
-          <div>
-            <label className={labelClass}>BHAV MD</label>
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>BHAV MD</label>
 
-            <input
-              type="text"
-              name="bhawMD"
-              value={formData.bhawMD}
-              onChange={handleChange}
-              placeholder="1-0-1.2-4.5-3.2-0-0"
-              className={inputClass}
-            />
-          </div>
+              <input
+                type="text"
+                name="bhawMD"
+                value={formData.bhawMD}
+                onChange={handleChange}
+                placeholder="1-0-1.2-4.5-3.2-0-0"
+                className={inputClass}
+              />
+            </div>
+          )}
 
           {/* Bhaw KRM */}
-          <div>
-            <label className={labelClass}>BHAV KRM</label>
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>BHAV KRM</label>
 
-            <input
-              type="text"
-              name="bhawKRM"
-              value={formData.bhawKRM}
-              onChange={handleChange}
-              placeholder="1-0-1.2-4.5-3.2-0-0"
-              className={inputClass}
-            />
-          </div>
+              <input
+                type="text"
+                name="bhawKRM"
+                value={formData.bhawKRM}
+                onChange={handleChange}
+                placeholder="1-0-1.2-4.5-3.2-0-0"
+                className={inputClass}
+              />
+            </div>
+          )}
 
           {/* Credit Limit */}
-          <div>
-            <label className={labelClass}>CREDIT LIMIT</label>
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>CREDIT LIMIT</label>
 
-            <input
-              type="number"
-              name="creditLimit"
-              value={formData.creditLimit}
-              onChange={handleChange}
-              className={inputClass}
-            />
-          </div>
+              <input
+                type="number"
+                name="creditLimit"
+                value={formData.creditLimit}
+                onChange={handleChange}
+                className={inputClass}
+              />
+            </div>
+          )}
 
           {/* Bazar dropdown*/}
           {/* <div>
@@ -788,186 +814,214 @@ const NewEntryPage = () => {
             </select>
           </div> */}
           {/* Bazar */}
-          <div>
-            <label className={labelClass}>BAZAR</label>
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>BAZAR</label>
 
-            <input
-              type="text"
-              name="bazarId"
-              value={formData.bazarId}
-              onChange={handleChange}
-              placeholder="Enter Bazar"
-              className={inputClass}
-            />
-          </div>
+              <input
+                type="text"
+                name="bazarId"
+                value={formData.bazarId}
+                onChange={handleChange}
+                placeholder="Enter Bazar"
+                className={inputClass}
+              />
+            </div>
+          )}
 
           {/* Reference Name */}
-          <div>
-            <label className={labelClass}>REFERENCE NAME</label>
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>REFERENCE NAME</label>
 
-            <input
-              type="text"
-              name="referenceName"
-              value={formData.referenceName}
-              onChange={handleChange}
-              className={inputClass}
-            />
-          </div>
+              <input
+                type="text"
+                name="referenceName"
+                value={formData.referenceName}
+                onChange={handleChange}
+                className={inputClass}
+              />
+            </div>
+          )}
 
           {/* Reference Number */}
-          <div>
-            <label className={labelClass}>REFERENCE NUMBER</label>
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>REFERENCE NUMBER</label>
 
-            <input
-              type="text"
-              name="referenceNumber"
-              value={formData.referenceNumber}
-              onChange={handleChange}
-              className={inputClass}
-            />
-          </div>
+              <input
+                type="text"
+                name="referenceNumber"
+                value={formData.referenceNumber}
+                onChange={handleChange}
+                className={inputClass}
+              />
+            </div>
+          )}
 
           {/* Remark */}
-          <div className="md:col-span-2">
-            <label className={labelClass}>REMARK</label>
-
-            <textarea
-              name="remark"
-              value={formData.remark}
-              onChange={handleChange}
-              rows={4}
-              className={inputClass}
-              onKeyDown={(e) => {
-                if (e.ctrlKey && e.key === "Enter") {
-                  e.preventDefault();
-
-                  const textarea = e.currentTarget;
-                  const start = textarea.selectionStart;
-                  const end = textarea.selectionEnd;
-
-                  const newValue =
-                    formData.remark.slice(0, start) +
-                    "\n" +
-                    formData.remark.slice(end);
-
-                  setFormData((prev) => ({
-                    ...prev,
-                    remark: newValue,
-                  }));
-                }
-              }}
-            />
-          </div>
-
-          {/* <div className="form-row"> */}
-          <div>
-            {/* <label htmlFor="pendingAmount">Pending Amount</label> */}
-            <label className={labelClass}>PENDING AMOUNT</label>
-            <input
-              id="pendingAmount"
-              name="pendingAmount"
-              type="number"
-              min="0"
-              step="1000"
-              value={formData.pendingAmount}
-              onChange={handleChange}
-              className={inputClass}
-            />
-          </div>
-
-          <div>
-            <label className={labelClass}>RECEIVED AMOUNT</label>
-            <input
-              id="receivedAmount"
-              name="receivedAmount"
-              type="number"
-              min="0"
-              step="1000"
-              value={formData.receivedAmount}
-              onChange={handleChange}
-              className={inputClass}
-            />
-          </div>
-          {/* </div> */}
-
-          {/* <div className="form-row"> */}
-          <div>
-            <label className={labelClass}>OUTSTANDING AMOUNT</label>
-            <input
-              id="outstandingAmount"
-              name="outstandingAmount"
-              type="number"
-              value={formData.outstandingAmount}
-              readOnly
-              disabled
-              className={inputClass}
-            />
-          </div>
-
-          <div>
-            <label className={labelClass}>STATUS</label>
-            <input
-              id="status"
-              name="status"
-              type="text"
-              value={formData.status}
-              readOnly
-              disabled
-              // className={`status-${formData.status.toLowerCase()}`}
-              className={`w-full rounded border p-3 text-medium font-semibold text-blue-700 focus:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                formData.status?.toLowerCase() === "active"
-                  ? "bg-green-400"
-                  : formData.status?.toLowerCase() === "restricted"
-                    ? "bg-orange-300"
-                    : "bg-red-400"
-              }`}
-            />
-          </div>
-          {/* </div> */}
-
-          <div className="md:col-span-2">
-            <label className={labelClass}>
-              RECOVERY REMARK
+          {!isDefaulterMode && (
+            <div className="md:col-span-2">
+              <label className={labelClass}>REMARK</label>
+              {/* If customer status get updtaed on Edit screen Remark is mandatory */}
               {isEditMode && formData.isActive !== originalIsActive && (
                 <span className="text-red-500"> *</span>
               )}
-            </label>
 
-            <textarea
-              id="recoveryRemark"
-              name="recoveryRemark"
-              rows={4}
-              value={formData.recoveryRemark}
-              onChange={handleChange}
-              placeholder="Enter recovery details, payment commitments, follow-up notes, etc."
-              className={`w-full rounded border p-3 text-medium font-semibold text-#1e3a8a-700 focus:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                isEditMode &&
-                formData.isActive !== originalIsActive &&
-                !formData.recoveryRemark?.trim()
-                  ? "border-red-500"
-                  : ""
-              }`}
-              onKeyDown={(e) => {
-                if (e.ctrlKey && e.key === "Enter") {
-                  e.preventDefault();
+              <textarea
+                name="remark"
+                value={formData.remark}
+                onChange={handleChange}
+                rows={4}
+                // className={inputClass}
+                className={`w-full rounded border p-3 text-medium font-semibold text-#1e3a8a-700 focus:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  isEditMode &&
+                  formData.isActive !== originalIsActive &&
+                  !formData.remark?.trim()
+                    ? "border-red-500"
+                    : ""
+                }`}
+                onKeyDown={(e) => {
+                  if (e.ctrlKey && e.key === "Enter") {
+                    e.preventDefault();
 
-                  const textarea = e.currentTarget;
-                  const start = textarea.selectionStart;
-                  const end = textarea.selectionEnd;
+                    const textarea = e.currentTarget;
+                    const start = textarea.selectionStart;
+                    const end = textarea.selectionEnd;
 
-                  const newValue =
-                    formData.recoveryRemark.slice(0, start) +
-                    "\n" +
-                    formData.recoveryRemark.slice(end);
+                    const newValue =
+                      formData.remark.slice(0, start) +
+                      "\n" +
+                      formData.remark.slice(end);
 
-                  setFormData((prev) => ({
-                    ...prev,
-                    recoveryRemark: newValue,
-                  }));
-                }
-              }}
-            />
-          </div>
+                    setFormData((prev) => ({
+                      ...prev,
+                      remark: newValue,
+                    }));
+                  }
+                }}
+              />
+            </div>
+          )}
+
+          {/* <div className="form-row"> */}
+          {isDefaulterMode && (
+            <div>
+              <label className={labelClass}>PENDING AMOUNT</label>
+              <input
+                id="pendingAmount"
+                name="pendingAmount"
+                type="number"
+                min="0"
+                step="1000"
+                value={formData.pendingAmount}
+                onChange={handleChange}
+                className={inputClass}
+              />
+            </div>
+          )}
+
+          {isDefaulterMode && (
+            <div>
+              <label className={labelClass}>RECEIVED AMOUNT</label>
+              <input
+                id="receivedAmount"
+                name="receivedAmount"
+                type="number"
+                min="0"
+                step="1000"
+                value={formData.receivedAmount}
+                onChange={handleChange}
+                className={inputClass}
+              />
+            </div>
+          )}
+          {/* </div> */}
+
+          {/* <div className="form-row"> */}
+          {isDefaulterMode && (
+            <div>
+              <label className={labelClass}>OUTSTANDING AMOUNT</label>
+              <input
+                id="outstandingAmount"
+                name="outstandingAmount"
+                type="number"
+                value={formData.outstandingAmount}
+                readOnly
+                disabled
+                className={inputClass}
+              />
+            </div>
+          )}
+
+          {isDefaulterMode && (
+            <div>
+              <label className={labelClass}>STATUS</label>
+              <input
+                id="status"
+                name="status"
+                type="text"
+                value={formData.status}
+                readOnly
+                disabled
+                // className={`status-${formData.status.toLowerCase()}`}
+                className={`w-full rounded border p-3 text-medium font-semibold text-blue-700 focus:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  formData.status?.toLowerCase() === "active"
+                    ? "bg-green-400"
+                    : formData.status?.toLowerCase() === "restricted"
+                      ? "bg-orange-300"
+                      : "bg-red-400"
+                }`}
+              />
+            </div>
+          )}
+          {/* </div> */}
+
+          {isDefaulterMode && (
+            <div className="md:col-span-2">
+              <label className={labelClass}>
+                RECOVERY REMARK
+                {isEditMode && formData.isActive !== originalIsActive && (
+                  <span className="text-red-500"> *</span>
+                )}
+              </label>
+
+              <textarea
+                id="recoveryRemark"
+                name="recoveryRemark"
+                rows={4}
+                value={formData.recoveryRemark}
+                onChange={handleChange}
+                placeholder="Enter recovery details, payment commitments, follow-up notes, etc."
+                className={`w-full rounded border p-3 text-medium font-semibold text-#1e3a8a-700 focus:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  isEditMode &&
+                  formData.isActive !== originalIsActive &&
+                  !formData.recoveryRemark?.trim()
+                    ? "border-red-500"
+                    : ""
+                }`}
+                onKeyDown={(e) => {
+                  if (e.ctrlKey && e.key === "Enter") {
+                    e.preventDefault();
+
+                    const textarea = e.currentTarget;
+                    const start = textarea.selectionStart;
+                    const end = textarea.selectionEnd;
+
+                    const newValue =
+                      formData.recoveryRemark.slice(0, start) +
+                      "\n" +
+                      formData.recoveryRemark.slice(end);
+
+                    setFormData((prev) => ({
+                      ...prev,
+                      recoveryRemark: newValue,
+                    }));
+                  }
+                }}
+              />
+            </div>
+          )}
 
           {/* Submit */}
           <div className="md:col-span-2">
