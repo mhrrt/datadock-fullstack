@@ -666,7 +666,11 @@ const SearchPage = () => {
               gridApiRef.current = params.api;
             }}
             onRowDoubleClicked={(event) => {
-              navigate(`/edit/${event.data.id}`);
+              if (isForActiveMode) {
+                navigate(`/edit/${event.data.id}`);
+              } else {
+                navigate(`/edit/${event.data.id}/defaulter`);
+              }
             }}
             onFilterChanged={onFilterChanged}
           />

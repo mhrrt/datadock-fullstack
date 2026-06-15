@@ -258,7 +258,7 @@ const NewEntryPage = () => {
         await api.put(`api/records/${id}`, payload);
         //alert("Record created successfully");
         toast.success("Record updated successfully");
-        navigate("/search/true");
+        isDefaulterMode ? navigate("/search/false") : navigate("/search/true");
       } else {
         await api.post("api/records", payload);
         //alert("Record created successfully");
@@ -539,7 +539,7 @@ const NewEntryPage = () => {
             ? isEditMode
               ? "Customer Edit"
               : "Customer Entry"
-            : "Defaulter Entry"}
+            : "Pending Entry"}
         </h1>
 
         <form
@@ -619,18 +619,19 @@ const NewEntryPage = () => {
           </div>
 
           {/* Code Name */}
-          <div>
-            <label className={labelClass}>CODE NAME</label>
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>CODE NAME</label>
 
-            <input
-              type="text"
-              name="codeName"
-              value={formData.codeName}
-              onChange={handleChange}
-              className={inputClass}
-            />
-          </div>
-
+              <input
+                type="text"
+                name="codeName"
+                value={formData.codeName}
+                onChange={handleChange}
+                className={inputClass}
+              />
+            </div>
+          )}
           {/* State */}
           {!isDefaulterMode && (
             <div>
@@ -726,33 +727,35 @@ const NewEntryPage = () => {
           </div>
 
           {/* Office Phone 1 */}
-          <div>
-            <label className={labelClass}>OFFICE PHONE 1</label>
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>OFFICE PHONE 1</label>
 
-            <input
-              type="text"
-              name="officePhone1"
-              value={formData.officePhone1}
-              onChange={handleChange}
-              //pattern={patternValidation}
-              className={inputClass}
-            />
-          </div>
-
+              <input
+                type="text"
+                name="officePhone1"
+                value={formData.officePhone1}
+                onChange={handleChange}
+                //pattern={patternValidation}
+                className={inputClass}
+              />
+            </div>
+          )}
           {/* Office Phone 2 */}
-          <div>
-            <label className={labelClass}>OFFICE PHONE 2</label>
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>OFFICE PHONE 2</label>
 
-            <input
-              type="text"
-              name="officePhone2"
-              value={formData.officePhone2}
-              onChange={handleChange}
-              //pattern={patternValidation}
-              className={inputClass}
-            />
-          </div>
-
+              <input
+                type="text"
+                name="officePhone2"
+                value={formData.officePhone2}
+                onChange={handleChange}
+                //pattern={patternValidation}
+                className={inputClass}
+              />
+            </div>
+          )}
           {/* Bhaw MD */}
           {!isDefaulterMode && (
             <div>
@@ -905,6 +908,7 @@ const NewEntryPage = () => {
           )}
 
           {/* <div className="form-row"> */}
+          {/* Pending amount */}
           {isDefaulterMode && (
             <div>
               <label className={labelClass}>PENDING AMOUNT</label>
@@ -921,6 +925,7 @@ const NewEntryPage = () => {
             </div>
           )}
 
+          {/* Received Amount */}
           {isDefaulterMode && (
             <div>
               <label className={labelClass}>RECEIVED AMOUNT</label>
@@ -939,6 +944,7 @@ const NewEntryPage = () => {
           {/* </div> */}
 
           {/* <div className="form-row"> */}
+          {/* Outstanding amount */}
           {isDefaulterMode && (
             <div>
               <label className={labelClass}>OUTSTANDING AMOUNT</label>
@@ -954,6 +960,7 @@ const NewEntryPage = () => {
             </div>
           )}
 
+          {/* Status */}
           {isDefaulterMode && (
             <div>
               <label className={labelClass}>STATUS</label>
@@ -977,6 +984,7 @@ const NewEntryPage = () => {
           )}
           {/* </div> */}
 
+          {/* Recovery remark */}
           {isDefaulterMode && (
             <div className="md:col-span-2">
               <label className={labelClass}>

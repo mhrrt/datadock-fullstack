@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { searchRecordSchema } from "../validators/record.validator";
-import { searchRecords } from "../services/record.service";
+import { getNextCodeName, searchRecords } from "../services/record.service";
 import prisma from "../config/prisma";
 import {
   calculateStatus,
@@ -116,6 +116,12 @@ export async function createRecord(req: Request, res: Response) {
   console.log("BODY:", req.body);
   try {
     const { stateId, cityId, ...customerData } = req.body;
+
+    let codeName = req.body.codeName?.trim();
+
+    if (!codeName) {
+      codeName = await getNextCodeName();
+    }
 
     // adding option for addeing Pending, outstanding and customer status
     const pendingAmount = Number(req.body.pendingAmount || 0);

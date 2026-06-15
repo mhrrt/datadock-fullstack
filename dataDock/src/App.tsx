@@ -18,13 +18,13 @@ function App() {
               to="/search/false"
               className="rounded bg-red-600 px-4 py-2 hover:bg-blue-500"
             >
-              Defaulter
+              Pending List
             </Link>
             <Link
               to="/new/defaulter"
               className="rounded bg-orange-600 px-4 py-2 hover:bg-green-500"
             >
-              Add Defaulter
+              Pending Entry
             </Link>
             <div> </div>
             <Link
@@ -52,7 +52,7 @@ function App() {
             path="/"
             element={
               localStorage.getItem("token") ? (
-                <Navigate to="/search" replace />
+                <Navigate to="/search/true" replace />
               ) : (
                 <Navigate to="/login" replace />
               )
@@ -95,6 +95,16 @@ function App() {
           {/* Route for Edit record */}
           <Route
             path="/edit/:id"
+            element={
+              <ProtectedRoute>
+                <NewEntryPage key="edit" />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Route for Edit Pending customer record */}
+          <Route
+            path="/edit/:id/:mode"
             element={
               <ProtectedRoute>
                 <NewEntryPage key="edit" />

@@ -64,3 +64,21 @@ export async function searchRecords(params: SearchParams) {
     totalPages: Math.ceil(total / limit),
   };
 }
+
+export async function getNextCodeName(): Promise<string> {
+  const customer = await prisma.customer.findFirst({
+    where: {
+      codeName: {
+        not: null,
+      },
+    },
+    orderBy: {
+      codeName: "desc",
+    },
+    select: {
+      codeName: true,
+    },
+  });
+
+  return String(Number(customer?.codeName || 0) + 1);
+}
