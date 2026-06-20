@@ -37,8 +37,8 @@ const router = Router();
 // router.get("/", getRecords);
 // router.get("/", authenticate, getRecords);
 router.get("/", getRecords);
-router.post("/", createRecord);
+router.post("/", authenticate, createRecord);
 router.get("/:id", getRecordById);
-router.put("/:id", updateRecord);
+router.put("/:id", authenticate, updateRecord);
 
 export default router;

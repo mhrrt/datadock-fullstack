@@ -10,11 +10,16 @@ export default function LoginPage() {
 
   const [password, setPassword] = useState("");
 
+  localStorage.clear();
+  console.log("local storage clear");
+
   const handleLogin = async () => {
     try {
       const data = await login(username, password);
 
       localStorage.setItem("token", data.token);
+      //saving user.id to local that will be use while create and edit of customer record
+      // localStorage.setItem("createdBy", data.user.id);
       // alert(`token generated: ${data.token}`);
       navigate("/search/true");
     } catch (error) {

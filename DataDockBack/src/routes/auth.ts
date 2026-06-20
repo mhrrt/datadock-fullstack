@@ -63,6 +63,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(
       {
         userId: user.id,
+        userName: user.username,
         // role: user.role,
       },
       process.env.JWT_SECRET! || "datadock-secret",

@@ -7,10 +7,12 @@ export async function authenticate(
   res: Response,
   next: NextFunction,
 ) {
+  console.log("auth middelware hit");
   try {
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
+      console.log("returning from middelware for 401");
       return res.status(401).json({
         message: "Unauthorized",
       });
@@ -18,12 +20,19 @@ export async function authenticate(
 
     const token = authHeader.split(" ")[1] as string;
 
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET as string,
-    );
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+      userId: number;
+      username: string;
+    };
 
-    req.user = decoded;
+    console.log("TOKEN:", token);
+    console.log("DECODED:", decoded);
+
+    // req.user = decoded;
+    req.user = {
+      userId: decoded.userId,
+      username: decoded.username,
+    };
 
     next();
   } catch {

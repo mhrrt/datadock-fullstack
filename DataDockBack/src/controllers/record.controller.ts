@@ -114,9 +114,12 @@ export async function createRecord(req: Request, res: Response) {
   console.log("===== CREATE =====");
   console.log("TIME:", new Date().toISOString());
   console.log("BODY:", req.body);
+  console.log("CreateBy", req.user ?? "userid is null");
   try {
     const { stateId, cityId, ...customerData } = req.body;
 
+    const createdById = req.user?.userId;
+    console.log("createdById", createdById ?? "userid is null");
     let codeName = req.body.codeName?.trim();
 
     if (!codeName) {
@@ -155,6 +158,8 @@ export async function createRecord(req: Request, res: Response) {
           ? Number(customerData.creditLimit)
           : null,
 
+        createdById: createdById ?? null,
+
         pendingAmount,
         receivedAmount,
         outstandingAmount,
@@ -186,6 +191,9 @@ export async function updateRecord(req: Request, res: Response) {
 
     const { stateId, cityId, ...customerData } = req.body;
 
+    const createdById = req.user?.userId;
+    console.log("Edit createdById", createdById ?? "userid is null");
+
     const pendingAmount = Number(req.body.pendingAmount || 0);
 
     const receivedAmount = Number(req.body.receivedAmount || 0);
@@ -215,6 +223,8 @@ export async function updateRecord(req: Request, res: Response) {
         creditLimit: customerData.creditLimit
           ? Number(customerData.creditLimit)
           : null,
+
+        createdById: createdById ?? null,
 
         pendingAmount,
         receivedAmount,

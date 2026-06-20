@@ -5,6 +5,16 @@ const API_URL = import.meta.env.VITE_API_URL;
 const api = axios.create({
   baseURL: `${API_URL}/`,
 });
+//for sending authheader that will allow to add createbyid
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
 
 console.log("MODE =", import.meta.env.MODE);
 console.log("VITE_API_URL =", import.meta.env.VITE_API_URL);

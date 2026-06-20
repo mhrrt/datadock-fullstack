@@ -9,6 +9,7 @@ import stateRoutes from "./routes/stateRoutes";
 import cityRoutes from "./routes/cityRoutes";
 import pincodeRoutes from "./routes/pincodeRoutes";
 import { errorHandler } from "./middleware/errorHandler";
+import { authenticate } from "./middleware/auth.middleware";
 
 const app = express();
 

@@ -98,7 +98,7 @@ const SearchPage = () => {
       console.log(`fetchRecords url: ${mode}`);
       const response = await api.get(`api/records?mode=${mode}`);
 
-      //console.log(response.data);
+      // console.log("Response data:", JSON.stringify(response.data, null, 2));
       setRowData(response.data || []);
     } catch (error) {
       console.error(error);
@@ -316,7 +316,7 @@ const SearchPage = () => {
       {
         headerName: "Created By",
         minWidth: 180,
-        valueGetter: (params) => params.data?.createdBy?.userName || "",
+        valueGetter: (params) => params.data?.createdBy?.fullName || "",
       },
     ],
     [],
@@ -513,11 +513,11 @@ const SearchPage = () => {
           </span>
         ),
       },
-      //  {
-      //    headerName: "Created By",
-      //    minWidth: 180,
-      //    valueGetter: (params) => params.data?.createdBy?.userName || "",
-      //  },
+      {
+        headerName: "Created By",
+        minWidth: 180,
+        valueGetter: (params) => params.data?.createdBy?.fullName || "",
+      },
     ],
     [],
   );
