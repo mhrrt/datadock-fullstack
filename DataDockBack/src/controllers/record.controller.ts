@@ -15,6 +15,10 @@ import { Prisma } from "@prisma/client";
 
 export async function getRecords(req: Request, res: Response) {
   try {
+    //adding pagination for larger records
+    const page = 2;
+    const pageSize = 150;
+
     //as we are using same search page for active and defaulter both
     const mode = req.query.mode;
     console.log(`datadockbackend selecting records for mode:${mode}`);
@@ -34,6 +38,7 @@ export async function getRecords(req: Request, res: Response) {
     console.log(`mode and whareclause: ${mode} and clause:${whereClause}`);
     console.log("mode:", mode);
     console.log("whereClause:", JSON.stringify(whereClause, null, 2));
+
     const records = await prisma.customer.findMany({
       include: {
         state: true,
@@ -45,7 +50,8 @@ export async function getRecords(req: Request, res: Response) {
       orderBy: {
         createdAt: "desc",
       },
-      take: 100,
+      //skip: (page - 1) * pageSize,
+      //take: 100,
     });
 
     return res

@@ -592,7 +592,7 @@ const SearchPage = () => {
       <div className="rounded-xl bg-white p-6 shadow-lg">
         <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <h1 className="text-3xl text-blue-600 font-bold">
-            {isForActiveMode ? "Defaulter List" : "Search Customer"}
+            {isForActiveMode ? "Search Customer" : "Defaulter List"}
           </h1>
 
           <input

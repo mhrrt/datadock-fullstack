@@ -29,10 +29,45 @@ async function main() {
 
   // console.log(`Imported ${cities.length} cities`);
 
+  // console.log("Validating existing cityid======");
+
+  // const cityIdsInDb = await prisma.city.findMany({
+  //   select: { id: true },
+  // });
+
+  // const validCityIds = new Set(cityIdsInDb.map((c) => c.id));
+
+  // const invalidPincodes = pincodes.filter(
+  //   (p: any) => !validCityIds.has(p.cityId),
+  // );
+
+  // console.log("Invalid records:", invalidPincodes.length);
+
+  // console.log(invalidPincodes.slice(0, 20));
+  // console.log("===========");
+
+  console.log("===========skip invalid or missing cityid records====");
+
+  const cityIdsInDb = await prisma.city.findMany({
+    select: { id: true },
+  });
+
+  const validCityIds = new Set(cityIdsInDb.map((c) => c.id));
+
+  const validPincodes = pincodes.filter((p: any) => validCityIds.has(p.cityId));
+
+  console.log(`Importing ${validPincodes.length} valid records`);
+
   await prisma.pincode.createMany({
-    data: pincodes,
+    data: validPincodes,
     skipDuplicates: true,
   });
+  console.log("done with skiping invalid or missing city records==");
+
+  // await prisma.pincode.createMany({
+  //   data: pincodes,
+  //   skipDuplicates: true,
+  // });
 
   console.log(`Imported ${pincodes.length} pincodes`);
 }
