@@ -13,7 +13,7 @@ async function main() {
     create: {
       username: "chetan",
       passwordHash,
-      fullName: "Cheetan Suchak",
+      fullName: "Cheetan S",
       // role: "ADMIN",
     },
   });
