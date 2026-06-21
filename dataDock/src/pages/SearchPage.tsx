@@ -564,6 +564,7 @@ const SearchPage = () => {
       rowData,
       `DataDock_All_Records_${isForActiveMode ? "defaulter" : ""}_${today}.xlsx`,
       passwordProtect,
+      isForActiveMode,
     );
   };
 
@@ -580,6 +581,7 @@ const SearchPage = () => {
       visibleRows,
       `DataDock_Filtered_Records_${isForActiveMode ? "defaulter" : ""}_${today}.xlsx`,
       passwordProtect,
+      isForActiveMode,
     );
   };
   // password protection

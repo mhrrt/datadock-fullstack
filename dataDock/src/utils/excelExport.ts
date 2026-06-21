@@ -20,6 +20,7 @@ export async function exportRecordsToExcel(
   rows: any[],
   fileName: string,
   passwordProtect = false,
+  isForActiveMode = true,
 ) {
   const EXPORT_THEME = {
     titleBg: "1976D2", // same as AG Grid header
@@ -38,33 +39,69 @@ export async function exportRecordsToExcel(
 
   const worksheet = workbook.addWorksheet("Records");
 
+  const exportData = rows.map((row) => ({
+    ...row,
+    createdByName: row.createdBy?.fullName ?? "",
+  }));
+
+  console.log("row data:", JSON.stringify(exportData, null, 2));
+
   // suggested excel template with frozen header, Adding title row
-  worksheet.columns = [
-    { header: "ID", key: "id", width: 10 },
-    { header: "DATE", key: "entryDate", width: 15 },
-    { header: "NAME", key: "name", width: 30 },
-    { header: "CODE NAME", key: "codeName", width: 20 },
-    { header: "STATE", key: "state", width: 20 },
-    { header: "CITY", key: "city", width: 20 },
-    { header: "PINCODE", key: "pincode", width: 15 },
-    { header: "BAZAR", key: "bazar", width: 20 },
-    { header: "PHONE 1", key: "phone1", width: 18 },
-    { header: "PHONE 2", key: "phone2", width: 18 },
-    { header: "OFFICE PHONE 1", key: "officePhone1", width: 20 },
-    { header: "OFFICE PHONE 2", key: "officePhone2", width: 20 },
-    { header: "BHAV MD", key: "bhawMD", width: 20 },
-    { header: "BHAV KRM", key: "bhawKRM", width: 20 },
-    { header: "CREDIT LIMIT", key: "creditLimit", width: 18 },
-    { header: "REFERENCE NUMBER", key: "referenceNumber", width: 20 },
-    { header: "REFERENCE NAME", key: "referenceName", width: 25 },
-    { header: "REMARK", key: "remark", width: 40 },
-    { header: "PENDING AMT", key: "pendingAmount", width: 15 },
-    { header: "RECEIVED AMT", key: "receivedAmount", width: 15 },
-    { header: "OUTSTANDING AMT", key: "outstandingAmount", width: 18 },
-    { header: "STATUS", key: "status", width: 15 },
-    { header: "RECOVERY NOTES", key: "recoveryRemark", width: 40 },
-    { header: "CREATED BY", key: "createdBy", width: 20 },
-  ];
+  if (isForActiveMode) {
+    worksheet.columns = [
+      { header: "ID", key: "id", width: 10 },
+      { header: "DATE", key: "entryDate", width: 15 },
+      { header: "NAME", key: "name", width: 30 },
+      { header: "CODE NAME", key: "codeName", width: 20 },
+      { header: "STATE", key: "state", width: 20 },
+      { header: "CITY", key: "city", width: 20 },
+      { header: "PINCODE", key: "pincode", width: 15 },
+      { header: "BAZAR", key: "bazar", width: 20 },
+      { header: "PHONE 1", key: "phone1", width: 18 },
+      { header: "PHONE 2", key: "phone2", width: 18 },
+      { header: "OFFICE PHONE 1", key: "officePhone1", width: 20 },
+      { header: "OFFICE PHONE 2", key: "officePhone2", width: 20 },
+      { header: "BHAV MD", key: "bhawMD", width: 20 },
+      { header: "BHAV KRM", key: "bhawKRM", width: 20 },
+      { header: "CREDIT LIMIT", key: "creditLimit", width: 18 },
+      { header: "REFERENCE NUMBER", key: "referenceNumber", width: 20 },
+      { header: "REFERENCE NAME", key: "referenceName", width: 25 },
+      { header: "REMARK", key: "remark", width: 40 },
+      { header: "PENDING AMT", key: "pendingAmount", width: 15 },
+      { header: "RECEIVED AMT", key: "receivedAmount", width: 15 },
+      { header: "OUTSTANDING AMT", key: "outstandingAmount", width: 18 },
+      { header: "STATUS", key: "status", width: 15 },
+      { header: "RECOVERY NOTES", key: "recoveryRemark", width: 40 },
+      { header: "CREATED BY", key: "createdByName", width: 20 },
+    ];
+  } else {
+    worksheet.columns = [
+      { header: "ID", key: "id", width: 10 },
+      { header: "DATE", key: "entryDate", width: 15 },
+      { header: "NAME", key: "name", width: 30 },
+      // { header: "CODE NAME", key: "codeName", width: 20 },
+      // { header: "STATE", key: "state", width: 20 },
+      // { header: "CITY", key: "city", width: 20 },
+      // { header: "PINCODE", key: "pincode", width: 15 },
+      // { header: "BAZAR", key: "bazar", width: 20 },
+      { header: "PHONE 1", key: "phone1", width: 18 },
+      { header: "PHONE 2", key: "phone2", width: 18 },
+      // { header: "OFFICE PHONE 1", key: "officePhone1", width: 20 },
+      // { header: "OFFICE PHONE 2", key: "officePhone2", width: 20 },
+      // { header: "BHAV MD", key: "bhawMD", width: 20 },
+      // { header: "BHAV KRM", key: "bhawKRM", width: 20 },
+      // { header: "CREDIT LIMIT", key: "creditLimit", width: 18 },
+      // { header: "REFERENCE NUMBER", key: "referenceNumber", width: 20 },
+      // { header: "REFERENCE NAME", key: "referenceName", width: 25 },
+      // { header: "REMARK", key: "remark", width: 40 },
+      { header: "PENDING AMT", key: "pendingAmount", width: 15 },
+      { header: "RECEIVED AMT", key: "receivedAmount", width: 15 },
+      { header: "OUTSTANDING AMT", key: "outstandingAmount", width: 18 },
+      { header: "STATUS", key: "status", width: 15 },
+      { header: "RECOVERY NOTES", key: "recoveryRemark", width: 40 },
+      { header: "CREATED BY", key: "createdByName", width: 20 },
+    ];
+  }
 
   //move to third row now
   worksheet.spliceRows(1, 0, [], []);
@@ -136,7 +173,7 @@ export async function exportRecordsToExcel(
     },
   ];
 
-  rows.forEach((row) => {
+  exportData.forEach((row) => {
     worksheet.addRow({
       id: row.id,
       entryDate: row.entryDate
@@ -164,7 +201,7 @@ export async function exportRecordsToExcel(
       outstandingAmount: row.outstandingAmount,
       recoveryRemark: row.recoveryRemark,
       status: row.status,
-      createdBy: row.createdBy?.userName ?? "",
+      createdByName: row.createdBy?.fullName ?? "",
     });
   });
 
