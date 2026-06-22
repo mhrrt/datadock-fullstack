@@ -219,9 +219,13 @@ const NewEntryPage = () => {
       // will be for edit mode only
       return;
     }
+
     try {
       const payload = {
         ...formData,
+
+        //for pending/defaulter codeName is null
+        codeName: isDefaulterMode ? null : formData.codeName,
 
         stateId: formData.stateId ? Number(formData.stateId) : null,
 
@@ -251,6 +255,9 @@ const NewEntryPage = () => {
       });
       console.log(
         `current Editmode is: ${isEditMode} and isDefaulter is: ${isDefaulterMode}`,
+      );
+      console.log(
+        `Default Mode is: ${isDefaulterMode} and codeName:${formData.codeName} and payload: ${payload.codeName}`,
       );
 
       if (isEditMode) {
