@@ -381,7 +381,9 @@ const NewEntryPage = () => {
         // );
         const response = api.get(`/pincodes/${formData.cityId}`);
         //alert(`Fetching pincodes from db: ${response}`);
-        setPincodes((await response).data);
+        const cityPinCodes = await response;
+        console.log("Loading pincode for:", cityPinCodes.data);
+        setPincodes(cityPinCodes.data);
       } catch (error) {
         console.error("Failed to fetch pincodes", error);
       }
