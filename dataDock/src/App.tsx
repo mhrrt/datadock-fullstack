@@ -9,7 +9,8 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
-      <header className="bg-blue-700 px-6 py-4 text-white shadow">
+      {/* <header className="bg-blue-700 px-6 py-4 text-white shadow"> */}
+      <header className="sticky top-0 z-50 bg-blue-700 px-6 py-4 text-white shadow">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">DataDock</h1>
 
