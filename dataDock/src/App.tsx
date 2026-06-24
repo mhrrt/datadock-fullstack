@@ -1,4 +1,4 @@
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
 
 import NewEntryPage from "./pages/NewEntryPage";
 import SearchPage from "./pages/SearchPage";
@@ -6,6 +6,11 @@ import ProtectedRoute from "./routes/ProtectedRoute"; // commented for Vercel de
 import LoginPage from "./pages/LoginPage";
 
 function App() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate("/login");
+  };
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
@@ -14,34 +19,44 @@ function App() {
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">DataDock</h1>
 
-          <nav className="flex gap-4">
-            <Link
-              to="/search/false"
-              className="rounded bg-red-600 px-4 py-2 hover:bg-blue-500"
-            >
-              Pending List
-            </Link>
-            <Link
-              to="/new/defaulter"
-              className="rounded bg-orange-600 px-4 py-2 hover:bg-green-500"
-            >
-              Pending Entry
-            </Link>
-            <div> </div>
-            <Link
-              to="/search/true"
-              className="rounded bg-blue-600 px-4 py-2 hover:bg-blue-500"
-            >
-              Search
-            </Link>
+          {/* Right side */}
+          <div className="flex items-center gap-4">
+            <nav className="flex gap-4">
+              <Link
+                to="/search/false"
+                className="rounded bg-red-600 px-4 py-2 hover:bg-blue-500"
+              >
+                Pending List
+              </Link>
+              <Link
+                to="/new/defaulter"
+                className="rounded bg-orange-600 px-4 py-2 hover:bg-green-500"
+              >
+                Pending Entry
+              </Link>
+              <div> </div>
+              <Link
+                to="/search/true"
+                className="rounded bg-blue-600 px-4 py-2 hover:bg-blue-500"
+              >
+                Search
+              </Link>
 
-            <Link
-              to="/new"
-              className="rounded bg-green-600 px-4 py-2 hover:bg-green-500"
+              <Link
+                to="/new"
+                className="rounded bg-green-600 px-4 py-2 hover:bg-green-500"
+              >
+                New Entry
+              </Link>
+            </nav>
+            <button
+              onClick={handleLogout}
+              title="Logout"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-red-600 text-white shadow hover:bg-red-700"
             >
-              New Entry
-            </Link>
-          </nav>
+              ⎋
+            </button>
+          </div>
         </div>
       </header>
 

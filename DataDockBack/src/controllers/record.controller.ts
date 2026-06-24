@@ -319,3 +319,32 @@ export async function updateRecord(req: Request, res: Response) {
     });
   }
 }
+
+// Delete record
+export async function deleteRecord(req: Request, res: Response) {
+  try {
+    const id = Number(req.params.id);
+
+    if (!id || Number.isNaN(id)) {
+      return res.status(400).json({
+        message: "Invalid record id",
+      });
+    }
+
+    await prisma.customer.delete({
+      where: {
+        id,
+      },
+    });
+
+    return res.status(200).json({
+      message: "Record deleted successfully",
+    });
+  } catch (error: any) {
+    console.error(error);
+
+    return res.status(500).json({
+      message: error.message || "Failed to delete record",
+    });
+  }
+}

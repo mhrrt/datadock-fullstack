@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom"; // detect edit mode
 import { useNavigate } from "react-router-dom";
 import "../status.css";
 import AsyncSelect from "react-select/async";
-//import { asyncSelectStyles } from "../styles/asyncSelectStyle";
+import { asyncSelectStyles } from "../styles/asyncSelectStyle";
 
 // for autocompete city name option
 interface CityOption {
@@ -271,19 +271,19 @@ const NewEntryPage = () => {
 
       setLoading(true);
 
-      console.log("UPDATE DATA:", {
-        ...payload,
-        pincodeId: formData.pincodeId ? Number(formData.pincodeId) : null,
-      });
-      console.log(
-        `current Editmode is: ${isEditMode} and isDefaulter is: ${isDefaulterMode}`,
-      );
-      console.log(
-        `Default Mode is: ${isDefaulterMode} and codeName:${formData.codeName} and payload: ${payload.codeName}`,
-      );
+      // console.log("UPDATE DATA:", {
+      //   ...payload,
+      //   pincodeId: formData.pincodeId ? Number(formData.pincodeId) : null,
+      // });
+      // console.log(
+      //   `current Editmode is: ${isEditMode} and isDefaulter is: ${isDefaulterMode}`,
+      // );
+      // console.log(
+      //   `Default Mode is: ${isDefaulterMode} and codeName:${formData.codeName} and payload: ${payload.codeName}`,
+      // );
 
       if (isEditMode) {
-        console.log(`record updateding for: ${payload}`);
+        // console.log(`record updateding for: ${payload}`);
         await api.put(`api/records/${id}`, payload);
         //alert("Record created successfully");
         toast.success("Record updated successfully");
@@ -294,7 +294,7 @@ const NewEntryPage = () => {
         toast.success("Record created successfully");
       }
 
-      console.log("FormData:", formData);
+      // console.log("FormData:", formData);
       // clear field for edit as well
       // if (!isEditMode) {
       setFormData({
@@ -392,7 +392,7 @@ const NewEntryPage = () => {
 
     try {
       const response = await api.get(`/cities/search?q=${inputValue}`);
-      console.log("city response:", response.data);
+      // console.log("city response:", response.data);
       return response.data.map((city: any) => ({
         value: city.id,
         label: `${city.name.toUpperCase()} (${city.state.name.toUpperCase()})`,
@@ -465,9 +465,9 @@ const NewEntryPage = () => {
     const fetchStates = async () => {
       try {
         // const response = await axios.get("http://localhost:5000/states");
-        console.log(`API url is:`, api.defaults.baseURL);
+        // console.log(`API url is:`, api.defaults.baseURL);
         const response = await api.get("/states");
-        console.log(`Fetching state from ${response.data}`);
+        // console.log(`Fetching state from ${response.data}`);
         //alert(`Fetching state from db: ${response}`);
         setStates(response.data);
       } catch (error) {
@@ -515,7 +515,7 @@ const NewEntryPage = () => {
         const response = api.get(`/pincodes/${formData.cityId}`);
         //alert(`Fetching pincodes from db: ${response}`);
         const cityPinCodes = await response;
-        console.log("Loading pincode for:", cityPinCodes.data);
+        // console.log("Loading pincode for:", cityPinCodes.data);
         setPincodes(cityPinCodes.data);
       } catch (error) {
         console.error("Failed to fetch pincodes", error);
@@ -537,13 +537,13 @@ const NewEntryPage = () => {
 
   useEffect(() => {
     nameInputRef.current?.focus();
-    console.log("isActive:", formData.isActive);
-    console.log("isActive type:", typeof formData.isActive);
-    console.log("isActive value:", JSON.stringify(formData.isActive));
+    // console.log("isActive:", formData.isActive);
+    // console.log("isActive type:", typeof formData.isActive);
+    // console.log("isActive value:", JSON.stringify(formData.isActive));
   }, []);
 
   useEffect(() => {
-    console.log(`loading for defaulter: ${isDefaulterMode}`);
+    // console.log(`loading for defaulter: ${isDefaulterMode}`);
   }, [isDefaulterMode]);
 
   // for Edit record
@@ -629,13 +629,13 @@ const NewEntryPage = () => {
     //   return;
     // }
 
-    console.log({
-      key: e.key,
-      ctrl: e.ctrlKey,
-      shift: e.shiftKey,
-      meta: e.metaKey,
-      target: e.target,
-    });
+    // console.log({
+    //   key: e.key,
+    //   ctrl: e.ctrlKey,
+    //   shift: e.shiftKey,
+    //   meta: e.metaKey,
+    //   target: e.target,
+    // });
 
     if (e.target instanceof HTMLTextAreaElement) {
       if (e.ctrlKey || e.metaKey) {
@@ -844,8 +844,8 @@ const NewEntryPage = () => {
                 onChange={handleCitySelect}
                 placeholder="Type city name..."
                 noOptionsMessage={() => "Start typing city name"}
-                // styles={asyncSelectStyles}
-                classNamePrefix="react-select"
+                styles={asyncSelectStyles}
+                // classNamePrefix="react-select"
                 value={selectedCity}
               />
             </div>

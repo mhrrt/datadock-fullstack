@@ -29,6 +29,7 @@ import {
   createRecord,
   getRecordById,
   updateRecord,
+  deleteRecord,
 } from "../controllers/record.controller";
 import { authenticate } from "../middleware/auth.middleware";
 
@@ -40,5 +41,6 @@ router.get("/", getRecords);
 router.post("/", authenticate, createRecord);
 router.get("/:id", getRecordById);
 router.put("/:id", authenticate, updateRecord);
+router.delete("/:id", authenticate, deleteRecord);
 
 export default router;

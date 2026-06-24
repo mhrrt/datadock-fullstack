@@ -19,6 +19,7 @@ import type { GridApi } from "ag-grid-community";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { exportRecordsToExcel, getTimestamp } from "../utils/excelExport";
+import { FaTrash } from "react-icons/fa";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -90,15 +91,16 @@ const SearchPage = () => {
 
   const [searchText, setSearchText] = useState("");
 
+  // get records or fetch records
   const fetchRecords = useCallback(async () => {
     try {
       setLoading(true);
 
       // const response = await axios.get("http://localhost:5000/api/records");
-      console.log(`fetchRecords url: ${mode}`);
+      // console.log(`fetchRecords url: ${mode}`);
       const response = await api.get(`api/records?mode=${mode}`);
 
-      // console.log("Response data:", JSON.stringify(response.data, null, 2));
+      // // console.log("Response data:", JSON.stringify(response.data, null, 2));
       setRowData(response.data || []);
     } catch (error) {
       console.error(error);
@@ -110,6 +112,28 @@ const SearchPage = () => {
       setLoading(false);
     }
   }, [mode]);
+
+  //delete records
+  const deleteRecord = async (id: number) => {
+    try {
+      const confirmed = window.confirm(
+        "Are you sure you want to delete this record?",
+      );
+
+      if (!confirmed) {
+        return;
+      }
+
+      await api.delete(`api/records/${id}`);
+
+      setRowData((prev) => prev.filter((record) => record.id !== id));
+
+      toast.success("Record deleted successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to delete record");
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -317,6 +341,30 @@ const SearchPage = () => {
         headerName: "Created By",
         minWidth: 180,
         valueGetter: (params) => params.data?.createdBy?.fullName || "",
+      },
+      {
+        headerName: "Actions",
+        width: 100,
+        sortable: false,
+        filter: false,
+        cellRenderer: (params: any) => (
+          <div className="flex justify-center gap-2">
+            {/* <FaEdit
+              className="cursor-pointer text-blue-600"
+              onClick={() => navigate(`/edit/${params.data.id}`)}
+            /> */}
+            <FaTrash
+              className="cursor-pointer text-gray-500 hover:text-red-600"
+              // onClick={() => {
+              //   // console.log("===row selected for deletion==:", params.data);
+              //   if (window.confirm(`Delete record for ${params.data.name}?`)) {
+              //     deleteRecord(params.data.id);
+              //   }
+              // }}
+              onClick={() => deleteRecord(params.data.id)}
+            />
+          </div>
+        ),
       },
     ],
     [],

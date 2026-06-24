@@ -11,7 +11,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
 
   localStorage.clear();
-  console.log("local storage clear");
+  // console.log("local storage clear");
 
   const handleLogin = async () => {
     try {
