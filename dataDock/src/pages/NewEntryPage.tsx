@@ -6,6 +6,17 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom"; // detect edit mode
 import { useNavigate } from "react-router-dom";
 import "../status.css";
+import AsyncSelect from "react-select/async";
+import { asyncSelectStyles } from "../styles/asyncSelectStyle";
+
+// for autocompete city name option
+interface CityOption {
+  value: number;
+  label: string;
+  cityName: string;
+  stateId: number;
+  stateName: string;
+}
 
 type FormData = {
   entryDate: string;
@@ -43,6 +54,9 @@ type FormData = {
   recoveryRemark: string;
   status: "ACTIVE" | "INACTIVE" | "RESTRICTED";
   isActive: boolean;
+
+  cityName: string;
+  stateName: string;
 };
 
 type StateType = {
@@ -99,6 +113,11 @@ const NewEntryPage = () => {
   const [states, setStates] = useState<StateType[]>([]);
   const [cities, setCities] = useState<CityType[]>([]);
   const [pincodes, setPincodes] = useState<PincodeType[]>([]);
+  // hold searchterm for filling city name as per user char keypress
+  // const [citySearch, setCitySearch] = useState("");
+  // const [citySuggestions, setCitySuggestions] = useState([]);
+
+  const [selectedCity, setSelectedCity] = useState<CityOption | null>(null);
 
   //for adding defaulter customer
   // for loading All or Defaulter list
@@ -148,6 +167,9 @@ const NewEntryPage = () => {
 
     //for working vs suspended customer
     isActive: true,
+
+    cityName: "",
+    stateName: "",
   });
 
   // const [formData, setFormData] = useState<FormData>(emptyFormData);
@@ -282,7 +304,9 @@ const NewEntryPage = () => {
         codeName: "",
 
         stateId: "",
+        stateName: "",
         cityId: "",
+        cityName: "",
         pincodeId: "",
 
         phone1: "",
@@ -325,9 +349,117 @@ const NewEntryPage = () => {
     }
   };
 
+  //search city name based on searchterem
+  // const handleCitySearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value;
+
+  //   setCitySearch(value);
+  //   console.log("citySearch", citySearch);
+
+  //   if (value.length < 2) {
+  //     setCitySuggestions([]);
+  //     console.log("citySuggestions:", citySuggestions);
+  //     return;
+  //   }
+
+  //   const response = await api.get(`/cities/search?q=${value}`);
+
+  //   setCitySuggestions(response.data);
+  // };
+
+  // const selectCity = async (city: any) => {
+  //   setCitySearch(city.name);
+
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     cityId: city.id,
+  //     stateId: city.stateId,
+  //   }));
+
+  //   setCitySuggestions([]);
+
+  //   // Load pincodes
+  //   const response = await api.get(`/pincodes/city/${city.id}`);
+
+  //   setPincodes(response.data);
+  // };
+
+  // for autcompleete cityname
+  const loadCityOptions = async (inputValue: string): Promise<CityOption[]> => {
+    if (inputValue.length < 2) {
+      return [];
+    }
+
+    try {
+      const response = await api.get(`/cities/search?q=${inputValue}`);
+      console.log("city response:", response.data);
+      return response.data.map((city: any) => ({
+        value: city.id,
+        label: `${city.name.toUpperCase()} (${city.state.name.toUpperCase()})`,
+        stateId: city.stateId,
+        stateName: city.state.name,
+      }));
+    } catch (error) {
+      console.error("Failed to search cities", error);
+      return [];
+    }
+  };
+
+  const handleCitySelect = async (selectedOption: CityOption | null) => {
+    if (!selectedOption) {
+      return;
+    }
+
+    setSelectedCity(selectedOption);
+
+    setFormData((prev) => ({
+      ...prev,
+      cityId: String(selectedOption.value),
+      cityName: selectedOption.label,
+      stateId: String(selectedOption.stateId),
+      stateName: selectedOption.stateName,
+
+      pincodeId: "",
+    }));
+
+    // value: number;
+    // label: string;
+    // cityName: string;
+    // stateId: number;
+    // stateName: string;
+    try {
+      const response = await api.get(`/pincodes/${selectedOption.value}`);
+
+      setPincodes(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const { id } = useParams();
   const isEditMode = !!id;
   const navigate = useNavigate();
+
+  // for autocomplete
+  // useEffect(() => {
+  //   if (!isEditMode) return;
+  //   if (!formData.cityId) return;
+
+  //   setSelectedCity({
+  //     value: Number(formData.cityId),
+  //     label: `${formData.cityName} (${formData.stateName})`,
+  //     //label: `${formData.cityId} (${formData.cityId})`,
+  //     stateId: Number(formData.stateId),
+  //     stateName: formData.stateName,
+  //     cityName: formData.cityName,
+  //   });
+  // }, [
+  //   isEditMode,
+  //   formData.cityId,
+  //   formData.cityName,
+  //   formData.stateId,
+  //   formData.stateName,
+  // ]);
 
   useEffect(() => {
     const fetchStates = async () => {
@@ -369,6 +501,7 @@ const NewEntryPage = () => {
   }, [formData.stateId]);
 
   useEffect(() => {
+    console.log(cities);
     if (!formData.cityId) {
       setPincodes([]);
       return;
@@ -422,6 +555,15 @@ const NewEntryPage = () => {
         const response = await api.get(`api/records/${id}`);
 
         const record = response.data;
+
+        //for loading city asyncSelect
+        setSelectedCity({
+          value: Number(record.cityId),
+          label: `${record.cityName.toUpperCase()} (${record.stateName.toUpperCase()})`,
+          cityName: record.cityName,
+          stateId: Number(record.stateId),
+          stateName: record.stateName,
+        });
         //on loading set userstate
         setOriginalIsActive(Boolean(record.isActive));
         setOriginalRecoveryRemark(record.remark);
@@ -433,7 +575,9 @@ const NewEntryPage = () => {
           codeName: record.codeName ?? "",
 
           stateId: String(record.stateId ?? ""),
+          stateName: "",
           cityId: String(record.cityId ?? ""),
+          cityName: "",
           pincodeId: String(record.pincodeId ?? ""),
 
           phone1: record.phone1 ?? "",
@@ -472,6 +616,10 @@ const NewEntryPage = () => {
 
     fetchRecord();
   }, [id]);
+
+  // useEffect(() => {
+  //   console.log("selectedCity changed:", selectedCity);
+  // }, [selectedCity]);
 
   const handleFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
     if (e.key !== "Enter") return;
@@ -641,6 +789,68 @@ const NewEntryPage = () => {
               />
             </div>
           )}
+
+          {/* City */}
+          {!isDefaulterMode && (
+            // <div>
+            //   <label className={labelClass}>CITY</label>
+
+            //   <select
+            //     name="cityId"
+            //     value={formData.cityId}
+            //     onChange={handleChange}
+            //     className={inputClass}
+            //   >
+            //     <option value="">Select City</option>
+
+            //     {cities.map((city) => (
+            //       <option key={city.id} value={city.id}>
+            //         {city.name.toUpperCase()}
+            //       </option>
+            //     ))}
+            //   </select>
+            // </div>
+            // <div className="relative">
+            //   <input
+            //     type="text"
+            //     value={citySearch}
+            //     onChange={handleCitySearch}
+            //     placeholder="Search City"
+            //     className={inputClass}
+            //   />
+
+            //   {citySuggestions.length > 0 && (
+            //     <ul className="absolute z-10 bg-white border w-full max-h-60 overflow-auto">
+            //       {citySuggestions.map((city) => (
+            //         <li
+            //           key={city.id}
+            //           className="p-2 hover:bg-gray-100 cursor-pointer"
+            //           onClick={() => selectCity(city)}
+            //         >
+            //           {city.name} ({city.state.name})
+            //         </li>
+            //       ))}
+            //     </ul>
+            //   )}
+            // </div>
+            // autocomplete city name
+            <div>
+              <label className={labelClass}>CITY</label>
+
+              <AsyncSelect
+                cacheOptions
+                defaultOptions={false}
+                loadOptions={loadCityOptions}
+                onChange={handleCitySelect}
+                placeholder="Type city name..."
+                noOptionsMessage={() => "Start typing city name"}
+                // styles={asyncSelectStyles}
+                classNamePrefix="react-select"
+                value={selectedCity}
+              />
+            </div>
+          )}
+
           {/* State */}
           {!isDefaulterMode && (
             <div>
@@ -648,6 +858,7 @@ const NewEntryPage = () => {
 
               <select
                 name="stateId"
+                disabled
                 value={formData.stateId}
                 onChange={handleChange}
                 className={inputClass}
@@ -657,28 +868,6 @@ const NewEntryPage = () => {
                 {states.map((state) => (
                   <option key={state.id} value={state.id}>
                     {state.name.toUpperCase()}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          {/* City */}
-          {!isDefaulterMode && (
-            <div>
-              <label className={labelClass}>CITY</label>
-
-              <select
-                name="cityId"
-                value={formData.cityId}
-                onChange={handleChange}
-                className={inputClass}
-              >
-                <option value="">Select City</option>
-
-                {cities.map((city) => (
-                  <option key={city.id} value={city.id}>
-                    {city.name.toUpperCase()}
                   </option>
                 ))}
               </select>

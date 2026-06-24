@@ -194,3 +194,27 @@
 .ag-row-hover {
   background-color: #fff7cc !important;
 }
+
+.react-select__control {
+  min-height: 48px;
+  font-size: 16px;
+  font-weight: 600;
+  border-width: 1px;
+}
+
+.react-select__control--is-focused {
+  background-color: #eff6ff;
+  border-color: #3b82f6;
+}
+
+.react-select__single-value {
+  color: #1e3a8a;
+}
+
+.react-select__option--is-focused {
+  background-color: #dbeafe;
+}
+
+.react-select__option--is-selected {
+  background-color: #2563eb;
+}

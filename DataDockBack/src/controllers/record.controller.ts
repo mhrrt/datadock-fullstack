@@ -54,6 +54,13 @@ export async function getRecords(req: Request, res: Response) {
       //take: 100,
     });
 
+    const response = records.map((record) => ({
+      ...record,
+      cityName: record.city?.name,
+      stateName: record.state?.name,
+      pincodeValue: record.pincode?.pinCode,
+    }));
+
     return res
       .status(200)
       .json(
@@ -72,25 +79,74 @@ export async function getRecords(req: Request, res: Response) {
   }
 }
 
+// export async function getRecordById(req: Request, res: Response) {
+//   try {
+//     const records = await prisma.customer.findUnique({
+//       where: {
+//         id: Number(req.params.id),
+//       },
+//     });
+
+//     const response = records.map((record) => ({
+//       ...record,
+//       cityName: record.city?.name ?? "",
+//       stateName: record.state?.name ?? "",
+//     }));
+
+//     if (!records) {
+//       return res.status(404).json({
+//         message: "Record not found",
+//       });
+//     }
+
+//     return res
+//       .status(200)
+//       .json(
+//         JSON.parse(
+//           JSON.stringify(records, (_, value) =>
+//             typeof value === "bigint" ? value.toString() : value,
+//           ),
+//         ),
+//       );
+//   } catch (error: any) {
+//     console.error(error);
+
+//     return res.status(500).json({
+//       message: error.message || "Failed to fetch selected record",
+//     });
+//   }
+// }
+
 export async function getRecordById(req: Request, res: Response) {
   try {
-    const records = await prisma.customer.findUnique({
+    const record = await prisma.customer.findUnique({
       where: {
         id: Number(req.params.id),
       },
+      include: {
+        city: true,
+        state: true,
+      },
     });
 
-    if (!records) {
+    if (!record) {
       return res.status(404).json({
         message: "Record not found",
       });
     }
 
+    const response = {
+      ...record,
+      cityName: record.city?.name ?? "",
+      stateName: record.state?.name ?? "",
+    };
+
+    console.log("=====Record for edit mode is:", response);
     return res
       .status(200)
       .json(
         JSON.parse(
-          JSON.stringify(records, (_, value) =>
+          JSON.stringify(response, (_, value) =>
             typeof value === "bigint" ? value.toString() : value,
           ),
         ),
@@ -117,12 +173,21 @@ function serializeBigInt(data: any) {
 // ==========================================
 
 export async function createRecord(req: Request, res: Response) {
-  console.log("===== CREATE =====");
-  console.log("TIME:", new Date().toISOString());
-  console.log("BODY:", req.body);
-  console.log("CreateBy", req.user ?? "userid is null");
+  // console.log("===== CREATE =====");
+  // console.log("TIME:", new Date().toISOString());
+  // console.log("BODY:", req.body);
+  // console.log("CreateBy", req.user ?? "userid is null");
   try {
-    const { stateId, cityId, ...customerData } = req.body;
+    const {
+      stateId,
+      cityId,
+      pincodeId,
+
+      // remove ui-only fields
+      cityName,
+      stateName,
+      ...customerData
+    } = req.body;
 
     const createdById = req.user?.userId;
     console.log("createdById", createdById ?? "userid is null");
@@ -152,9 +217,7 @@ export async function createRecord(req: Request, res: Response) {
         stateId: stateId ? Number(stateId) : null,
         cityId: cityId ? Number(cityId) : null,
 
-        pincodeId: customerData.pincodeId
-          ? Number(customerData.pincodeId)
-          : null,
+        pincodeId: pincodeId ? Number(pincodeId) : null,
 
         entryDate: customerData.entryDate
           ? new Date(customerData.entryDate)
@@ -195,7 +258,15 @@ export async function updateRecord(req: Request, res: Response) {
   try {
     const id = Number(req.params.id);
 
-    const { stateId, cityId, ...customerData } = req.body;
+    const {
+      stateId,
+      cityId,
+
+      // remove ui-only fields
+      cityName,
+      stateName,
+      ...customerData
+    } = req.body;
 
     const createdById = req.user?.userId;
     console.log("Edit createdById", createdById ?? "userid is null");
