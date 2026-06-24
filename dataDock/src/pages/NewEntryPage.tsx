@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom"; // detect edit mode
 import { useNavigate } from "react-router-dom";
 import "../status.css";
 import AsyncSelect from "react-select/async";
-import { asyncSelectStyles } from "../styles/asyncSelectStyle";
+//import { asyncSelectStyles } from "../styles/asyncSelectStyle";
 
 // for autocompete city name option
 interface CityOption {
