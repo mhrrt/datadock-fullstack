@@ -44,7 +44,7 @@ export async function exportRecordsToExcel(
     createdByName: row.createdBy?.fullName ?? "",
   }));
 
-  // console.log("row data:", JSON.stringify(exportData, null, 2));
+  console.log("row data:", JSON.stringify(exportData, null, 2));
 
   // suggested excel template with frozen header, Adding title row
   if (isForActiveMode) {
