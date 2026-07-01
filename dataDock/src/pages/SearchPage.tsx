@@ -79,6 +79,7 @@ type RecordRow = {
   outstandingAmount: number;
   recoveryRemark: string;
   status: "ACTIVE" | "INACTIVE" | "RESTRICTED";
+  byWhom: string;
 };
 
 const SearchPage = () => {
@@ -265,6 +266,11 @@ const SearchPage = () => {
       {
         field: "referenceName",
         headerName: "REFERENCE NAME",
+        minWidth: 100,
+      },
+      {
+        field: "byWhom",
+        headerName: "BY WHOM",
         minWidth: 100,
       },
 

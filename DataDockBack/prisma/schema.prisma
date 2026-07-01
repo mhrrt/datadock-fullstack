@@ -105,6 +105,9 @@ model Customer {
   pincode           Pincode?  @relation(fields: [pincodeId], references: [id], onDelete: Restrict)
   state             State?    @relation(fields: [stateId], references: [id])
 
+  // New column
+  byWhom            String?
+
   @@index([name])
   @@index([codeName])
   @@index([phone1])

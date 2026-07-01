@@ -57,6 +57,8 @@ type FormData = {
 
   cityName: string;
   stateName: string;
+  // new column
+  byWhom: string;
 };
 
 type StateType = {
@@ -170,6 +172,7 @@ const NewEntryPage = () => {
 
     cityName: "",
     stateName: "",
+    byWhom: "",
   });
 
   // const [formData, setFormData] = useState<FormData>(emptyFormData);
@@ -335,6 +338,7 @@ const NewEntryPage = () => {
         recoveryRemark: "",
         status: "ACTIVE",
         isActive: true,
+        byWhom: "",
       });
       // set focus on name
       nameInputRef.current?.focus();
@@ -607,6 +611,7 @@ const NewEntryPage = () => {
           recoveryRemark: record.recoveryRemark || "",
           status: record.status || "ACTIVE",
           isActive: Boolean(record.isActive),
+          byWhom: record.byWhom ?? "",
         });
       } catch (error) {
         console.error(error);
@@ -1055,6 +1060,22 @@ const NewEntryPage = () => {
                 name="referenceNumber"
                 value={formData.referenceNumber}
                 onChange={handleChange}
+                className={inputClass}
+              />
+            </div>
+          )}
+
+          {/* byWhom */}
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>WHOM</label>
+
+              <input
+                type="text"
+                name="byWhom"
+                value={formData.byWhom}
+                onChange={handleChange}
+                placeholder="Ask by whom"
                 className={inputClass}
               />
             </div>
