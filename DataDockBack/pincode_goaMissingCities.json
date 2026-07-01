@@ -1,0 +1,57 @@
+[
+  {
+    "cityId": 4010,
+    "pinCode": "403509",
+    "areaName": "Anjuna"
+  },
+  {
+    "cityId": 4011,
+    "pinCode": "403524",
+    "areaName": "Arambol"
+  },
+  {
+    "cityId": 4008,
+    "pinCode": "403516",
+    "areaName": "Calangute"
+  },
+  {
+    "cityId": 4009,
+    "pinCode": "403515",
+    "areaName": "Candolim"
+  },
+  {
+    "cityId": 4007,
+    "pinCode": "403703",
+    "areaName": "Cuncolim"
+  },
+  {
+    "cityId": 4012,
+    "pinCode": "403004",
+    "areaName": "Dona Paula"
+  },
+  {
+    "cityId": 4006,
+    "pinCode": "403507",
+    "areaName": "Mapusa"
+  },
+  {
+    "cityId": 4004,
+    "pinCode": "403601",
+    "areaName": "Margao (Madgaon)"
+  },
+  {
+    "cityId": 4003,
+    "pinCode": "403001",
+    "areaName": "Panaji (Panjim)"
+  },
+  {
+    "cityId": 4005,
+    "pinCode": "403802",
+    "areaName": "Vasco da Gama"
+  },
+  {
+    "cityId": 4013,
+    "pinCode": "403722",
+    "areaName": "Verna"
+  }
+]
