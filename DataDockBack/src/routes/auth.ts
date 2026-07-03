@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
 import prisma from "../config/prisma";
+import { authenticate } from "../middleware/auth.middleware";
 
 const router = express.Router();
 
@@ -14,6 +15,11 @@ const router = express.Router();
 const loginSchema = z.object({
   username: z.string().min(1),
   password: z.string().min(6),
+});
+
+const changePwdSchema = z.object({
+  currentPassword: z.string().min(6),
+  newPassword: z.string().min(6),
 });
 
 router.post("/login", async (req, res) => {
@@ -84,6 +90,65 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     console.error(error);
 
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+});
+
+router.post("/changepwd", authenticate, async (req, res) => {
+  try {
+    console.log("========req.body:", req.body);
+    const parsed = changePwdSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({
+        message: "Invalid request",
+      });
+    }
+    const { currentPassword, newPassword } = parsed.data;
+
+    // uncommented as need to add auth logic to flow or when above code get removed
+    console.log(
+      "===========userid from request param is:",
+      req.user?.userId,
+      req.user?.username,
+    );
+    const user = await prisma.user.findUnique({
+      where: {
+        id: req.user?.userId,
+      },
+    });
+    if (!user) {
+      return res.status(401).json({
+        message: "Invalid username or password",
+      });
+    }
+    const isPasswordValid = await bcrypt.compare(
+      currentPassword,
+      user.passwordHash,
+    );
+
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        message: "Current password is incorrect.",
+      });
+    }
+    const hash = await bcrypt.hash(newPassword, 10);
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+
+      data: {
+        passwordHash: hash,
+      },
+    });
+    return res.json({
+      success: true,
+      message: "Password updated successfully.",
+    });
+  } catch (error) {
+    console.error(error);
     return res.status(500).json({
       message: "Internal server error",
     });

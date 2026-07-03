@@ -342,6 +342,9 @@ const NewEntryPage = () => {
       });
       // set focus on name
       nameInputRef.current?.focus();
+
+      //clear off city dropdown
+      setSelectedCity(null);
       // }
     } catch (error) {
       console.error(error);

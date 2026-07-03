@@ -18,6 +18,13 @@ export default function LoginPage() {
       const data = await login(username, password);
 
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userName", data.user.userName); // this will load username on change pwd page
+      console.log(
+        "=============data.userName:",
+        data,
+        "\n===data.user:",
+        data.user,
+      );
       //saving user.id to local that will be use while create and edit of customer record
       // localStorage.setItem("createdBy", data.user.id);
       // alert(`token generated: ${data.token}`);

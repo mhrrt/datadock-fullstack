@@ -4,6 +4,7 @@ import NewEntryPage from "./pages/NewEntryPage";
 import SearchPage from "./pages/SearchPage";
 import ProtectedRoute from "./routes/ProtectedRoute"; // commented for Vercel deployment as its causing build error
 import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const navigate = useNavigate();
@@ -49,6 +50,13 @@ function App() {
                 New Entry
               </Link>
             </nav>
+            <button
+              onClick={() => navigate("/profile")}
+              title="Profile"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-green-600 text-white shadow hover:bg-green-500"
+            >
+              ☺
+            </button>
             <button
               onClick={handleLogout}
               title="Logout"
@@ -124,6 +132,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <NewEntryPage key="edit" />
+              </ProtectedRoute>
+            }
+          />
+          {/* Route for change password */}
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
               </ProtectedRoute>
             }
           />

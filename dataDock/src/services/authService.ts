@@ -12,6 +12,32 @@ export async function login(username: string, password: string) {
     username,
     password,
   });
+  // alert(`Auth response is: ${response.data.user.username}`);
+
+  return response.data;
+}
+
+export async function changePassword(
+  currentPassword: string,
+  newPassword: string,
+) {
+  const token = localStorage.getItem("token");
+
+  console.log("TOKEN FROM LOCAL STORAGE:", token);
+
+  // alert(`Auth_API is: ${AUTH_API}`);
+  const response = await axios.post(
+    `${AUTH_API}/auth/changepwd`,
+    {
+      currentPassword,
+      newPassword,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
   // alert(`Auth response is: ${response}`);
 
   return response.data;
