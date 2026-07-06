@@ -30,6 +30,7 @@ import {
   getRecordById,
   updateRecord,
   deleteRecord,
+  deleteMultipleRecord,
 } from "../controllers/record.controller";
 import { authenticate } from "../middleware/auth.middleware";
 
@@ -42,5 +43,6 @@ router.post("/", authenticate, createRecord);
 router.get("/:id", getRecordById);
 router.put("/:id", authenticate, updateRecord);
 router.delete("/:id", authenticate, deleteRecord);
+router.delete("/", authenticate, deleteMultipleRecord);
 
 export default router;

@@ -348,3 +348,38 @@ export async function deleteRecord(req: Request, res: Response) {
     });
   }
 }
+
+export async function deleteMultipleRecord(req: Request, res: Response) {
+  try {
+    const { ids } = req.body;
+    console.log("====backend will delete req.body:", req.body);
+    if (
+      !Array.isArray(ids) ||
+      ids.length === 0 ||
+      !ids.every((id) => Number.isInteger(id))
+    ) {
+      return res.status(400).json({
+        message: "Invalid record ids",
+      });
+    }
+
+    const result = await prisma.customer.deleteMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+
+    return res.status(200).json({
+      message: `${result.count} record(s) deleted successfully`,
+      deletedCount: result.count,
+    });
+  } catch (error: any) {
+    console.error(error);
+
+    return res.status(500).json({
+      message: error.message || "Failed to delete records",
+    });
+  }
+}

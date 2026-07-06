@@ -92,6 +92,34 @@ const SearchPage = () => {
 
   const [searchText, setSearchText] = useState("");
 
+  const [selectionMode, setSelectionMode] = useState(false);
+  const [selectedRows, setSelectedRows] = useState<RecordRow[]>([]);
+  const longPressTimer = useRef<number | null>(null);
+
+  const handleLongPress = (params: any) => {
+    setSelectionMode(true);
+    params.node.setSelected(true);
+  };
+
+  const onCellMouseDown = (params: any) => {
+    longPressTimer.current = window.setTimeout(() => {
+      handleLongPress(params);
+    }, 500); // 500ms long press
+  };
+
+  const clearLongPress = () => {
+    if (longPressTimer.current) {
+      clearTimeout(longPressTimer.current);
+      longPressTimer.current = null;
+    }
+  };
+
+  const onSelectionChanged = () => {
+    const rows = (gridRef.current?.api.getSelectedRows() ?? []) as RecordRow[];
+
+    setSelectedRows(rows);
+  };
+
   // get records or fetch records
   const fetchRecords = useCallback(async () => {
     try {
@@ -133,6 +161,44 @@ const SearchPage = () => {
     } catch (error) {
       console.error(error);
       toast.error("Failed to delete record");
+    }
+  };
+
+  const deleteMultipleRecord = async (ids: number | number[]) => {
+    try {
+      const recordIds = Array.isArray(ids) ? ids : [ids];
+
+      const confirmed = window.confirm(
+        recordIds.length === 1
+          ? "Are you sure you want to delete this record?"
+          : `Are you sure you want to delete ${recordIds.length} records?`,
+      );
+
+      if (!confirmed) {
+        return;
+      }
+
+      if (recordIds.length === 1) {
+        // Existing API
+        await api.delete(`api/records/${recordIds[0]}`);
+      } else {
+        console.log("Deleting ids:", ids);
+        // Bulk delete API
+        await api.delete("api/records", {
+          data: {
+            ids: recordIds,
+          },
+        });
+      }
+
+      toast.success(
+        recordIds.length === 1
+          ? "Record deleted successfully"
+          : `${recordIds.length} records deleted successfully`,
+      );
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to delete record(s)");
     }
   };
 
@@ -361,12 +427,6 @@ const SearchPage = () => {
             /> */}
             <FaTrash
               className="cursor-pointer text-gray-500 hover:text-red-600"
-              // onClick={() => {
-              //   // console.log("===row selected for deletion==:", params.data);
-              //   if (window.confirm(`Delete record for ${params.data.name}?`)) {
-              //     deleteRecord(params.data.id);
-              //   }
-              // }}
               onClick={() => deleteRecord(params.data.id)}
             />
           </div>
@@ -641,6 +701,25 @@ const SearchPage = () => {
   // password protection
   const [passwordProtect, setPasswordProtect] = useState(false);
 
+  const deleteRows = async () => {
+    console.log(`====selected record lenght is: ${selectedRows.length}`);
+    if (selectedRows.length === 0) return;
+
+    const ids = selectedRows.map((x) => Number(x.id));
+
+    try {
+      await deleteMultipleRecord(ids);
+
+      setSelectionMode(false);
+      setSelectedRows([]);
+      gridRef.current?.api.deselectAll();
+      //reload records
+      await fetchRecords();
+    } catch (error) {
+      toast.error("Failed to delete selected records");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="rounded-xl bg-white p-6 shadow-lg">
@@ -693,6 +772,13 @@ const SearchPage = () => {
               />
               Protected
             </label>
+            <button
+              className="rounded-lg bg-red-600 px-4 py-3 text-white hover:bg-green-700"
+              hidden={!selectionMode}
+              onClick={deleteRows}
+            >
+              Delete {selectedRows.length > 1 && `(${selectedRows.length})`}
+            </button>
           </div>
         </div>
 
@@ -729,6 +815,16 @@ const SearchPage = () => {
               }
             }}
             onFilterChanged={onFilterChanged}
+            rowSelection={{
+              mode: "multiRow",
+              checkboxes: selectionMode,
+              headerCheckbox: selectionMode,
+              enableClickSelection: selectionMode,
+            }}
+            onCellMouseDown={onCellMouseDown}
+            onCellMouseOut={clearLongPress}
+            onCellMouseOver={clearLongPress}
+            onSelectionChanged={onSelectionChanged}
           />
         </div>
       </div>
