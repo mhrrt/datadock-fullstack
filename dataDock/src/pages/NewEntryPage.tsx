@@ -707,6 +707,367 @@ const NewEntryPage = () => {
     return true;
   };
 
+  if (isDefaulterMode) {
+    return (
+      <div className="min-h-screen bg-gray-100 p-6">
+        <div className="mx-auto max-w-5xl rounded-xl border-2 border-slate-500 bg-white p-8 shadow-lg">
+          <h1 className="mb-8 text-3xl font-bold text-[#1E40AF]">
+            {!isDefaulterMode
+              ? isEditMode
+                ? "Customer Edit"
+                : "Customer Entry"
+              : "Pending Entry"}
+          </h1>
+
+          <form
+            onSubmit={handleSubmit}
+            onKeyDown={handleFormKeyDown}
+            className="grid grid-cols-1  gap-5 md:grid-cols-2"
+          >
+            {/* {For Customer Status as WORKING SUSPENDED} */}
+            {isEditMode && (
+              <div>
+                <label className={labelClass}>CUSTOMER STATUS</label>
+                <select
+                  name="isActive"
+                  value={String(formData.isActive)}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      isActive: e.target.value === "true",
+                    }))
+                  }
+                  className={`w-full rounded border p-3 font-semibold ${
+                    formData.isActive
+                      ? "bg-green-400 text-black"
+                      : "bg-red-400 text-white"
+                  }`}
+                >
+                  <option value="true">WORKING</option>
+                  <option value="false">SUSPENDED</option>
+                </select>
+              </div>
+            )}
+            {/* Entry Date */}
+            <div>
+              <label className={labelClass}>ENTRY DATE</label>
+
+              <input
+                type="date"
+                name="entryDate"
+                value={formData.entryDate}
+                onChange={handleChange}
+                className={inputClass}
+              />
+            </div>
+
+            {/* Name */}
+            <div>
+              <label className={labelClass}>NAME</label>
+
+              <input
+                ref={nameInputRef}
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className={inputClass}
+                required
+              />
+            </div>
+
+            {/* codeNum */}
+            {!isDefaulterMode && (
+              <div>
+                <label className={labelClass}>CODE NUMBER</label>
+
+                <input
+                  type="text"
+                  name="codeNum"
+                  value={formData.codeNum}
+                  onChange={handleChange}
+                  placeholder=""
+                  //pattern={codeNumValidation}
+                  className={inputClass}
+                />
+              </div>
+            )}
+            {/* Code Name */}
+            {!isDefaulterMode && (
+              <div>
+                <label className={labelClass}>CODE NAME</label>
+
+                <input
+                  type="text"
+                  name="codeName"
+                  value={formData.codeName}
+                  onChange={handleChange}
+                  className={inputClass}
+                />
+              </div>
+            )}
+
+            {/* Reference Name */}
+            {!isDefaulterMode && (
+              <div>
+                <label className={labelClass}>REFERENCE NAME</label>
+
+                <input
+                  type="text"
+                  name="referenceName"
+                  value={formData.referenceName}
+                  onChange={handleChange}
+                  className={inputClass}
+                />
+              </div>
+            )}
+
+            {/* Reference Number */}
+            {!isDefaulterMode && (
+              <div>
+                <label className={labelClass}>REFERENCE NUMBER</label>
+
+                <input
+                  type="text"
+                  name="referenceNumber"
+                  value={formData.referenceNumber}
+                  onChange={handleChange}
+                  className={inputClass}
+                />
+              </div>
+            )}
+
+            {/* byWhom */}
+            {!isDefaulterMode && (
+              <div>
+                <label className={labelClass}>WHOM</label>
+
+                <input
+                  type="text"
+                  name="byWhom"
+                  value={formData.byWhom}
+                  onChange={handleChange}
+                  placeholder="Ask by whom"
+                  className={inputClass}
+                />
+              </div>
+            )}
+
+            {/* Remark */}
+            {!isDefaulterMode && (
+              <div className="md:col-span-2">
+                <label className={labelClass}>REMARK</label>
+                {/* If customer status get updtaed on Edit screen Remark is mandatory */}
+                {isEditMode && formData.isActive !== originalIsActive && (
+                  <span className="text-red-500"> *</span>
+                )}
+
+                <textarea
+                  name="remark"
+                  value={formData.remark}
+                  onChange={handleChange}
+                  rows={4}
+                  // className={inputClass}
+                  className={`w-full rounded border p-3 text-medium font-semibold text-#1e3a8a-700 focus:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    isEditMode &&
+                    formData.isActive !== originalIsActive &&
+                    !formData.remark?.trim()
+                      ? "border-red-500"
+                      : ""
+                  }`}
+                  onKeyDown={(e) => {
+                    if (e.ctrlKey && e.key === "Enter") {
+                      e.preventDefault();
+
+                      const textarea = e.currentTarget;
+                      const start = textarea.selectionStart;
+                      const end = textarea.selectionEnd;
+
+                      const newValue =
+                        formData.remark.slice(0, start) +
+                        "\n" +
+                        formData.remark.slice(end);
+
+                      setFormData((prev) => ({
+                        ...prev,
+                        remark: newValue,
+                      }));
+                    }
+                  }}
+                />
+              </div>
+            )}
+
+            {/* <div className="form-row"> */}
+            {/* Pending amount */}
+            {isDefaulterMode && (
+              <div>
+                <label className={labelClass}>PENDING AMOUNT</label>
+                <input
+                  id="pendingAmount"
+                  name="pendingAmount"
+                  type="number"
+                  min="0"
+                  step="1000"
+                  value={formData.pendingAmount}
+                  onChange={handleChange}
+                  className={inputClass}
+                />
+              </div>
+            )}
+
+            {/* Received Amount */}
+            {isDefaulterMode && (
+              <div>
+                <label className={labelClass}>RECEIVED AMOUNT</label>
+                <input
+                  id="receivedAmount"
+                  name="receivedAmount"
+                  type="number"
+                  min="0"
+                  step="1000"
+                  value={formData.receivedAmount}
+                  onChange={handleChange}
+                  className={inputClass}
+                />
+              </div>
+            )}
+            {/* </div> */}
+
+            {/* <div className="form-row"> */}
+            {/* Outstanding amount */}
+            {isDefaulterMode && (
+              <div>
+                <label className={labelClass}>OUTSTANDING AMOUNT</label>
+                <input
+                  id="outstandingAmount"
+                  name="outstandingAmount"
+                  type="number"
+                  value={formData.outstandingAmount}
+                  readOnly
+                  disabled
+                  className={inputClass}
+                />
+              </div>
+            )}
+
+            {/* Status */}
+            {isDefaulterMode && (
+              <div>
+                <label className={labelClass}>STATUS</label>
+                <input
+                  id="status"
+                  name="status"
+                  type="text"
+                  value={formData.status}
+                  readOnly
+                  disabled
+                  // className={`status-${formData.status.toLowerCase()}`}
+                  className={`w-full rounded border p-3 text-medium font-semibold text-blue-700 focus:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    formData.status?.toLowerCase() === "active"
+                      ? "bg-green-400"
+                      : formData.status?.toLowerCase() === "restricted"
+                        ? "bg-orange-300"
+                        : "bg-red-400"
+                  }`}
+                />
+              </div>
+            )}
+            {/* </div> */}
+
+            {/* Phone 1 */}
+            <div>
+              <label className={labelClass}>PHONE 1</label>
+
+              <input
+                type="text"
+                name="phone1"
+                value={formData.phone1}
+                onChange={handleChange}
+                //pattern={patternValidation}
+                className={inputClass}
+              />
+            </div>
+
+            {/* Phone 2 */}
+            <div>
+              <label className={labelClass}>PHONE 2</label>
+
+              <input
+                type="text"
+                name="phone2"
+                value={formData.phone2}
+                onChange={handleChange}
+                //pattern={patternValidation}
+                className={inputClass}
+              />
+            </div>
+            {/* Recovery remark */}
+            {isDefaulterMode && (
+              <div className="md:col-span-2">
+                <label className={labelClass}>
+                  RECOVERY REMARK
+                  {isEditMode && formData.isActive !== originalIsActive && (
+                    <span className="text-red-500"> *</span>
+                  )}
+                </label>
+
+                <textarea
+                  id="recoveryRemark"
+                  name="recoveryRemark"
+                  rows={4}
+                  value={formData.recoveryRemark}
+                  onChange={handleChange}
+                  placeholder="Enter recovery details, payment commitments, follow-up notes, etc."
+                  className={`w-full rounded border p-3 text-medium font-semibold text-#1e3a8a-700 focus:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    isEditMode &&
+                    formData.isActive !== originalIsActive &&
+                    !formData.recoveryRemark?.trim()
+                      ? "border-red-500"
+                      : ""
+                  }`}
+                  onKeyDown={(e) => {
+                    if (e.ctrlKey && e.key === "Enter") {
+                      e.preventDefault();
+
+                      const textarea = e.currentTarget;
+                      const start = textarea.selectionStart;
+                      const end = textarea.selectionEnd;
+
+                      const newValue =
+                        formData.recoveryRemark.slice(0, start) +
+                        "\n" +
+                        formData.recoveryRemark.slice(end);
+
+                      setFormData((prev) => ({
+                        ...prev,
+                        recoveryRemark: newValue,
+                      }));
+                    }
+                  }}
+                />
+              </div>
+            )}
+
+            {/* Submit */}
+            <div className="md:col-span-2">
+              <button
+                type="submit"
+                disabled={loading}
+                className="rounded bg-blue-600 px-6 py-3 text-white hover:bg-blue-700 disabled:opacity-50"
+              >
+                {loading
+                  ? "Saving..."
+                  : isEditMode
+                    ? "Update Record"
+                    : "Save Record"}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="mx-auto max-w-5xl rounded-xl border-2 border-slate-500 bg-white p-8 shadow-lg">

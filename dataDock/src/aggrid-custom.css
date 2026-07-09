@@ -92,3 +92,7 @@
   color: #991b1b;
   font-weight: 600;
 }
+
+.uppercase-cell {
+  text-transform: uppercase;
+}

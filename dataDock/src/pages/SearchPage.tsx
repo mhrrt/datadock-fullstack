@@ -246,6 +246,7 @@ const SearchPage = () => {
         field: "name",
         headerName: "NAME",
         minWidth: 220,
+        cellClass: "uppercase-cell",
       },
       {
         field: "codeNum",
@@ -257,6 +258,7 @@ const SearchPage = () => {
         field: "codeName",
         headerName: "CODE NAME",
         minWidth: 100,
+        cellClass: "uppercase-cell",
       },
 
       {
@@ -264,6 +266,7 @@ const SearchPage = () => {
         headerName: "STATE",
         minWidth: 160,
         valueGetter: (params) => params.data?.state?.name || "",
+        cellClass: "uppercase-cell",
       },
 
       {
@@ -271,6 +274,7 @@ const SearchPage = () => {
         headerName: "City",
         minWidth: 160,
         valueGetter: (params) => params.data?.city?.name || "",
+        cellClass: "uppercase-cell",
       },
 
       {
@@ -339,11 +343,13 @@ const SearchPage = () => {
         field: "referenceName",
         headerName: "REFERENCE NAME",
         minWidth: 100,
+        cellClass: "uppercase-cell",
       },
       {
         field: "byWhom",
         headerName: "BY WHOM",
         minWidth: 100,
+        cellClass: "uppercase-cell",
       },
 
       {
@@ -351,6 +357,7 @@ const SearchPage = () => {
         headerName: "REMARK",
         flex: 1,
         minWidth: 250,
+        cellClass: "uppercase-cell",
       },
 
       {
@@ -389,6 +396,7 @@ const SearchPage = () => {
         headerName: "Recovery Notes",
         flex: 1,
         minWidth: 200,
+        cellClass: "uppercase-cell",
       },
 
       {
@@ -474,13 +482,15 @@ const SearchPage = () => {
         field: "name",
         headerName: "NAME",
         minWidth: 220,
+        cellClass: "uppercase-cell",
       },
 
-      {
-        field: "codeName",
-        headerName: "CODE NAME",
-        minWidth: 100,
-      },
+      // {
+      //   field: "codeName",
+      //   headerName: "CODE NAME",
+      //   minWidth: 100,
+      //   cellClass: "uppercase-cell",
+      // },
 
       //  {
       //    field: "State",
@@ -510,17 +520,17 @@ const SearchPage = () => {
       //    valueGetter: (params) => params.data?.bazarId || "",
       //  },
 
-      {
-        field: "phone1",
-        headerName: "PHONE 1",
-        minWidth: 160,
-      },
+      // {
+      //   field: "phone1",
+      //   headerName: "PHONE 1",
+      //   minWidth: 160,
+      // },
 
-      {
-        field: "phone2",
-        headerName: "PHONE 2",
-        minWidth: 160,
-      },
+      // {
+      //   field: "phone2",
+      //   headerName: "PHONE 2",
+      //   minWidth: 160,
+      // },
 
       // {
       //   field: "officePhone1",
@@ -579,6 +589,18 @@ const SearchPage = () => {
         headerName: "OUTSTANDING AMT",
         minWidth: 150,
       },
+      // updated column index as asked for defaulter
+      {
+        field: "phone1",
+        headerName: "PHONE 1",
+        minWidth: 160,
+      },
+
+      {
+        field: "phone2",
+        headerName: "PHONE 2",
+        minWidth: 160,
+      },
 
       // {
       //   headerName: "Status",
@@ -595,18 +617,20 @@ const SearchPage = () => {
       //   width: 150,
       // },
 
-      {
-        field: "remark",
-        headerName: "REMARK",
-        flex: 1,
-        minWidth: 250,
-      },
+      // {
+      //   field: "remark",
+      //   headerName: "REMARK",
+      //   flex: 1,
+      //   minWidth: 250,
+      //   cellClass: "uppercase-cell",
+      // },
 
       {
         field: "recoveryRemark",
         headerName: "Recovery Notes",
         flex: 1,
         minWidth: 200,
+        cellClass: "uppercase-cell",
       },
 
       {
