@@ -59,6 +59,7 @@ type FormData = {
   stateName: string;
   // new column
   byWhom: string;
+  codeNum: string;
 };
 
 type StateType = {
@@ -173,6 +174,7 @@ const NewEntryPage = () => {
     cityName: "",
     stateName: "",
     byWhom: "",
+    codeNum: "",
   });
 
   // const [formData, setFormData] = useState<FormData>(emptyFormData);
@@ -183,7 +185,13 @@ const NewEntryPage = () => {
   ) => {
     const { name, value } = e.target;
 
-    const phoneFields = ["phone1", "phone2", "officePhone1", "officePhone2"];
+    const phoneFields = [
+      "phone1",
+      "phone2",
+      "officePhone1",
+      "officePhone2",
+      "codeNum",
+    ];
     if (phoneFields.includes(name)) {
       const regex = /^[0-9+\-\/ ]*$/;
 
@@ -339,6 +347,7 @@ const NewEntryPage = () => {
         status: "ACTIVE",
         isActive: true,
         byWhom: "",
+        codeNum: "",
       });
       // set focus on name
       nameInputRef.current?.focus();
@@ -534,6 +543,7 @@ const NewEntryPage = () => {
 
   // pattern validation
   // const patternValidation = "[0-9+\\-/ ]*";
+  // const codeNumValidation = "[0-9+\\-/ ]*";
   const nameInputRef = useRef<HTMLInputElement>(null);
   // highlight active field
   // const inputClass =
@@ -615,6 +625,7 @@ const NewEntryPage = () => {
           status: record.status || "ACTIVE",
           isActive: Boolean(record.isActive),
           byWhom: record.byWhom ?? "",
+          codeNum: record.codeNum ?? "",
         });
       } catch (error) {
         console.error(error);
@@ -783,6 +794,22 @@ const NewEntryPage = () => {
             />
           </div>
 
+          {/* codeNum */}
+          {!isDefaulterMode && (
+            <div>
+              <label className={labelClass}>CODE NUMBER</label>
+
+              <input
+                type="text"
+                name="codeNum"
+                value={formData.codeNum}
+                onChange={handleChange}
+                placeholder=""
+                //pattern={codeNumValidation}
+                className={inputClass}
+              />
+            </div>
+          )}
           {/* Code Name */}
           {!isDefaulterMode && (
             <div>

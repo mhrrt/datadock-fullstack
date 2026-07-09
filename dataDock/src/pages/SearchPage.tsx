@@ -80,6 +80,7 @@ type RecordRow = {
   recoveryRemark: string;
   status: "ACTIVE" | "INACTIVE" | "RESTRICTED";
   byWhom: string;
+  codeNum: string;
 };
 
 const SearchPage = () => {
@@ -245,6 +246,11 @@ const SearchPage = () => {
         field: "name",
         headerName: "NAME",
         minWidth: 220,
+      },
+      {
+        field: "codeNum",
+        headerName: "CODE",
+        minWidth: 100,
       },
 
       {

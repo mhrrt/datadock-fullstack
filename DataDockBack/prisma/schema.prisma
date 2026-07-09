@@ -107,6 +107,7 @@ model Customer {
 
   // New column
   byWhom            String?
+  codeNum           String?   @unique @db.VarChar(100)
 
   @@index([name])
   @@index([codeName])

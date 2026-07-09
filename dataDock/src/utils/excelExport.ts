@@ -46,46 +46,53 @@ export async function exportRecordsToExcel(
 
   console.log("row data:", JSON.stringify(exportData, null, 2));
 
+  let rightAlinged = [16, 21, 22, 23];
+  let centerAlined = [10, 11, 12, 13, 25];
+
   // suggested excel template with frozen header, Adding title row
   if (isForActiveMode) {
     worksheet.columns = [
-      { header: "ID", key: "id", width: 10 },
-      { header: "DATE", key: "entryDate", width: 15 },
-      { header: "NAME", key: "name", width: 30 },
-      { header: "CODE NAME", key: "codeName", width: 20 },
-      { header: "STATE", key: "state", width: 20 },
-      { header: "CITY", key: "city", width: 20 },
-      { header: "PINCODE", key: "pincode", width: 15 },
-      { header: "BAZAR", key: "bazar", width: 20 },
-      { header: "PHONE 1", key: "phone1", width: 18 },
-      { header: "PHONE 2", key: "phone2", width: 18 },
-      { header: "OFFICE PHONE 1", key: "officePhone1", width: 20 },
-      { header: "OFFICE PHONE 2", key: "officePhone2", width: 20 },
-      { header: "BHAV MD", key: "bhawMD", width: 20 },
-      { header: "BHAV KRM", key: "bhawKRM", width: 20 },
-      { header: "CREDIT LIMIT", key: "creditLimit", width: 18 },
-      { header: "REFERENCE NUMBER", key: "referenceNumber", width: 20 },
-      { header: "REFERENCE NAME", key: "referenceName", width: 25 },
-      { header: "REMARK", key: "remark", width: 40 },
-      { header: "PENDING AMT", key: "pendingAmount", width: 15 },
-      { header: "RECEIVED AMT", key: "receivedAmount", width: 15 },
-      { header: "OUTSTANDING AMT", key: "outstandingAmount", width: 18 },
-      { header: "STATUS", key: "status", width: 15 },
-      { header: "RECOVERY NOTES", key: "recoveryRemark", width: 40 },
-      { header: "CREATED BY", key: "createdByName", width: 20 },
+      { header: "ID", key: "id", width: 10 }, // 1
+      { header: "DATE", key: "entryDate", width: 15 }, //2
+      { header: "NAME", key: "name", width: 30 }, // 3
+      { header: "CODE", key: "codeNum", width: 20 }, //4
+      { header: "CODE NAME", key: "codeName", width: 20 }, //5
+      { header: "STATE", key: "state", width: 20 }, //6
+      { header: "CITY", key: "city", width: 20 }, //7
+      { header: "PINCODE", key: "pincode", width: 15 }, //8
+      { header: "BAZAR", key: "bazar", width: 20 }, //9
+      { header: "PHONE 1", key: "phone1", width: 18 }, //10
+      { header: "PHONE 2", key: "phone2", width: 18 }, //1
+      { header: "OFFICE PHONE 1", key: "officePhone1", width: 20 }, //12
+      { header: "OFFICE PHONE 2", key: "officePhone2", width: 20 }, //13
+      { header: "BHAV MD", key: "bhawMD", width: 20 }, //14
+      { header: "BHAV KRM", key: "bhawKRM", width: 20 }, //15
+      { header: "CREDIT LIMIT", key: "creditLimit", width: 18 }, //16
+      { header: "REFERENCE NUMBER", key: "referenceNumber", width: 20 }, //17
+      { header: "REFERENCE NAME", key: "referenceName", width: 25 }, //18
+      { header: "BY WHOM", key: "byWhom", width: 20 }, //19
+      { header: "REMARK", key: "remark", width: 40 }, //20
+      { header: "PENDING AMT", key: "pendingAmount", width: 15 }, //21
+      { header: "RECEIVED AMT", key: "receivedAmount", width: 15 }, //22
+      { header: "OUTSTANDING AMT", key: "outstandingAmount", width: 18 }, //23
+      { header: "STATUS", key: "status", width: 15 }, //24
+      //{ header: "RECOVERY NOTES", key: "recoveryRemark", width: 40 }, //25
+      { header: "CREATED BY", key: "createdByName", width: 20 }, //26
     ];
   } else {
+    rightAlinged = [6, 7, 8];
+    centerAlined = [4, 5, 9];
     worksheet.columns = [
-      { header: "ID", key: "id", width: 10 },
-      { header: "DATE", key: "entryDate", width: 15 },
-      { header: "NAME", key: "name", width: 30 },
+      { header: "ID", key: "id", width: 10 }, // 1
+      { header: "DATE", key: "entryDate", width: 15 }, //2
+      { header: "NAME", key: "name", width: 30 }, //3
       // { header: "CODE NAME", key: "codeName", width: 20 },
       // { header: "STATE", key: "state", width: 20 },
       // { header: "CITY", key: "city", width: 20 },
       // { header: "PINCODE", key: "pincode", width: 15 },
       // { header: "BAZAR", key: "bazar", width: 20 },
-      { header: "PHONE 1", key: "phone1", width: 18 },
-      { header: "PHONE 2", key: "phone2", width: 18 },
+      { header: "PHONE 1", key: "phone1", width: 18 }, //4
+      { header: "PHONE 2", key: "phone2", width: 18 }, //5
       // { header: "OFFICE PHONE 1", key: "officePhone1", width: 20 },
       // { header: "OFFICE PHONE 2", key: "officePhone2", width: 20 },
       // { header: "BHAV MD", key: "bhawMD", width: 20 },
@@ -94,12 +101,12 @@ export async function exportRecordsToExcel(
       // { header: "REFERENCE NUMBER", key: "referenceNumber", width: 20 },
       // { header: "REFERENCE NAME", key: "referenceName", width: 25 },
       // { header: "REMARK", key: "remark", width: 40 },
-      { header: "PENDING AMT", key: "pendingAmount", width: 15 },
-      { header: "RECEIVED AMT", key: "receivedAmount", width: 15 },
-      { header: "OUTSTANDING AMT", key: "outstandingAmount", width: 18 },
-      { header: "STATUS", key: "status", width: 15 },
-      { header: "RECOVERY NOTES", key: "recoveryRemark", width: 40 },
-      { header: "CREATED BY", key: "createdByName", width: 20 },
+      { header: "PENDING AMT", key: "pendingAmount", width: 15 }, //6
+      { header: "RECEIVED AMT", key: "receivedAmount", width: 15 }, //7
+      { header: "OUTSTANDING AMT", key: "outstandingAmount", width: 18 }, //8
+      { header: "STATUS", key: "status", width: 15 }, //9
+      { header: "RECOVERY NOTES", key: "recoveryRemark", width: 40 }, //10
+      { header: "CREATED BY", key: "createdByName", width: 20 }, //11
     ];
   }
 
@@ -181,6 +188,7 @@ export async function exportRecordsToExcel(
         : "",
       name: row.name,
       codeName: row.codeName,
+      codeNum: row.codeNum,
       state: row.state?.name ?? "",
       city: row.city?.name ?? "",
       pincode: row.pincode?.pinCode ?? "",
@@ -194,6 +202,7 @@ export async function exportRecordsToExcel(
       creditLimit: row.creditLimit,
       referenceNumber: row.referenceNumber,
       referenceName: row.referenceName,
+      byWhom: row.byWhom,
       remark: row.remark,
       // for pending amount etc
       pendingAmount: row.pendingAmount,
@@ -314,7 +323,7 @@ export async function exportRecordsToExcel(
       }
 
       // Credit Limit and other number format
-      if ([15, 19, 20, 21].includes(colNumber)) {
+      if (rightAlinged.includes(colNumber)) {
         cell.alignment = {
           horizontal: "right",
         };
@@ -322,13 +331,13 @@ export async function exportRecordsToExcel(
       }
 
       // Phones
-      if ([9, 10, 11, 12].includes(colNumber)) {
+      if (centerAlined.includes(colNumber)) {
         cell.alignment = {
           horizontal: "center",
         };
       }
 
-      if (colNumber === 23 || colNumber === 19) {
+      if (colNumber === 20 || colNumber === 26) {
         cell.alignment = {
           wrapText: true,
           vertical: "top",
