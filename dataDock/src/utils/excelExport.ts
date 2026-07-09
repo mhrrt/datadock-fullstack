@@ -23,18 +23,102 @@ export async function exportRecordsToExcel(
   isForActiveMode = true,
 ) {
   const EXPORT_THEME = {
-    titleBg: "1976D2", // same as AG Grid header
+    titleBg: "1565C0",
     titleText: "FFFFFF",
 
-    headerBg: "1976D2",
-    headerText: "FFFFFF",
-
-    rowText: "212121",
-
     oddRowBg: "FFFFFF",
-    evenRowBg: "F5F5F5",
+    evenRowBg: "FAFAFA",
+
+    border: "D6DBDF",
   };
 
+  const HEADER_COLORS = [
+    "D6EAF8", // ID
+    "EBF5FB", // Date
+    "E8F8F5", // Name
+    "FCF3CF", // Code
+    "FDEBD0", // Code Name
+    "EBDEF0", // State
+    "D4E6F1", // City
+    "EAECEE", // Pincode
+    "D5F5E3", // Bazar
+    "F9E79F", // Phone1
+    "FADBD8", // Phone2
+    "D6DBDF", // Office1
+    "EAF2F8", // Office2
+    "F6DDCC", // MD
+    "E8DAEF", // KRM
+    "D1F2EB", // Credit
+    "FCF3CF", // Ref No
+    "FDEDEC", // Ref Name
+    "D4EFDF", // By Whom
+    "EBF5FB", // Remark
+    "FEF9E7", // Pending
+    "D5F5E3", // Received
+    "FADBD8", // Outstanding
+    "E8F6F3", // Status
+    "E5E7E9", // Recovery
+    "EBF5FB", // Created By
+  ];
+
+  // const COLUMN_BODY_COLORS = [
+  //   "F8FCFE", // ID
+  //   "F9FDFF", // Date
+  //   "FBFEFC", // Name
+  //   "FFFDF2", // Code
+  //   "FFF8F2", // Code Name
+  //   "FBF8FD", // State
+  //   "F8FBFD", // City
+  //   "FAFBFC", // Pincode
+  //   "F8FDF9", // Bazar
+  //   "FFFBEA", // Phone1
+  //   "FFF7F6", // Phone2
+  //   "FAFBFC", // Office1
+  //   "F9FCFE", // Office2
+  //   "FFF8F5", // MD
+  //   "FCF9FD", // KRM
+  //   "F5FCFB", // Credit
+  //   "FFFDF4", // Ref No
+  //   "FFF8F8", // Ref Name
+  //   "F7FCF8", // By Whom
+  //   "F8FCFE", // Remark
+  //   "FFFDF4", // Pending
+  //   "F6FCF8", // Received
+  //   "FFF7F6", // Outstanding
+  //   "F5FCFA", // Status
+  //   "FAFBFC", // Recovery
+  //   "F8FCFE", // Created By
+  // ];
+
+  // 40% increase in tint compated to above one i commented out
+  const COLUMN_BODY_COLORS = [
+    "D9ECFB", // ID - Blue
+    "D6F2FC", // Date - Sky Blue
+    "DDF7EC", // Name - Mint
+    "FFF1B8", // Code - Yellow
+    "FDDDBF", // Code Name - Peach
+    "E7D8F4", // State - Lavender
+    "E2E7EB", // City - Grey
+    "ECEFF1", // Pincode - Silver
+    "D8F2E0", // Bazar - Green
+    "FBE8A3", // Phone 1 - Warm Yellow
+    "F8D6D2", // Phone 2 - Pink
+    "DCE5EA", // Office Phone 1 - Grey Blue
+    "DDEFFA", // Office Phone 2 - Ice Blue
+    "F8D8C4", // Bhav MD - Sand
+    "E8D5F2", // Bhav KRM - Violet
+    "D2F3EB", // Credit Limit - Aqua
+    "FFE8A1", // Reference Number - Gold
+    "F8DBDD", // Reference Name - Rose
+    "D8F0D8", // By Whom - Pale Green
+    "E1F2FB", // Remark - Baby Blue
+    "FFEAB8", // Pending Amount - Cream
+    "D8F3E1", // Received Amount - Mint Green
+    "F9D9D5", // Outstanding Amount - Coral
+    "D7F5EE", // Status - Sea Green
+    "E5E9EC", // Recovery Notes - Soft Grey
+    "E1F2FB", // Created By - Ice Blue
+  ];
   const workbook = new ExcelJS.Workbook();
 
   const worksheet = workbook.addWorksheet("Records");
@@ -120,7 +204,7 @@ export async function exportRecordsToExcel(
 
   titleCell.font = {
     bold: true,
-    size: 16,
+    size: 20,
     color: { argb: EXPORT_THEME.titleText },
   };
 
@@ -134,7 +218,13 @@ export async function exportRecordsToExcel(
     pattern: "solid",
     fgColor: { argb: EXPORT_THEME.titleBg },
   };
-  worksheet.getRow(1).height = 28;
+  titleCell.font = {
+    bold: true,
+    size: 20,
+    name: "Calibri",
+    color: { argb: "FFFFFF" },
+  };
+  worksheet.getRow(1).height = 35;
 
   // add timestamp
   worksheet.mergeCells("A2:X2");
@@ -144,6 +234,10 @@ export async function exportRecordsToExcel(
 
   dateCell.font = {
     italic: true,
+    color: {
+      argb: "666666",
+    },
+    size: 10,
   };
 
   dateCell.alignment = {
@@ -155,22 +249,90 @@ export async function exportRecordsToExcel(
   // Header Styling, moving to thired row
   const headerRow = worksheet.getRow(3);
 
-  headerRow.font = {
-    bold: true,
-    color: { argb: EXPORT_THEME.headerText },
-  };
+  // headerRow.font = {
+  //   bold: true,
+  //   color: { argb: EXPORT_THEME.headerText },
+  // };
 
-  headerRow.fill = {
-    type: "pattern",
-    pattern: "solid",
-    fgColor: { argb: EXPORT_THEME.headerBg },
-  };
+  // // headerRow.fill = {
+  // //   type: "pattern",
+  // //   pattern: "solid",
+  // //   fgColor: { argb: EXPORT_THEME.headerBg },
+  // // };
+  // // updated template
+  // headerRow.eachCell((cell, colNumber) => {
+  //   cell.font = {
+  //     bold: true,
+  //     color: { argb: "333333" },
+  //   };
 
-  headerRow.alignment = {
-    horizontal: "center",
-    vertical: "middle",
-  };
-  headerRow.height = 22;
+  //   cell.fill = {
+  //     type: "pattern",
+  //     pattern: "solid",
+  //     fgColor: {
+  //       argb: COLUMN_HEADER_COLORS[
+  //         (colNumber - 1) % COLUMN_HEADER_COLORS.length
+  //       ],
+  //     },
+  //   };
+
+  //   cell.alignment = {
+  //     horizontal: "center",
+  //     vertical: "middle",
+  //   };
+  // });
+
+  // headerRow.alignment = {
+  //   horizontal: "center",
+  //   vertical: "middle",
+  // };
+  // headerRow.height = 22;
+
+  headerRow.height = 28;
+
+  headerRow.eachCell((cell, index) => {
+    cell.font = {
+      bold: true,
+      size: 11,
+      color: {
+        argb: "333333",
+      },
+    };
+
+    cell.fill = {
+      type: "pattern",
+      pattern: "solid",
+      fgColor: {
+        argb: HEADER_COLORS[(index - 1) % HEADER_COLORS.length],
+      },
+    };
+
+    cell.alignment = {
+      horizontal: "center",
+      vertical: "middle",
+      wrapText: true,
+    };
+
+    cell.border = {
+      bottom: {
+        style: "medium",
+        color: { argb: "B0BEC5" },
+      },
+    };
+  });
+
+  headerRow.eachCell((cell) => {
+    cell.border = {
+      top: {
+        style: "thin",
+        color: { argb: "90A4AE" },
+      },
+      bottom: {
+        style: "medium",
+        color: { argb: "90A4AE" },
+      },
+    };
+  });
 
   //freeze header row
   worksheet.views = [
@@ -183,9 +345,7 @@ export async function exportRecordsToExcel(
   exportData.forEach((row) => {
     worksheet.addRow({
       id: row.id,
-      entryDate: row.entryDate
-        ? new Date(row.entryDate).toLocaleDateString("en-GB")
-        : "",
+      entryDate: row.entryDate ? new Date(row.entryDate) : null,
       name: row.name,
       codeName: row.codeName,
       codeNum: row.codeNum,
@@ -214,41 +374,67 @@ export async function exportRecordsToExcel(
     });
   });
 
+  worksheet.getColumn(2).numFmt = "dd-mmm-yyyy";
   //adding excel filters by default in template
-  //   worksheet.autoFilter = {
-  //     from: "A3",
-  //     to: "X3",
-  //   };
+  worksheet.autoFilter = {
+    from: {
+      row: 3,
+      column: 1,
+    },
+    to: {
+      row: 3,
+      column: worksheet.columnCount,
+    },
+  };
 
-  // Alternate row colors
+  // Alternate row colors, commented out to have even column background
+  // worksheet.eachRow((row, rowNumber) => {
+  //   if (rowNumber > 3 && rowNumber % 2 === 0) {
+  //     row.eachCell((cell) => {
+  //       cell.fill = {
+  //         type: "pattern",
+  //         pattern: "solid",
+  //         fgColor: { argb: EXPORT_THEME.evenRowBg },
+  //       };
+  //     });
+  //   } else if (rowNumber > 3 && rowNumber % 2 != 0) {
+  //     row.eachCell((cell) => {
+  //       cell.fill = {
+  //         type: "pattern",
+  //         pattern: "solid",
+  //         fgColor: { argb: EXPORT_THEME.oddRowBg },
+  //       };
+  //     });
+  //   }
+  // });
   worksheet.eachRow((row, rowNumber) => {
-    if (rowNumber > 3 && rowNumber % 2 === 0) {
-      row.eachCell((cell) => {
-        cell.fill = {
-          type: "pattern",
-          pattern: "solid",
-          fgColor: { argb: EXPORT_THEME.evenRowBg },
-        };
-      });
-    } else if (rowNumber > 3 && rowNumber % 2 != 0) {
-      row.eachCell((cell) => {
-        cell.fill = {
-          type: "pattern",
-          pattern: "solid",
-          fgColor: { argb: EXPORT_THEME.oddRowBg },
-        };
-      });
-    }
+    if (rowNumber <= 3) return;
+
+    row.eachCell((cell, colNumber) => {
+      // Don't overwrite STATUS colors
+      const statusColumn =
+        worksheet.columns.findIndex((c) => c.key === "status") + 1;
+
+      if (colNumber === statusColumn) return;
+
+      cell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: {
+          argb: COLUMN_BODY_COLORS[(colNumber - 1) % COLUMN_BODY_COLORS.length],
+        },
+      };
+    });
   });
 
   // Borders
   worksheet.eachRow((row) => {
     row.eachCell((cell) => {
       cell.border = {
-        top: { style: "thin", color: { argb: "130105CE" } },
-        bottom: { style: "thin", color: { argb: "130105CE" } },
-        left: { style: "thin", color: { argb: "130105CE" } },
-        right: { style: "thin", color: { argb: "130105CE" } },
+        top: { style: "thin", color: { argb: EXPORT_THEME.border } },
+        bottom: { style: "thin", color: { argb: EXPORT_THEME.border } },
+        left: { style: "thin", color: { argb: EXPORT_THEME.border } },
+        right: { style: "thin", color: { argb: EXPORT_THEME.border } },
       };
     });
   });
@@ -327,7 +513,10 @@ export async function exportRecordsToExcel(
         cell.alignment = {
           horizontal: "right",
         };
-        cell.numFmt = "#,##0.00";
+        cell.font = {
+          bold: true,
+          color: { argb: "1B5E20" },
+        };
       }
 
       // Phones
